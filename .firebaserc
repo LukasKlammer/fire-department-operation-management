@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fd-operation-management": {
+      "hosting": {
+        "fd-mission-management": [
+          "fd-operation-management"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fd-operation-management"
+  }
+}

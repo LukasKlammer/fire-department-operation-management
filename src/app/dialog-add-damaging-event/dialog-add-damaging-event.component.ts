@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DamagingEvent } from '../modules/damaging-event.class';
 
@@ -12,7 +13,7 @@ export class DialogAddDamagingEventComponent implements OnInit {
   isLoading: boolean = false;
   damagingEvent: DamagingEvent = new DamagingEvent();
 
-  constructor(public dialogRef: MatDialogRef<DialogAddDamagingEventComponent>) {
+  constructor(public dialogRef: MatDialogRef<DialogAddDamagingEventComponent>, private firestore: AngularFirestore) {
   }
 
   ngOnInit(): void {
@@ -20,22 +21,21 @@ export class DialogAddDamagingEventComponent implements OnInit {
 
   public generateNewMission(ngForm: any) {
     if (ngForm.submitted && ngForm.form.valid) {
-      console.log('neue Mission wird erstellt: ', this.damagingEvent);
-      console.log('Mission als JSON: ', this.damagingEvent.toJSON());
-      this.dialogRef.close();
+      console.log('neues Schadensereignis als JSON erstellt: ', this.damagingEvent.toJSON());
 
-      // ins array pushen und speichern
-      // this.firestore
-      //   .collection('ff-bruneck')
-      //   .doc('asdfasdf') //missions document
-      //   .collection('missions')
-      //   .add(this.mission.toJSON())
-      //   .then((result: any) => {
-      //     console.log('Adding user finished: ' , result);
-      //     this.isLoading = false;
-      //     this.dialogRef.close();
-      //   })
-    }
+      this.firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') //damaging events (FF Bruneck) document
+      .collection('damaging-events')
+      .add(this.damagingEvent.toJSON())
+      .then((result: any) => {
+          console.log('Adding user finished: ' , result);
+          this.isLoading = false;
+          this.dialogRef.close();
+        })
+
+        // this.dialogRef.close();
+      }
 
   }
 

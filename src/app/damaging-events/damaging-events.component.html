@@ -10,16 +10,16 @@
       wurden.</p>
     <label id="example-radio-group-label">Wähle das gewünschte Schadensereignis aus:</label>
     <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-      [(ngModel)]="selectedMission">
-      <mat-radio-button class="example-radio-button" *ngFor="let mission of missions" [value]="mission"
-        (click)="selectMission()">
-        {{mission.description}}, erstellt am {{ mission.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
+      [(ngModel)]="selectedDamagingEvent">
+      <mat-radio-button class="example-radio-button" *ngFor="let damagingEvent of damagingEvents" [value]="damagingEvent"
+        (click)="selectEvent()">
+        {{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
       </mat-radio-button>
     </mat-radio-group>
-    <button class="navigate-operations-button" *ngIf="isMissionSelected" mat-raised-button color="primary" [routerLink]="['/current-mission/']">
+    <button class="navigate-operations-button" *ngIf="isEventSelected" mat-raised-button color="primary" [routerLink]="['/current-mission/']">
       <mat-icon fontIcon="navigate">assistant_direction</mat-icon>
       <mat-icon fontIcon="fire_truck">fire_truck</mat-icon>
-      zu den Einsätzen des Schadensereignisses {{ selectedMission.description }}, erstellt am {{ selectedMission.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
+      zu den Einsätzen: {{ selectedDamagingEvent.description }}, erstellt am {{ selectedDamagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
     </button>
 
   </div>

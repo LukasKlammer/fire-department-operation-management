@@ -28,6 +28,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { DamagingEventsComponent } from './damaging-events/damaging-events.component';
 import { DialogAddDamagingEventComponent } from './dialog-add-damaging-event/dialog-add-damaging-event.component';
 import { CurrentDamagingEventComponent } from './current-damaging-event/current-damaging-event.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+
 
 @NgModule({
   declarations: [
@@ -59,7 +65,11 @@ import { CurrentDamagingEventComponent } from './current-damaging-event/current-
     MatFormFieldModule,
     MatInputModule,
     MatSidenavModule,
-    MatSelectModule
+    MatSelectModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [SidenavService],
   bootstrap: [AppComponent]
