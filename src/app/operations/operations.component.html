@@ -1,10 +1,15 @@
 <div class="operations-box bordered-box">
 
   <ng-container *ngIf="!isLoading">
-    <button mat-raised-button class="add-button" color="primary" (click)="openDialog()">
-      <mat-icon fontIcon="add" class="margin-right-4">add</mat-icon>
-      Einsatz erstellen
-    </button>
+
+    <div class="operations-headrow">
+      <button mat-raised-button class="add-button" color="primary" (click)="openDialog()">
+        <mat-icon fontIcon="add" class="margin-right-4">add</mat-icon>
+        Einsatz erstellen
+      </button>
+      <span>Schadensereignis: {{ userSelections.selectedDamagingEvent.description }}, erstellt am {{ userSelections.selectedDamagingEvent.timestamp | date
+        : 'dd.MM.y, HH:mm:ss' }} Uhr</span>
+    </div>
 
     <div class="operations-category-box bordered-box">
       <h2>Offen</h2>

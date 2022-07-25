@@ -43,3 +43,12 @@ table {
 .niedrig {
   background-color: #ADFF2F;
 }
+
+.operations-headrow {
+  display: flex;
+  align-items: center;
+  span {
+    flex: 1;
+    text-align: center;
+  }
+}

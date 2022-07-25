@@ -39,8 +39,7 @@ export class DamagingEventsComponent implements OnInit {
   }
 
   public selectEvent() {
-    this.userSelections.isEventSelected = true;
-    console.log(this.userSelections.selectedDamagingEvent);
+    this.userSelections.isDamagingEventSelected = true;
   }
 
   public openDialog() {

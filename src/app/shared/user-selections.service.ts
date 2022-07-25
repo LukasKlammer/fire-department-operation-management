@@ -12,7 +12,7 @@ export class UserSelectionsService {
     customIdName: '',
   });
 
-  isEventSelected: boolean = false;
+  isDamagingEventSelected: boolean = false;
 
   constructor() { }
 }

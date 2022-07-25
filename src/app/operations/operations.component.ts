@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { DialogEditOperationComponent } from '../dialog-edit-operation/dialog-edit-operation.component';
 import { Operation } from '../modules/operation.class';
+import { UserSelectionsService } from '../shared/user-selections.service';
 
 @Component({
   selector: 'app-operations',
@@ -11,25 +13,33 @@ import { Operation } from '../modules/operation.class';
 })
 export class OperationsComponent implements OnInit {
 
+  damagingEventId: string = '';
   isLoading: boolean = true;
-  operations: Operation[] = [
-    new Operation(),
-    new Operation(),
-  ];
+  operations: Operation[] = [];
   openOperations: Operation[] = [];
   ongoingOperations: Operation[] = [];
   completedOperations: Operation[] = [];
 
 
-  constructor(public dialog: MatDialog, private firestore: AngularFirestore) { }
+  constructor(public dialog: MatDialog, private firestore: AngularFirestore, public userSelections: UserSelectionsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(paramMap => {
+      let id = paramMap.get('id');
+      if (typeof id === 'string') {
+        this.damagingEventId = id;
+        this.getOperations();
+      }
+    })
+  }
+
+  private getOperations() {
     this
       .firestore
       .collection('ff-bruneck')
       .doc('QEcJgDBlPVt64GUFIPmw') // damaging events document FF Bruneck
       .collection('damaging-events')
-      .doc('rqw6vs0TciyU3HfDLhgh') // first damaging event (Sturmtief Vaia)
+      .doc(this.damagingEventId) // damaging event from url
       .collection('operations')
       .valueChanges()
       .subscribe((changes: any) => {
