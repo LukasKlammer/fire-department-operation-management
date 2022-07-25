@@ -5,15 +5,16 @@
       <mat-icon fontIcon="add" class="margin-right-4">add</mat-icon>
       Einsatz erstellen
     </button>
+
     <div class="operations-category-box bordered-box">
       <h2>Offen</h2>
-      <mat-card [ngStyle]="{'background-color': '#FFFF00'}">
+      <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}">
         <table>
           <tr>
-            <td>Hochwasser</td>
-            <td>Bruneckerstraße 15, St. Lorenzen</td>
-            <td>Priorität mittel</td>
-            <td>Fahrzeuge: keine Fahrzeuge zugeordnet</td>
+            <td>{{ operation.keyword }}</td>
+            <td>{{ operation.address }}, {{ operation.city }}</td>
+            <td>{{ operation.priority }}</td>
+            <td>{{ operation.vehicles }}</td>
           </tr>
         </table>
       </mat-card>
@@ -21,33 +22,13 @@
 
     <div class="operations-category-box bordered-box">
       <h2>Läuft</h2>
-      <mat-card [ngStyle]="{'background-color': '#FFFF00'}">
+      <mat-card *ngFor="let operation of ongoingOperations" class="{{ operation.priority }}">
         <table>
           <tr>
-            <td>Wasserschaden</td>
-            <td>Bachlechnerstraße 2, Bruneck</td>
-            <td>Priorität mittel</td>
-            <td>Fahrzeuge: Strom, Fahrzeug 4, Container Hochwasser</td>
-          </tr>
-        </table>
-      </mat-card>
-      <mat-card [ngStyle]="{'background-color': '#ADFF2F'}">
-        <table>
-          <tr>
-            <td>Wasserschaden</td>
-            <td>Dantestraße 22, Bruneck</td>
-            <td>Priorität niedrig</td>
-            <td>Fahrzeuge: Fahrzeug 3 mit Wassersauger</td>
-          </tr>
-        </table>
-      </mat-card>
-      <mat-card [ngStyle]="{'background-color': '#ADFF2F'}">
-        <table>
-          <tr>
-            <td>Unterstützung Stadtwerke</td>
-            <td>Hauptsitz Stadtwerke, Bruneck</td>
-            <td>Priorität niedrig</td>
-            <td>Fahrzeuge: Fahrzeug 7</td>
+            <td>{{ operation.keyword }}</td>
+            <td>{{ operation.address }}, {{ operation.city }}</td>
+            <td>{{ operation.priority }}</td>
+            <td>{{ operation.vehicles }}</td>
           </tr>
         </table>
       </mat-card>
@@ -55,13 +36,13 @@
 
     <div class="operations-category-box bordered-box">
       <h2>Abgeschlossen</h2>
-      <mat-card [ngStyle]="{'background-color': '#FF0000'}">
+      <mat-card *ngFor="let operation of completedOperations" class="{{ operation.priority }}">
         <table>
           <tr>
-            <td>Baum auf PKW</td>
-            <td>Amatnerstraße, Percha</td>
-            <td>Priorität hoch</td>
-            <td>Fahrzeuge: Voraus, Rüst, Tank 3</td>
+            <td>{{ operation.keyword }}</td>
+            <td>{{ operation.address }}, {{ operation.city }}</td>
+            <td>{{ operation.priority }}</td>
+            <td>{{ operation.vehicles }}</td>
           </tr>
         </table>
       </mat-card>

@@ -9,8 +9,8 @@ export class Operation {
   phone: string;
   comments: string;
   calltaker: string;
-  priority: string[] = ['hoch', 'mittel', 'niedrig'];
-  status: string[] = ['offen', 'läuft', 'abgeschlossen'];
+  priority: string;
+  status: string;
   chief: string;
   personal: string;
   vehicles: string[];
