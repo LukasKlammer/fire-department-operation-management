@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogEditOperationComponent } from '../dialog-edit-operation/dialog-edit-operation.component';
 import { Operation } from '../modules/operation.class';
 import { UserSelectionsService } from '../shared/user-selections.service';
@@ -21,16 +21,41 @@ export class OperationsComponent implements OnInit {
   completedOperations: Operation[] = [];
 
 
-  constructor(public dialog: MatDialog, private firestore: AngularFirestore, public userSelections: UserSelectionsService, private route: ActivatedRoute) { }
+  constructor(
+    public dialog: MatDialog,
+    private firestore: AngularFirestore,
+    public userSelections: UserSelectionsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       let id = paramMap.get('id');
       if (typeof id === 'string') {
         this.damagingEventId = id;
+        this.setDamagingEventByUrl();
         this.getOperations();
       }
     })
+  }
+
+  private setDamagingEventByUrl() {
+    this
+    .firestore
+    .collection('ff-bruneck')
+    .doc('QEcJgDBlPVt64GUFIPmw') // damaging events document FF Bruneck
+    .collection('damaging-events')
+    .doc(this.damagingEventId) // damaging event from url
+    .valueChanges( { idField: 'customIdName' } )
+    .subscribe((changes: any) => {
+      if (changes.timestamp) { // checks, if there is something in database for this url / id
+        this.userSelections.selectedDamagingEvent = changes;
+        this.userSelections.isDamagingEventSelected = true;
+      } else {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   private getOperations() {
@@ -50,6 +75,7 @@ export class OperationsComponent implements OnInit {
         this.isLoading = false;
       });
   }
+
 
   private splitOperations() {
     this.openOperations = [];
