@@ -4,6 +4,7 @@ import { Operation } from '../modules/operation.class';
 import { VehiclesService } from '../shared/vehicles.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { UserSelectionsService } from '../shared/user-selections.service';
 
 @Component({
   selector: 'app-dialog-edit-operation',
@@ -18,7 +19,12 @@ export class DialogEditOperationComponent implements OnInit {
   status: string[] = ['Offen', 'Läuft', 'Abgeschlossen'];
 
 
-  constructor(public dialogRef: MatDialogRef<DialogEditOperationComponent>, public vehiclesService: VehiclesService, private firestore: AngularFirestore) { }
+  constructor(
+    public dialogRef: MatDialogRef<DialogEditOperationComponent>,
+    public vehiclesService: VehiclesService,
+    private firestore: AngularFirestore,
+    public userSelections: UserSelectionsService,
+    ) { }
 
   ngOnInit(): void {
 
@@ -33,7 +39,7 @@ export class DialogEditOperationComponent implements OnInit {
         .collection('ff-bruneck')
         .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
         .collection('damaging-events')
-        .doc('rqw6vs0TciyU3HfDLhgh') // sample for actuel opened damagin event (we need a variable)
+        .doc( this.userSelections.selectedDamagingEvent.customIdName ) // sample for actuel opened damagin event (we need a variable)
         .collection('operations')
         .add(this.operation.toJSON())
         .then((result: any) => {

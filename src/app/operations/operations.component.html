@@ -13,7 +13,7 @@
 
     <div class="operations-category-box bordered-box">
       <h2>Offen</h2>
-      <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}">
+      <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}" [routerLink]="['/' + userSelections.selectedDamagingEvent.customIdName + '/' + '123']">
         <table>
           <tr>
             <td>{{ operation.keyword }}</td>
