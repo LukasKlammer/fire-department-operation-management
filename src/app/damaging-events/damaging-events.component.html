@@ -12,8 +12,11 @@
       wurden.</p>
     <ng-container *ngIf="!isLoading">
       <label id="example-radio-group-label">Wähle das gewünschte Schadensereignis aus:</label>
-      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-        [(ngModel)]="userSelections.selectedDamagingEvent">
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        [(ngModel)]="userSelections.selectedDamagingEvent"
+        >
         <mat-radio-button class="example-radio-button" *ngFor="let damagingEvent of damagingEvents"
           [value]="damagingEvent" (click)="selectEvent()">
           {{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr

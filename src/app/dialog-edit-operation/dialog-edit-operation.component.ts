@@ -17,14 +17,14 @@ export class DialogEditOperationComponent implements OnInit {
   isLoading: boolean = false;
   priorities: string[] = ['hoch', 'mittel', 'niedrig'];
   status: string[] = ['Offen', 'Läuft', 'Abgeschlossen'];
-
+  isExistingOperation: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditOperationComponent>,
     public vehiclesService: VehiclesService,
     private firestore: AngularFirestore,
     public userSelections: UserSelectionsService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
@@ -34,20 +34,44 @@ export class DialogEditOperationComponent implements OnInit {
     if (ngForm.submitted && ngForm.form.valid) {
       this.isLoading = true;
       console.log('Einsatz als JSON: ', this.operation.toJSON());
-
-      this.firestore
-        .collection('ff-bruneck')
-        .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
-        .collection('damaging-events')
-        .doc( this.userSelections.selectedDamagingEvent.customIdName ) // sample for actuel opened damagin event (we need a variable)
-        .collection('operations')
-        .add(this.operation.toJSON())
-        .then((result: any) => {
-          console.log('Adding user finished: ', result);
-          this.isLoading = false;
-          this.dialogRef.close();
-        })
+      if (this.isExistingOperation) { // if operation already exists
+        this.editOperationInFirestore(); // operation is to edit in firestore
+      } else {
+        this.addOperationToFirestore(); // operation is new --> add to firestore
+      }
     }
+  }
+
+  private addOperationToFirestore() {
+    this.firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+      .collection('damaging-events')
+      .doc(this.userSelections.selectedDamagingEvent.customIdName) // actual opened damaging event
+      .collection('operations')
+      .add(this.operation.toJSON())
+      .then((result: any) => {
+        console.log('Adding user finished: ', result);
+        this.isLoading = false;
+        this.dialogRef.close();
+      })
+  }
+
+  private editOperationInFirestore() {
+    this.firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+      .collection('damaging-events')
+      .doc(this.userSelections.selectedDamagingEvent.customIdName) // actual opened damaging event
+      .collection('operations')
+      .doc(this.operation.customIdName)
+      .update(this.operation.toJSON())
+      .then((result: any) => {
+        console.log('changing operation finished ', result);
+        this.isLoading = false;
+        this.dialogRef.close();
+      })
+
   }
 
   public drop(event: CdkDragDrop<string[]>) {

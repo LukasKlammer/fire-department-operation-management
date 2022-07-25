@@ -66,7 +66,7 @@ export class OperationsComponent implements OnInit {
       .collection('damaging-events')
       .doc(this.damagingEventId) // damaging event from url
       .collection('operations')
-      .valueChanges()
+      .valueChanges( { idField: 'customIdName' } )
       .subscribe((changes: any) => {
         console.log('received changes from DB: ', changes);
         this.operations = changes;
@@ -105,12 +105,17 @@ export class OperationsComponent implements OnInit {
     this.completedOperations.sort((a, b) => a.priority.localeCompare(b.priority));
   }
 
-  public openDialog() {
-    this.dialog.open(DialogEditOperationComponent, {
+  public openDialog(operation?:Operation) {
+    const dialog = this.dialog.open(DialogEditOperationComponent, {
       disableClose: true,
       width: '90vw',
       height: '90vh',
     });
+    if (operation) {
+      console.log(operation);
+      dialog.componentInstance.operation = new Operation(operation);
+      dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
+    }
   }
 
 }

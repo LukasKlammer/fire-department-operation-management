@@ -16,6 +16,7 @@ export class Operation {
   vehicles: string[];
   externalVehicles: string;
   notes: string;
+  customIdName: string;
 
 
   constructor(obj?: any) {
@@ -35,6 +36,7 @@ export class Operation {
     this.vehicles = obj ? obj.vehicles : '';
     this.externalVehicles = obj ? obj.externalVehicles : '';
     this.notes = obj ? obj.notes : '';
+    this.customIdName = obj ? obj.customIdName  : '';
   }
 
 
@@ -56,6 +58,7 @@ export class Operation {
       vehicles: this.vehicles,
       externalVehicles: this.externalVehicles,
       notes: this.notes,
+      customIdName: this.customIdName,
     }
   }
 }

@@ -13,7 +13,7 @@
 
     <div class="operations-category-box bordered-box">
       <h2>Offen</h2>
-      <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}" [routerLink]="['/' + userSelections.selectedDamagingEvent.customIdName + '/' + '123']">
+      <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}" (click)="openDialog(operation)">
         <table>
           <tr>
             <td>{{ operation.keyword }}</td>
@@ -27,7 +27,7 @@
 
     <div class="operations-category-box bordered-box">
       <h2>Läuft</h2>
-      <mat-card *ngFor="let operation of ongoingOperations" class="{{ operation.priority }}">
+      <mat-card *ngFor="let operation of ongoingOperations" class="{{ operation.priority }}" (click)="openDialog(operation)">
         <table>
           <tr>
             <td>{{ operation.keyword }}</td>
@@ -41,7 +41,7 @@
 
     <div class="operations-category-box bordered-box">
       <h2>Abgeschlossen</h2>
-      <mat-card *ngFor="let operation of completedOperations" class="{{ operation.priority }}">
+      <mat-card *ngFor="let operation of completedOperations" class="{{ operation.priority }}" (click)="openDialog(operation)">
         <table>
           <tr>
             <td>{{ operation.keyword }}</td>

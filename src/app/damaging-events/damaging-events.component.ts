@@ -32,6 +32,8 @@ export class DamagingEventsComponent implements OnInit {
         this.sortDamagingEvents();
         this.isLoading = false;
       });
+      console.log(this.userSelections.selectedDamagingEvent);
+
   }
 
   private sortDamagingEvents() {
