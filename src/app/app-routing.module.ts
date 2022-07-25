@@ -5,8 +5,7 @@ import { DamagingEventsComponent } from './damaging-events/damaging-events.compo
 
 const routes: Routes = [
   { path: '', component: DamagingEventsComponent },
-  { path: 'damaging-events', component: DamagingEventsComponent },
-  { path: 'current-mission', component: CurrentDamagingEventComponent },
+  { path: ':id', component: CurrentDamagingEventComponent },
 ];
 
 @NgModule({

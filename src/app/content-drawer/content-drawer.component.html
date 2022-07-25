@@ -4,7 +4,7 @@
       <mat-icon fontIcon="missions">library_add</mat-icon>
       <span>alle Schadensereignisse</span>
     </a>
-    <a [routerLink]="['/current-mission/']" class="nav-links" (click)="closeSidenav()">
+    <a [routerLink]="['/' + userSelections.selectedDamagingEvent.customIdName]" class="nav-links" (click)="closeSidenav()">
       <mat-icon fontIcon="current-mission">notification_add</mat-icon>
       <span>ausgewähltes Schadensereignis</span>
     </a>

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddDamagingEventComponent } from '../dialog-add-damaging-event/dialog-add-damaging-event.component';
 import { DamagingEvent } from '../modules/damaging-event.class';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { UserSelectionsService } from '../shared/user-selections.service';
 
 @Component({
   selector: 'app-damaging-events',
@@ -16,7 +17,7 @@ export class DamagingEventsComponent implements OnInit {
   damagingEvents: DamagingEvent[] = [ ];
 
 
-  constructor(public dialog: MatDialog, private firestore: AngularFirestore) { }
+  constructor(public dialog: MatDialog, private firestore: AngularFirestore, public userSelections: UserSelectionsService) { }
 
   ngOnInit(): void {
     this
@@ -38,7 +39,8 @@ export class DamagingEventsComponent implements OnInit {
   }
 
   public selectEvent() {
-    this.isEventSelected = true;
+    this.userSelections.isEventSelected = true;
+    console.log(this.userSelections.selectedDamagingEvent);
   }
 
   public openDialog() {
@@ -46,7 +48,5 @@ export class DamagingEventsComponent implements OnInit {
       disableClose: true,
     });
   }
-
-
 
 }
