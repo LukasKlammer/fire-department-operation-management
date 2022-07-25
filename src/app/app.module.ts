@@ -28,9 +28,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { DamagingEventsComponent } from './damaging-events/damaging-events.component';
 import { DialogAddDamagingEventComponent } from './dialog-add-damaging-event/dialog-add-damaging-event.component';
 import { CurrentDamagingEventComponent } from './current-damaging-event/current-damaging-event.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 
@@ -66,6 +67,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     MatInputModule,
     MatSidenavModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     AngularFirestoreModule,

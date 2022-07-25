@@ -6,7 +6,7 @@ export class Operation {
   city: string;
   keyword: string; // keyword ist das Einsatz-Stichwort: z. B. Wasserschaden
   caller: string;
-  phone: number;
+  phone: string;
   comments: string;
   calltaker: string;
   priority: string[] = ['hoch', 'mittel', 'niedrig'];

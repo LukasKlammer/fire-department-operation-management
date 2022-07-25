@@ -1,68 +1,73 @@
 <div class="operations-box bordered-box">
-  <button mat-raised-button class="add-button" color="primary" (click)="openDialog()" >
-    <mat-icon fontIcon="add" class="margin-right-4">add</mat-icon>
-    Einsatz erstellen
-  </button>
-  <div class="operations-category-box bordered-box">
-    <h2>Offen</h2>
-    <mat-card [ngStyle]="{'background-color': '#FFFF00'}">
-      <table>
-        <tr>
-          <td>Hochwasser</td>
-          <td>Bruneckerstraße 15, St. Lorenzen</td>
-          <td>Priorität mittel</td>
-          <td>Fahrzeuge: keine Fahrzeuge zugeordnet</td>
-        </tr>
-      </table>
-    </mat-card>
-  </div>
 
-  <div class="operations-category-box bordered-box">
-    <h2>Läuft</h2>
-    <mat-card [ngStyle]="{'background-color': '#FFFF00'}">
-      <table>
-        <tr>
-          <td>Wasserschaden</td>
-          <td>Bachlechnerstraße 2, Bruneck</td>
-          <td>Priorität mittel</td>
-          <td>Fahrzeuge: Strom, Fahrzeug 4, Container Hochwasser</td>
-        </tr>
-      </table>
-    </mat-card>
-    <mat-card [ngStyle]="{'background-color': '#ADFF2F'}">
-      <table>
-        <tr>
-          <td>Wasserschaden</td>
-          <td>Dantestraße 22, Bruneck</td>
-          <td>Priorität niedrig</td>
-          <td>Fahrzeuge: Fahrzeug 3 mit Wassersauger</td>
-        </tr>
-      </table>
-    </mat-card>
-    <mat-card [ngStyle]="{'background-color': '#ADFF2F'}">
-      <table>
-        <tr>
-          <td>Unterstützung Stadtwerke</td>
-          <td>Hauptsitz Stadtwerke, Bruneck</td>
-          <td>Priorität niedrig</td>
-          <td>Fahrzeuge: Fahrzeug 7</td>
-        </tr>
-      </table>
-    </mat-card>
-  </div>
+  <ng-container *ngIf="!isLoading">
+    <button mat-raised-button class="add-button" color="primary" (click)="openDialog()">
+      <mat-icon fontIcon="add" class="margin-right-4">add</mat-icon>
+      Einsatz erstellen
+    </button>
+    <div class="operations-category-box bordered-box">
+      <h2>Offen</h2>
+      <mat-card [ngStyle]="{'background-color': '#FFFF00'}">
+        <table>
+          <tr>
+            <td>Hochwasser</td>
+            <td>Bruneckerstraße 15, St. Lorenzen</td>
+            <td>Priorität mittel</td>
+            <td>Fahrzeuge: keine Fahrzeuge zugeordnet</td>
+          </tr>
+        </table>
+      </mat-card>
+    </div>
 
-  <div class="operations-category-box bordered-box">
-    <h2>Abgeschlossen</h2>
-    <mat-card [ngStyle]="{'background-color': '#FF0000'}">
-      <table>
-        <tr>
-          <td>Baum auf PKW</td>
-          <td>Amatnerstraße, Percha</td>
-          <td>Priorität hoch</td>
-          <td>Fahrzeuge: Voraus, Rüst, Tank 3</td>
-        </tr>
-      </table>
-    </mat-card>
-  </div>
+    <div class="operations-category-box bordered-box">
+      <h2>Läuft</h2>
+      <mat-card [ngStyle]="{'background-color': '#FFFF00'}">
+        <table>
+          <tr>
+            <td>Wasserschaden</td>
+            <td>Bachlechnerstraße 2, Bruneck</td>
+            <td>Priorität mittel</td>
+            <td>Fahrzeuge: Strom, Fahrzeug 4, Container Hochwasser</td>
+          </tr>
+        </table>
+      </mat-card>
+      <mat-card [ngStyle]="{'background-color': '#ADFF2F'}">
+        <table>
+          <tr>
+            <td>Wasserschaden</td>
+            <td>Dantestraße 22, Bruneck</td>
+            <td>Priorität niedrig</td>
+            <td>Fahrzeuge: Fahrzeug 3 mit Wassersauger</td>
+          </tr>
+        </table>
+      </mat-card>
+      <mat-card [ngStyle]="{'background-color': '#ADFF2F'}">
+        <table>
+          <tr>
+            <td>Unterstützung Stadtwerke</td>
+            <td>Hauptsitz Stadtwerke, Bruneck</td>
+            <td>Priorität niedrig</td>
+            <td>Fahrzeuge: Fahrzeug 7</td>
+          </tr>
+        </table>
+      </mat-card>
+    </div>
 
+    <div class="operations-category-box bordered-box">
+      <h2>Abgeschlossen</h2>
+      <mat-card [ngStyle]="{'background-color': '#FF0000'}">
+        <table>
+          <tr>
+            <td>Baum auf PKW</td>
+            <td>Amatnerstraße, Percha</td>
+            <td>Priorität hoch</td>
+            <td>Fahrzeuge: Voraus, Rüst, Tank 3</td>
+          </tr>
+        </table>
+      </mat-card>
+    </div>
+  </ng-container>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </div>
+

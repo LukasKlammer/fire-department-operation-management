@@ -5,22 +5,28 @@
   </button>
   <div class="missions-category-box bordered-box">
     <h2>Schadensereignisse der Feuerwehr Bruneck</h2>
-    <p>Ein Schadensereignis ist ein Ereignis, bei dem sehr viele zeitgleiche Einsätze eintreten. Beispiel: Sturm, Starkregen,
-      Hochwasser, Katastropheneinsatz. Ein Schadensereignis gilt als abgeschlossen, wenn alle einzelnen Einsätze abgearbeitet
+    <p>Ein Schadensereignis ist ein Ereignis, bei dem sehr viele zeitgleiche Einsätze eintreten. Beispiel: Sturm,
+      Starkregen,
+      Hochwasser, Katastropheneinsatz. Ein Schadensereignis gilt als abgeschlossen, wenn alle einzelnen Einsätze
+      abgearbeitet
       wurden.</p>
-    <label id="example-radio-group-label">Wähle das gewünschte Schadensereignis aus:</label>
-    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-      [(ngModel)]="selectedDamagingEvent">
-      <mat-radio-button class="example-radio-button" *ngFor="let damagingEvent of damagingEvents" [value]="damagingEvent"
-        (click)="selectEvent()">
-        {{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
-      </mat-radio-button>
-    </mat-radio-group>
-    <button class="navigate-operations-button" *ngIf="isEventSelected" mat-raised-button color="primary" [routerLink]="['/current-mission/']">
-      <mat-icon fontIcon="navigate">assistant_direction</mat-icon>
-      <mat-icon fontIcon="fire_truck">fire_truck</mat-icon>
-      zu den Einsätzen: {{ selectedDamagingEvent.description }}, erstellt am {{ selectedDamagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
-    </button>
-
+    <ng-container *ngIf="!isLoading">
+      <label id="example-radio-group-label">Wähle das gewünschte Schadensereignis aus:</label>
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+        [(ngModel)]="selectedDamagingEvent">
+        <mat-radio-button class="example-radio-button" *ngFor="let damagingEvent of damagingEvents"
+          [value]="damagingEvent" (click)="selectEvent()">
+          {{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
+        </mat-radio-button>
+      </mat-radio-group>
+      <button class="navigate-operations-button" *ngIf="isEventSelected" mat-raised-button color="primary"
+        [routerLink]="['/current-mission/']">
+        <mat-icon fontIcon="navigate">assistant_direction</mat-icon>
+        <mat-icon fontIcon="fire_truck">fire_truck</mat-icon>
+        zu den Einsätzen: {{ selectedDamagingEvent.description }}, erstellt am {{ selectedDamagingEvent.timestamp | date
+        : 'dd.MM.y, HH:mm:ss' }} Uhr
+      </button>
+    </ng-container>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
   </div>
 </div>

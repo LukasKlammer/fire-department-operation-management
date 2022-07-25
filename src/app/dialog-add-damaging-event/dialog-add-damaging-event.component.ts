@@ -21,6 +21,7 @@ export class DialogAddDamagingEventComponent implements OnInit {
 
   public generateNewMission(ngForm: any) {
     if (ngForm.submitted && ngForm.form.valid) {
+      this.isLoading = true;
       console.log('neues Schadensereignis als JSON erstellt: ', this.damagingEvent.toJSON());
 
       this.firestore
@@ -33,8 +34,6 @@ export class DialogAddDamagingEventComponent implements OnInit {
           this.isLoading = false;
           this.dialogRef.close();
         })
-
-        // this.dialogRef.close();
       }
 
   }

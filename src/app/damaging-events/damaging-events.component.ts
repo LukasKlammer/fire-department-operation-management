@@ -12,18 +12,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class DamagingEventsComponent implements OnInit {
   selectedDamagingEvent: DamagingEvent = new DamagingEvent();
   isEventSelected: boolean = false;
-
-  damagingEvents: DamagingEvent[] = [
-    new DamagingEvent({
-      description: 'Sturm über Bruneck',
-      timestamp: 1607110465663,
-    })
-    ,
-    new DamagingEvent({
-      description: 'Starkregen mit Hagel',
-      timestamp: 1607110465663,
-    })
-  ];
+  isLoading: boolean = true;
+  damagingEvents: DamagingEvent[] = [ ];
 
 
   constructor(public dialog: MatDialog, private firestore: AngularFirestore) { }
@@ -39,18 +29,19 @@ export class DamagingEventsComponent implements OnInit {
         console.log('received changes from DB', changes);
         this.damagingEvents = changes;
         this.sortDamagingEvents();
+        this.isLoading = false;
       });
   }
 
-  sortDamagingEvents() {
+  private sortDamagingEvents() {
     this.damagingEvents.sort((a, b) => { return a.timestamp - b.timestamp });
   }
 
-  selectEvent() {
+  public selectEvent() {
     this.isEventSelected = true;
   }
 
-  openDialog() {
+  public openDialog() {
     this.dialog.open(DialogAddDamagingEventComponent, {
       disableClose: true,
     });
