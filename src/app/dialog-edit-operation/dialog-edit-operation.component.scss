@@ -29,10 +29,6 @@ form {
   }
 }
 
-// ::ng-deep .mat-form-field-wrapper{
-//   margin-bottom: -1.25em !important ;
-// }
-
 .form-row {
   display: flex;
   gap: 8px;
@@ -45,9 +41,13 @@ form {
   &:last-child{
     width: 300px;
   }
-  height: 300px;
   mat-chip {
     margin: 2px;
     cursor: pointer;
   }
+  height: 100%;
+}
+
+.droplist {
+  min-height: 200px;
 }

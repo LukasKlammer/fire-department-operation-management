@@ -88,40 +88,41 @@
           </mat-form-field>
         </div>
 
-        <div cdkDropListGroup>
-          <div class="form-row">
-            <div class="cars-container bordered-box">
-              <h2>Fahrzeuge verfügbar</h2>
-              <div cdkDropList [cdkDropListData]="vehiclesService.availableVehicles" class="example-list"
-                cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">
-                <mat-chip *ngFor="let vehicle of vehiclesService.availableVehicles">{{ vehicle }}</mat-chip>
-              </div>
+        <div cdkDropListGroup class="form-row">
+
+          <div class="cars-container bordered-box">
+            <h3>Fahrzeuge verfügbar</h3>
+
+            <div class="droplist" cdkDropList [cdkDropListData]="firestationService.availableVehicles" cdkDropListSortingDisabled
+              (cdkDropListDropped)="drop($event)">
+              <mat-chip *ngFor="let vehicle of firestationService.availableVehicles" cdkDrag>{{ vehicle }}</mat-chip>
             </div>
 
-            <div class="cars-container bordered-box">
-              <h2>Fahrzeuge zugeteilt</h2>
-              <mat-chip>Strom</mat-chip>
-              <mat-chip>Fahrzeug 2</mat-chip>
-              <!-- <div
-              cdkDropList
-              [cdkDropListData]="basket"
-              class="example-list"
-              (cdkDropListDropped)="drop($event)">
-              <div class="example-box" *ngFor="let item of basket" cdkDrag>{{item}}</div>
-            </div> -->
-            </div>
           </div>
-          <mat-form-field appearance="outline">
-            <mat-label>Fahrzeuge extern</mat-label>
-            <textarea [disabled]="isLoading" [(ngModel)]="operation.externalVehicles" name="externalVehicles" matInput
-              placeholder="Fahrzeuge Nachbarwehren, Rettungsdienst, Polizei..."></textarea>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Notizen</mat-label>
-            <textarea [disabled]="isLoading" [(ngModel)]="operation.notes" name="notes" matInput
-              placeholder="Lagemeldungen, angeforderte Geräte..."></textarea>
-          </mat-form-field>
+
+          <div class="cars-container bordered-box">
+            <h3>Fahrzeuge zugeteilt</h3>
+
+            <div class="droplist" cdkDropList [cdkDropListData]="firestationService.unAvailableVehicles"
+              (cdkDropListDropped)="drop($event)">
+              <mat-chip *ngFor="let vehicle of firestationService.unAvailableVehicles" cdkDrag>{{ vehicle }}</mat-chip>
+            </div>
+
+          </div>
+
         </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fahrzeuge extern</mat-label>
+          <textarea [disabled]="isLoading" [(ngModel)]="operation.externalVehicles" name="externalVehicles" matInput
+            placeholder="Fahrzeuge Nachbarwehren, Rettungsdienst, Polizei..."></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Notizen</mat-label>
+          <textarea [disabled]="isLoading" [(ngModel)]="operation.notes" name="notes" matInput
+            placeholder="Lagemeldungen, angeforderte Geräte..."></textarea>
+        </mat-form-field>
+
         <div mat-dialog-actions>
           <button [disabled]="isLoading" mat-button (click)="dialogRef.close()">abbrechen</button>
           <button [disabled]="isLoading" mat-button>

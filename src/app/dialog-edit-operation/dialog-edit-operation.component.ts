@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Operation } from '../modules/operation.class';
-import { VehiclesService } from '../shared/vehicles.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserSelectionsService } from '../shared/user-selections.service';
+import { FirestationService } from '../shared/firestation.service';
 
 @Component({
   selector: 'app-dialog-edit-operation',
@@ -19,9 +19,13 @@ export class DialogEditOperationComponent implements OnInit {
   status: string[] = ['Offen', 'Läuft', 'Abgeschlossen'];
   isExistingOperation: boolean = false;
 
+  items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
+
+  basket = ['Oranges', 'Bananas', 'Cucumbers'];
+
   constructor(
     public dialogRef: MatDialogRef<DialogEditOperationComponent>,
-    public vehiclesService: VehiclesService,
+    public firestationService: FirestationService,
     private firestore: AngularFirestore,
     public userSelections: UserSelectionsService,
   ) { }
@@ -71,10 +75,9 @@ export class DialogEditOperationComponent implements OnInit {
         this.isLoading = false;
         this.dialogRef.close();
       })
-
   }
 
-  public drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -84,8 +87,7 @@ export class DialogEditOperationComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
+      this.firestationService.sort();
     }
-
   }
-
 }
