@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Operation } from '../modules/operation.class';
 import { VehiclesService } from '../shared/vehicles.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-dialog-edit-operation',
@@ -17,7 +18,7 @@ export class DialogEditOperationComponent implements OnInit {
   status: string[] = ['Offen', 'Läuft', 'Abgeschlossen'];
 
 
-  constructor(public dialogRef: MatDialogRef<DialogEditOperationComponent>, public vehiclesService: VehiclesService) { }
+  constructor(public dialogRef: MatDialogRef<DialogEditOperationComponent>, public vehiclesService: VehiclesService, private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
 
@@ -25,21 +26,21 @@ export class DialogEditOperationComponent implements OnInit {
 
   public saveOperation(ngForm: any) {
     if (ngForm.submitted && ngForm.form.valid) {
-      console.log('Einsatz wird erstellt oder gespeichert: ', this.operation);
+      this.isLoading = true;
       console.log('Einsatz als JSON: ', this.operation.toJSON());
-      this.dialogRef.close();
 
-      // ins array pushen und speichern
-      // this.firestore
-      //   .collection('ff-bruneck')
-      //   .doc('asdfasdf') //missions document
-      //   .collection('missions')
-      //   .add(this.operation.toJSON())
-      //   .then((result: any) => {
-      //     console.log('Adding user finished: ' , result);
-      //     this.isLoading = false;
-      //     this.dialogRef.close();
-      //   })
+      this.firestore
+        .collection('ff-bruneck')
+        .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+        .collection('damaging-events')
+        .doc('rqw6vs0TciyU3HfDLhgh') // sample for actuel opened damagin event (we need a variable)
+        .collection('operations')
+        .add(this.operation.toJSON())
+        .then((result: any) => {
+          console.log('Adding user finished: ', result);
+          this.isLoading = false;
+          this.dialogRef.close();
+        })
     }
   }
 
