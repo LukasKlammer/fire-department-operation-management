@@ -14,7 +14,7 @@ export class DamagingEventsComponent implements OnInit {
   selectedDamagingEvent: DamagingEvent = new DamagingEvent();
   isEventSelected: boolean = false;
   isLoading: boolean = true;
-  damagingEvents: DamagingEvent[] = [ ];
+  damagingEvents: DamagingEvent[] = [];
 
 
   constructor(public dialog: MatDialog, private firestore: AngularFirestore, public userSelections: UserSelectionsService) { }
@@ -25,15 +25,14 @@ export class DamagingEventsComponent implements OnInit {
       .collection('ff-bruneck')
       .doc('QEcJgDBlPVt64GUFIPmw') //damaging events (FF Bruneck) document
       .collection('damaging-events')
-      .valueChanges( { idField: 'customIdName' } )
+      .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         console.log('received changes (damaging events) from DB', changes);
         this.damagingEvents = changes;
         this.sortDamagingEvents();
         this.isLoading = false;
       });
-      console.log(this.userSelections.selectedDamagingEvent);
-
+    console.log(this.userSelections.selectedDamagingEvent);
   }
 
   private sortDamagingEvents() {

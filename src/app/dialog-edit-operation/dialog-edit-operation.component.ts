@@ -52,7 +52,6 @@ export class DialogEditOperationComponent implements OnInit {
       .collection('operations')
       .add(this.operation.toJSON())
       .then((result: any) => {
-        console.log('Adding user finished: ', result);
         this.isLoading = false;
         this.dialogRef.close();
       })
@@ -73,7 +72,7 @@ export class DialogEditOperationComponent implements OnInit {
       })
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  public drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -88,8 +87,48 @@ export class DialogEditOperationComponent implements OnInit {
     }
   }
 
-  onNoClick(): void {
+  public onNoClick(): void {
     this.isSaveClicked = false;
+    this.firestationService.restoreFromFirebase();
+    this.undoChangesInForm();
     this.dialogRef.close();
   }
+
+  /**
+   * this function undos changes in the form: we must reset the vehicles array with data from firebase,
+   * because the drag and drop modifies our array immediatly, also if user don't want to save his changes
+   */
+  private undoChangesInForm() {
+    this.isLoading = true;
+    this.firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+      .collection('damaging-events')
+      .doc(this.userSelections.selectedDamagingEvent.customIdName) // actual opened damaging event
+      .collection('operations')
+      .doc(this.operation.customIdName)
+      .ref
+      .get()
+      .then((snapshot: any) => {
+        this.operation.vehicles = snapshot.data().vehicles;
+        this.updateOperationVehicles();
+      })
+  }
+
+  private updateOperationVehicles() {
+    this.firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+      .collection('damaging-events')
+      .doc(this.userSelections.selectedDamagingEvent.customIdName) // actual opened damaging event
+      .collection('operations')
+      .doc(this.operation.customIdName)
+      .update({
+        'vehicles': this.operation.vehicles
+      })
+      .then((result: any) => {
+        this.isLoading = false;
+      })
+  }
+
 }
