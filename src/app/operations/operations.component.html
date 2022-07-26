@@ -7,19 +7,23 @@
         <mat-icon fontIcon="add" class="margin-right-4">add</mat-icon>
         Einsatz erstellen
       </button>
-      <span>Schadensereignis: {{ userSelections.selectedDamagingEvent.description }}, erstellt am {{ userSelections.selectedDamagingEvent.timestamp | date
+      <span>Schadensereignis: {{ userSelections.selectedDamagingEvent.description }}, erstellt am {{
+        userSelections.selectedDamagingEvent.timestamp | date
         : 'dd.MM.y, HH:mm:ss' }} Uhr</span>
     </div>
 
     <div class="operations-category-box bordered-box">
       <h2>Offen</h2>
-      <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}" (click)="openDialog(operation)">
+      <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}"
+        (click)="openDialog(operation)">
         <table>
           <tr>
             <td>{{ operation.keyword }}</td>
             <td>{{ operation.address }}, {{ operation.city }}</td>
             <td>{{ operation.priority }}</td>
-            <td>{{ operation.vehicles }}</td>
+            <td>
+              <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
+            </td>
           </tr>
         </table>
       </mat-card>
@@ -27,13 +31,16 @@
 
     <div class="operations-category-box bordered-box">
       <h2>Läuft</h2>
-      <mat-card *ngFor="let operation of ongoingOperations" class="{{ operation.priority }}" (click)="openDialog(operation)">
+      <mat-card *ngFor="let operation of ongoingOperations" class="{{ operation.priority }}"
+        (click)="openDialog(operation)">
         <table>
           <tr>
             <td>{{ operation.keyword }}</td>
             <td>{{ operation.address }}, {{ operation.city }}</td>
             <td>{{ operation.priority }}</td>
-            <td>{{ operation.vehicles }}</td>
+            <td>
+              <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
+            </td>
           </tr>
         </table>
       </mat-card>
@@ -41,13 +48,16 @@
 
     <div class="operations-category-box bordered-box">
       <h2>Abgeschlossen</h2>
-      <mat-card *ngFor="let operation of completedOperations" class="{{ operation.priority }}" (click)="openDialog(operation)">
+      <mat-card *ngFor="let operation of completedOperations" class="{{ operation.priority }}"
+        (click)="openDialog(operation)">
         <table>
           <tr>
             <td>{{ operation.keyword }}</td>
             <td>{{ operation.address }}, {{ operation.city }}</td>
             <td>{{ operation.priority }}</td>
-            <td>{{ operation.vehicles }}</td>
+            <td>
+              <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
+            </td>
           </tr>
         </table>
       </mat-card>
@@ -56,4 +66,3 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </div>
-

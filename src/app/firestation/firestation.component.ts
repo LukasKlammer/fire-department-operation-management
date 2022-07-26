@@ -15,4 +15,12 @@ export class FirestationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public isVehicleAvailable(vehicle: string) {
+    const availableVehicles = this.firestationService.availableVehicles;
+    if (availableVehicles.includes(vehicle)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
