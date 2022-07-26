@@ -23,24 +23,32 @@ export class DamagingEventsComponent implements OnInit {
     this
       .firestore
       .collection('ff-bruneck')
-      .doc('QEcJgDBlPVt64GUFIPmw') //damaging events (FF Bruneck) document
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
       .collection('damaging-events')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
-        console.log('received changes (damaging events) from DB', changes);
         this.damagingEvents = changes;
         this.sortDamagingEvents();
+        this.setDefaultSelect();
         this.isLoading = false;
       });
-    console.log(this.userSelections.selectedDamagingEvent);
   }
 
   private sortDamagingEvents() {
     this.damagingEvents.sort((a, b) => { return a.timestamp - b.timestamp });
   }
 
-  public selectEvent() {
+  private setDefaultSelect() {
+    if (this.userSelections.selectedDamagingEvent.description != '') {
+      console.log(this.userSelections.selectedDamagingEvent);
+
+    }
+  }
+
+  public selectEvent(damagingEvent: DamagingEvent) {
     this.userSelections.isDamagingEventSelected = true;
+    this.userSelections.selectedDamagingEvent.description = damagingEvent.description;
+    this.userSelections.selectedDamagingEvent.timestamp = damagingEvent.timestamp;
   }
 
   public openDialog() {

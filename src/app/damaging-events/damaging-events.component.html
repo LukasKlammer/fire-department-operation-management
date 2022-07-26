@@ -11,17 +11,17 @@
       abgearbeitet
       wurden.</p>
     <ng-container *ngIf="!isLoading">
-      <label id="example-radio-group-label">Wähle das gewünschte Schadensereignis aus:</label>
+      <label id="select-damaging-event">Wähle das gewünschte Schadensereignis aus:</label>
       <mat-radio-group
-        aria-labelledby="example-radio-group-label"
-        class="example-radio-group"
-        [(ngModel)]="userSelections.selectedDamagingEvent"
+        aria-labelledby="select-damaging-event"
+        [(ngModel)]="userSelections.selectedDamagingEvent.customIdName"
         >
         <mat-radio-button class="example-radio-button" *ngFor="let damagingEvent of damagingEvents"
-          [value]="damagingEvent" (click)="selectEvent()">
+          [value]="damagingEvent.customIdName" (click)="selectEvent(damagingEvent)">
           {{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
         </mat-radio-button>
       </mat-radio-group>
+
       <button class="navigate-operations-button" *ngIf="userSelections.isDamagingEventSelected" mat-raised-button color="primary"
           [routerLink]="['/' +  userSelections.selectedDamagingEvent.customIdName ]">
         <mat-icon fontIcon="navigate">assistant_direction</mat-icon>

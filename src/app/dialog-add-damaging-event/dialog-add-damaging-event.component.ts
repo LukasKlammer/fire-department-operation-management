@@ -23,7 +23,6 @@ export class DialogAddDamagingEventComponent implements OnInit {
   public generateNewDamagingEvent(ngForm: any) {
     if (ngForm.submitted && ngForm.form.valid && this.isSaveClicked) {
       this.isLoading = true;
-      console.log('neues Schadensereignis als JSON erstellt: ', this.damagingEvent.toJSON());
 
       this.firestore
       .collection('ff-bruneck')

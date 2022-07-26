@@ -89,8 +89,8 @@ export class DialogEditOperationComponent implements OnInit {
 
   public onNoClick(): void {
     this.isSaveClicked = false;
+    this.firestationService.restoreFromFirebase();
     if (this.operation.customIdName != '') {
-      this.firestationService.restoreFromFirebase();
       this.undoChangesInForm();
     }
     this.dialogRef.close();
