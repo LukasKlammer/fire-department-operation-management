@@ -34,6 +34,7 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     MatSidenavModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     AngularFirestoreModule,

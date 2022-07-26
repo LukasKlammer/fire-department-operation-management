@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Operation } from '../modules/operation.class';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -9,7 +9,8 @@ import { FirestationService } from '../shared/firestation.service';
 @Component({
   selector: 'app-dialog-edit-operation',
   templateUrl: './dialog-edit-operation.component.html',
-  styleUrls: ['./dialog-edit-operation.component.scss']
+  styleUrls: ['./dialog-edit-operation.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DialogEditOperationComponent implements OnInit {
 
@@ -28,7 +29,6 @@ export class DialogEditOperationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
   }
 
   public saveOperation(ngForm: any) {
@@ -89,8 +89,10 @@ export class DialogEditOperationComponent implements OnInit {
 
   public onNoClick(): void {
     this.isSaveClicked = false;
-    this.firestationService.restoreFromFirebase();
-    this.undoChangesInForm();
+    if (this.operation.customIdName != '') {
+      this.firestationService.restoreFromFirebase();
+      this.undoChangesInForm();
+    }
     this.dialogRef.close();
   }
 
@@ -130,5 +132,6 @@ export class DialogEditOperationComponent implements OnInit {
         this.isLoading = false;
       })
   }
+
 
 }

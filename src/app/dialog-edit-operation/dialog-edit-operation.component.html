@@ -69,10 +69,10 @@
         <h1 mat-dialog-title>Einsatz-Abarbeitung</h1>
         <mat-form-field appearance="fill">
           <mat-label>Status</mat-label>
-          <mat-select [disabled]="isLoading" [(ngModel)]="operation.status" name="priority" required>
-            <mat-option *ngFor="let stat of status" [value]="stat">
-              {{ stat }}
-            </mat-option>
+          <mat-select [disabled]="isLoading" [(ngModel)]="operation.status" name="status" required>
+            <mat-option value="Offen">Offen</mat-option>
+            <mat-option value="Läuft">Läuft</mat-option>
+            <mat-option value="Abgeschlossen" [disabled]="operation.vehicles.length !== 0" matTooltip="Vor Abschluss: zugeteilte Fahrzeuge zu verfügbaren Fahrzeugen ziehen." matTooltipClass="tooltip-red" matTooltipPosition="left" [matTooltipDisabled]="operation.vehicles.length === 0">Abgeschlossen</mat-option>
           </mat-select>
         </mat-form-field>
         <div class="form-row">
@@ -88,7 +88,7 @@
           </mat-form-field>
         </div>
 
-        <div cdkDropListGroup class="form-row">
+        <div cdkDropListGroup class="form-row" *ngIf="operation.status != 'Abgeschlossen'">
           <div class="cars-container bordered-box">
             <h4>Fahrzeuge verfügbar</h4>
             <div class="droplist" cdkDropList [cdkDropListData]="firestationService.availableVehicles" cdkDropListSortingDisabled
