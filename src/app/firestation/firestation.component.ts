@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestationService } from '../shared/firestation.service';
 
 @Component({
   selector: 'app-firestation',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FirestationComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public firestationService: FirestationService,
+  ) { }
 
   ngOnInit(): void {
   }

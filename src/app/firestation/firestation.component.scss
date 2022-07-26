@@ -17,3 +17,8 @@ table {
 .empty-space {
   border: none;
 }
+
+mat-chip {
+  pointer-events: none;
+  opacity: 0.2;
+}
