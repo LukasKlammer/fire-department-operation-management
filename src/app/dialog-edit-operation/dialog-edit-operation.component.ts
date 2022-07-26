@@ -15,6 +15,7 @@ export class DialogEditOperationComponent implements OnInit {
 
   operation: Operation = new Operation();
   isLoading: boolean = false;
+  isSaveClicked: boolean = false;
   priorities: string[] = ['hoch', 'mittel', 'niedrig'];
   status: string[] = ['Offen', 'Läuft', 'Abgeschlossen'];
   isExistingOperation: boolean = false;
@@ -31,7 +32,7 @@ export class DialogEditOperationComponent implements OnInit {
   }
 
   public saveOperation(ngForm: any) {
-    if (ngForm.submitted && ngForm.form.valid) {
+    if (ngForm.submitted && ngForm.form.valid && this.isSaveClicked) {
       this.isLoading = true;
       this.firestationService.save();
       if (this.isExistingOperation) { // if operation already exists
@@ -85,5 +86,10 @@ export class DialogEditOperationComponent implements OnInit {
       this.firestationService.sort();
       this.operation.sortVehicles();
     }
+  }
+
+  onNoClick(): void {
+    this.isSaveClicked = false;
+    this.dialogRef.close();
   }
 }

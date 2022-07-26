@@ -27,7 +27,7 @@ export class DamagingEventsComponent implements OnInit {
       .collection('damaging-events')
       .valueChanges( { idField: 'customIdName' } )
       .subscribe((changes: any) => {
-        console.log('received changes from DB', changes);
+        console.log('received changes (damaging events) from DB', changes);
         this.damagingEvents = changes;
         this.sortDamagingEvents();
         this.isLoading = false;

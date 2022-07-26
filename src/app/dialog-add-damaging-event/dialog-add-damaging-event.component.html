@@ -1,7 +1,7 @@
 <div class="dialog-container">
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
-  <form (ngSubmit)="generateNewMission(missionForm)" #missionForm="ngForm">
+  <form (ngSubmit)="generateNewDamagingEvent(missionForm)" #missionForm="ngForm">
     <h1 mat-dialog-title>ACHTUNG: Hier erstellst du ein neues Schadensereignis:</h1>
     <div mat-dialog-content>
       <p>Ein Schadensereignis eine Lage, bei der viele Einsätze gleichzeitig auftreten.
@@ -25,8 +25,8 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button [disabled]="isLoading" mat-button (click)="dialogRef.close()">abbrechen</button>
-      <button [disabled]="isLoading" mat-raised-button color="warn" cdkFocusInitial>
+      <button [disabled]="isLoading" mat-button (click)="onNoClick()">abbrechen</button>
+      <button [disabled]="isLoading" mat-raised-button color="warn" cdkFocusInitial (click)="isSaveClicked = true">
         <mat-icon fontIcon="save" class="margin-right-4">save</mat-icon>
         neues Schadensereignis erstellen
       </button>

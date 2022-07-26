@@ -11,6 +11,7 @@ import { DamagingEvent } from '../modules/damaging-event.class';
 export class DialogAddDamagingEventComponent implements OnInit {
 
   isLoading: boolean = false;
+  isSaveClicked: boolean = false;
   damagingEvent: DamagingEvent = new DamagingEvent();
 
   constructor(public dialogRef: MatDialogRef<DialogAddDamagingEventComponent>, private firestore: AngularFirestore) {
@@ -19,14 +20,14 @@ export class DialogAddDamagingEventComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public generateNewMission(ngForm: any) {
-    if (ngForm.submitted && ngForm.form.valid) {
+  public generateNewDamagingEvent(ngForm: any) {
+    if (ngForm.submitted && ngForm.form.valid && this.isSaveClicked) {
       this.isLoading = true;
       console.log('neues Schadensereignis als JSON erstellt: ', this.damagingEvent.toJSON());
 
       this.firestore
       .collection('ff-bruneck')
-      .doc('QEcJgDBlPVt64GUFIPmw') //damaging events (FF Bruneck) document
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
       .collection('damaging-events')
       .add(this.damagingEvent.toJSON())
       .then((result: any) => {
@@ -35,7 +36,11 @@ export class DialogAddDamagingEventComponent implements OnInit {
           this.dialogRef.close();
         })
       }
+  }
 
+  onNoClick(): void {
+    this.isSaveClicked = false;
+    this.dialogRef.close();
   }
 
 }
