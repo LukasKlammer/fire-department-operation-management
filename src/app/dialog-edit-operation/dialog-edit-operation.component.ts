@@ -19,10 +19,6 @@ export class DialogEditOperationComponent implements OnInit {
   status: string[] = ['Offen', 'Läuft', 'Abgeschlossen'];
   isExistingOperation: boolean = false;
 
-  items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
-
-  basket = ['Oranges', 'Bananas', 'Cucumbers'];
-
   constructor(
     public dialogRef: MatDialogRef<DialogEditOperationComponent>,
     public firestationService: FirestationService,
@@ -37,7 +33,7 @@ export class DialogEditOperationComponent implements OnInit {
   public saveOperation(ngForm: any) {
     if (ngForm.submitted && ngForm.form.valid) {
       this.isLoading = true;
-      console.log('Einsatz als JSON: ', this.operation.toJSON());
+      this.firestationService.save();
       if (this.isExistingOperation) { // if operation already exists
         this.editOperationInFirestore(); // operation is to edit in firestore
       } else {
@@ -71,7 +67,6 @@ export class DialogEditOperationComponent implements OnInit {
       .doc(this.operation.customIdName)
       .update(this.operation.toJSON())
       .then((result: any) => {
-        console.log('changing operation finished ', result);
         this.isLoading = false;
         this.dialogRef.close();
       })
@@ -88,6 +83,7 @@ export class DialogEditOperationComponent implements OnInit {
         event.currentIndex,
       );
       this.firestationService.sort();
+      this.operation.sortVehicles();
     }
   }
 }

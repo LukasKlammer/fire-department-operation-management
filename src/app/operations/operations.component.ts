@@ -68,7 +68,6 @@ export class OperationsComponent implements OnInit {
       .collection('operations')
       .valueChanges( { idField: 'customIdName' } )
       .subscribe((changes: any) => {
-        console.log('received changes from DB: ', changes);
         this.operations = changes;
         this.splitOperations();
         this.sortAllOperations();
@@ -112,7 +111,6 @@ export class OperationsComponent implements OnInit {
       height: '90vh',
     });
     if (operation) {
-      console.log(operation);
       dialog.componentInstance.operation = new Operation(operation);
       dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
     }

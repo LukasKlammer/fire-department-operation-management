@@ -33,7 +33,7 @@ export class Operation {
     this.status = obj ? obj.status : 'Offen';
     this.chief = obj ? obj.chief : '';
     this.personal = obj ? obj.personal : '';
-    this.vehicles = obj ? obj.vehicles : '';
+    this.vehicles = obj ? obj.vehicles : [];
     this.externalVehicles = obj ? obj.externalVehicles : '';
     this.notes = obj ? obj.notes : '';
     this.customIdName = obj ? obj.customIdName  : '';
@@ -60,5 +60,9 @@ export class Operation {
       notes: this.notes,
       customIdName: this.customIdName,
     }
+  }
+
+  public sortVehicles() {
+    this.vehicles.sort((a, b) => a.localeCompare(b));
   }
 }
