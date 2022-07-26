@@ -13,12 +13,20 @@
     <ng-container *ngIf="!isLoading">
       <label id="select-damaging-event">Wähle das gewünschte Schadensereignis aus:</label>
       <mat-radio-group
-        aria-labelledby="select-damaging-event"
         [(ngModel)]="userSelections.selectedDamagingEvent.customIdName"
         >
-        <mat-radio-button class="example-radio-button" *ngFor="let damagingEvent of damagingEvents"
-          [value]="damagingEvent.customIdName" (click)="selectEvent(damagingEvent)">
-          {{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr
+        <mat-radio-button class="select-event-row"
+          *ngFor="let damagingEvent of damagingEvents"
+          [value]="damagingEvent.customIdName"
+          (click)="selectEvent(damagingEvent)">
+          <div class="select-infos-wrapper">
+            <span>{{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr</span>
+            <div class="open-operations-note" *ngIf="checkOpenOperations( damagingEvent.customIdName )">
+              <mat-icon>warning</mat-icon>
+              <mat-icon>fire_truck</mat-icon>
+              <span>Achtung: In diesem Schadensereignis gibt es noch offende oder laufende Einsätze!</span>
+            </div>
+          </div>
         </mat-radio-button>
       </mat-radio-group>
 

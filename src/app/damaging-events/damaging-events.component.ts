@@ -29,20 +29,12 @@ export class DamagingEventsComponent implements OnInit {
       .subscribe((changes: any) => {
         this.damagingEvents = changes;
         this.sortDamagingEvents();
-        this.setDefaultSelect();
         this.isLoading = false;
       });
   }
 
   private sortDamagingEvents() {
     this.damagingEvents.sort((a, b) => { return a.timestamp - b.timestamp });
-  }
-
-  private setDefaultSelect() {
-    if (this.userSelections.selectedDamagingEvent.description != '') {
-      console.log(this.userSelections.selectedDamagingEvent);
-
-    }
   }
 
   public selectEvent(damagingEvent: DamagingEvent) {
@@ -57,4 +49,14 @@ export class DamagingEventsComponent implements OnInit {
     });
   }
 
+  public checkOpenOperations(customIdName: string) {
+
+    console.log('aufruf');
+    console.log(customIdName);
+    return true;
+
+
+
+
+  }
 }
