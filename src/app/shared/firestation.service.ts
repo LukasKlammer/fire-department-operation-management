@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
@@ -6,9 +6,19 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FirestationService {
 
-  availableVehicles:string[] = ['Atem', 'Deko', 'Fahrzeug 1', 'Fahrzeug 2', 'Fahrzeug 3', 'Fahrzeug 4', 'Fahrzeug 5', 'Fahrzeug 7', 'GSF', 'Kommando', 'Last 1', 'Last 2', 'Leiter', 'Lösch', 'Lüfter', 'Rüst', 'Strom', 'Tank 1', 'Tank 2', 'Tank 3', 'Voraus'];
+  availableVehicles: string[] = [];
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) {
+    this.firestore
+      .collection('ff-bruneck')
+      .doc('JA1pXXbwRSly3DsQ3kni') // document firestation
+      .collection('firestation')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.availableVehicles = changes[0].availableVehicles;
+        console.log('Änderung bei verfügbaren Fahrzeugen in DB erkannt: ', this.availableVehicles);
+      });
+  }
 
   public sort() {
     this.availableVehicles.sort((a, b) => a.localeCompare(b));
@@ -17,15 +27,16 @@ export class FirestationService {
   public save() {
     this.firestore
       .collection('ff-bruneck')
-      .doc('JA1pXXbwRSly3DsQ3kni') // Document firestation
+      .doc('JA1pXXbwRSly3DsQ3kni') // document firestation
       .collection('firestation')
-      .add(this.toJSON())
+      .doc('7Nokj2Z615087RasEqTC') // document with current status of firestation
+      .update(this.toJSON())
       .then((result: any) => {
-        console.log('Adding firestation completed: ', result);
+        console.log('saving firestation completed: ', result);
       })
   }
 
-  public toJSON() : any {
+  public toJSON(): any {
     return {
       availableVehicles: this.availableVehicles,
     }
