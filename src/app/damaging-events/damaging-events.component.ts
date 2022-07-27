@@ -55,8 +55,5 @@ export class DamagingEventsComponent implements OnInit {
     console.log(customIdName);
     return true;
 
-
-
-
   }
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Operation } from '../modules/operation.class';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserSelectionsService } from '../shared/user-selections.service';
 import { FirestationService } from '../shared/firestation.service';
+import { DialogPrintComponent } from '../dialog-print/dialog-print.component';
 
 @Component({
   selector: 'app-dialog-edit-operation',
@@ -26,6 +27,7 @@ export class DialogEditOperationComponent implements OnInit {
     public firestationService: FirestationService,
     private firestore: AngularFirestore,
     public userSelections: UserSelectionsService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -137,5 +139,9 @@ export class DialogEditOperationComponent implements OnInit {
     this.operation.conclusionTime = new Date().getTime();
   }
 
-
+  public openPrintDialog() {
+    this.dialog.open(DialogPrintComponent, {
+      disableClose: true,
+    });
+  }
 }

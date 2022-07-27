@@ -36,6 +36,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxPrintModule } from 'ngx-print';
+import { DialogPrintComponent } from './dialog-print/dialog-print.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { NgxPrintModule } from 'ngx-print';
     ContentDrawerComponent,
     DamagingEventsComponent,
     DialogAddDamagingEventComponent,
-    CurrentDamagingEventComponent
+    CurrentDamagingEventComponent,
+    DialogPrintComponent
   ],
   imports: [
     BrowserModule,

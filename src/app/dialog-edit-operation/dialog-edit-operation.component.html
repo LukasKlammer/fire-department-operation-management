@@ -1,7 +1,7 @@
 <div class="dialog-container">
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
-  <form (ngSubmit)="saveOperation(operationForm)" #operationForm="ngForm" id="print-section">
+  <form (ngSubmit)="saveOperation(operationForm)" #operationForm="ngForm">
 
     <div class="operation-capture-container">
       <div class="dialog-content">
@@ -120,7 +120,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>eingesetzte Fahrzeuge</mat-label>
-            <textarea [disabled]="isLoading" [(ngModel)]="operation.allUsedVehicles" name="externalVehicles" matInput
+            <textarea [disabled]="isLoading" [(ngModel)]="operation.allUsedVehicles" name="allUsedVehicles" matInput required
               placeholder="alle Fahrzeuge, die irgendwann an der Einsatzstelle waren."></textarea>
           </mat-form-field>
         </div>
@@ -138,7 +138,7 @@
 
         <div mat-dialog-actions>
           <button [disabled]="isLoading" mat-button (click)="onNoClick()">abbrechen</button>
-          <button [disabled]="isLoading" mat-button [useExistingCss]="true" printSectionId="print-section" ngxPrint>
+          <button [disabled]="isLoading" mat-button (click)="openPrintDialog()">
             <mat-icon fontIcon="save" class="margin-right-4">print</mat-icon>
             drucken
           </button>
