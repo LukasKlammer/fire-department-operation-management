@@ -113,7 +113,8 @@ export class OperationsComponent implements OnInit {
     if (operation) {
       dialog.componentInstance.operation = new Operation(operation);
       dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
+    } else {
+      dialog.componentInstance.operation.operationNumber = this.operations.length + 1; // when we create a new operation we give a new number
     }
   }
-
 }

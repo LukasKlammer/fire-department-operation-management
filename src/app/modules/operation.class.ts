@@ -14,8 +14,10 @@ export class Operation {
   chief: string;
   personal: string;
   vehicles: string[];
+  allUsedVehicles: string;
   externalVehicles: string;
   notes: string;
+  conclusionTime: number;
   customIdName: string;
 
 
@@ -34,9 +36,11 @@ export class Operation {
     this.chief = obj ? obj.chief : '';
     this.personal = obj ? obj.personal : '';
     this.vehicles = obj ? obj.vehicles : [];
+    this.allUsedVehicles = obj ? obj.allUsedVehicles : '';
     this.externalVehicles = obj ? obj.externalVehicles : '';
     this.notes = obj ? obj.notes : '';
-    this.customIdName = obj ? obj.customIdName  : '';
+    this.conclusionTime = obj ? obj.conclusionTime : new Date().getTime();
+    this.customIdName = obj ? obj.customIdName  : ''; // is the ID from firebase
   }
 
 
@@ -56,8 +60,10 @@ export class Operation {
       chief: this.chief,
       personal: this.personal,
       vehicles: this.vehicles,
+      allUsedVehicles: this.allUsedVehicles,
       externalVehicles: this.externalVehicles,
       notes: this.notes,
+      conclusionTime: this.conclusionTime,
       customIdName: this.customIdName,
     }
   }

@@ -133,5 +133,9 @@ export class DialogEditOperationComponent implements OnInit {
       })
   }
 
+  public setConclusionTime() {
+    this.operation.conclusionTime = new Date().getTime();
+  }
+
 
 }
