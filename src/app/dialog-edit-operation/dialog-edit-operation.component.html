@@ -1,7 +1,7 @@
 <div class="dialog-container">
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
-  <form (ngSubmit)="saveOperation(operationForm)" #operationForm="ngForm">
+  <form (ngSubmit)="submit(operationForm)" #operationForm="ngForm" id="form">
 
     <div class="operation-capture-container">
       <div class="dialog-content">
@@ -121,7 +121,7 @@
           <mat-form-field appearance="outline">
             <mat-label>eingesetzte Fahrzeuge</mat-label>
             <textarea [disabled]="isLoading" [(ngModel)]="operation.allUsedVehicles" name="allUsedVehicles" matInput required
-              placeholder="alle Fahrzeuge, die irgendwann an der Einsatzstelle waren."></textarea>
+              placeholder="Alle Fahrzeuge, die irgendwann an der Einsatzstelle waren."></textarea>
           </mat-form-field>
         </div>
 
@@ -137,10 +137,11 @@
         </mat-form-field>
 
         <div mat-dialog-actions>
-          <button [disabled]="isLoading" mat-button (click)="onNoClick()">abbrechen</button>
-          <button [disabled]="isLoading" mat-button (click)="openPrintDialog()">
+          <button [disabled]="isLoading" mat-raised-button (click)="onNoClick()">abbrechen</button>
+          <button [disabled]="isLoading" mat-raised-button (click)="shouldPrint = true; isSaveClicked= true">
+            <mat-icon fontIcon="save" class="margin-right-4">save</mat-icon>
             <mat-icon fontIcon="save" class="margin-right-4">print</mat-icon>
-            drucken
+            speichern & drucken
           </button>
           <button [disabled]="isLoading" mat-raised-button color="primary" cdkFocusInitial
             (click)="isSaveClicked = true">

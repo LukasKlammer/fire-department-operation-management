@@ -21,6 +21,7 @@ export class DialogEditOperationComponent implements OnInit {
   priorities: string[] = ['hoch', 'mittel', 'niedrig'];
   status: string[] = ['Offen', 'Läuft', 'Abgeschlossen'];
   isExistingOperation: boolean = false;
+  shouldPrint: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditOperationComponent>,
@@ -33,14 +34,17 @@ export class DialogEditOperationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public saveOperation(ngForm: any) {
-    if (ngForm.submitted && ngForm.form.valid && this.isSaveClicked) {
+  public submit(ngForm: any) {
+    if (ngForm.submitted && ngForm.form.valid && this.isSaveClicked) { // checks, if form is valid and submitted and if a save button is clicked
       this.isLoading = true;
       this.firestationService.save();
       if (this.isExistingOperation) { // if operation already exists
         this.editOperationInFirestore(); // operation is to edit in firestore
       } else {
         this.addOperationToFirestore(); // operation is new --> add to firestore
+      }
+      if (this.shouldPrint) {
+        this.openPrintDialog();
       }
     }
   }
@@ -139,9 +143,10 @@ export class DialogEditOperationComponent implements OnInit {
     this.operation.conclusionTime = new Date().getTime();
   }
 
-  public openPrintDialog() {
+  private openPrintDialog() {
     this.dialog.open(DialogPrintComponent, {
       disableClose: true,
     });
   }
+
 }

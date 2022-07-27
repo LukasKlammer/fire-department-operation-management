@@ -25,7 +25,7 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button [disabled]="isLoading" mat-button (click)="onNoClick()">abbrechen</button>
+      <button [disabled]="isLoading" mat-raised-button (click)="onNoClick()">abbrechen</button>
       <button [disabled]="isLoading" mat-raised-button color="warn" cdkFocusInitial (click)="isSaveClicked = true">
         <mat-icon fontIcon="save" class="margin-right-4">save</mat-icon>
         neues Schadensereignis erstellen

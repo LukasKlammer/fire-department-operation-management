@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Operation } from '../modules/operation.class';
 
 @Component({
   selector: 'app-dialog-print',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogPrintComponent implements OnInit {
 
-  constructor() { }
+  operation: Operation = new Operation();
+
+  constructor(public dialogRef: MatDialogRef<DialogPrintComponent>) { }
 
   ngOnInit(): void {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
