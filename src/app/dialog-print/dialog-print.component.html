@@ -1,6 +1,31 @@
-<p id="print-section">print works!</p>
-<button mat-raised-button (click)="onNoClick()">schließen</button>
-<button mat-raised-button color="primary" [useExistingCss]="true" printSectionId="print-section" ngxPrint>
-  <mat-icon fontIcon="save" class="margin-right-4">print</mat-icon>
-  drucken
-</button>
+<div id="print-section" class="print-section">
+  <div class="img-wrapper">
+    <img src="assets/img/logo_ffb.png" alt="">
+  </div>
+  <h1>Einsatzauftrag</h1>
+  <div>Stichwort: {{ operation.keyword }}</div>
+  <div>Bemerkungen: {{ operation.comments }}</div>
+  <div>Priorität: {{ operation.priority }}</div>
+  <mat-divider></mat-divider>
+  <div>Adresse & Ort: {{ operation.address }}, {{ operation.city }}</div>
+  <div>Anrufer / Melder: {{ operation.caller }}</div>
+  <div>Telefonnummer: {{ operation.phone }}</div>
+  <div>Einsatz erstellt von: {{ operation.calltaker }}</div>
+  <mat-divider></mat-divider>
+  <div>Einsatzleiter: {{ operation.chief }}</div>
+  <div>Einsatzkräfte: {{ operation.personal }}</div>
+  <div>Fahrzeuge: {{ operation.vehicles.join(', ') }}</div>
+  <div>Fahrzeuge extern: {{ operation.externalVehicles }}</div>
+  <div>Notizen: {{ operation.notes }}</div>
+  <mat-divider></mat-divider>
+  <div>Einsatzablauf / Tätigkeit / Bemerkung:</div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">schließen</button>
+  <button mat-raised-button color="primary" printTitle="Feuerwehr der Stadt Bruneck - Einsatzmanagement"
+    [useExistingCss]="true" printSectionId="print-section" ngxPrint>
+    <mat-icon fontIcon="save" class="margin-right-4">print</mat-icon>
+    drucken
+  </button>
+</div>

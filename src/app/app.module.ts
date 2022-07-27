@@ -29,6 +29,7 @@ import { DamagingEventsComponent } from './damaging-events/damaging-events.compo
 import { DialogAddDamagingEventComponent } from './dialog-add-damaging-event/dialog-add-damaging-event.component';
 import { CurrentDamagingEventComponent } from './current-damaging-event/current-damaging-event.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -73,6 +74,7 @@ import { DialogPrintComponent } from './dialog-print/dialog-print.component';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatDividerModule,
     NgxPrintModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

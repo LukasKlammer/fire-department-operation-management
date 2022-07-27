@@ -144,9 +144,10 @@ export class DialogEditOperationComponent implements OnInit {
   }
 
   private openPrintDialog() {
-    this.dialog.open(DialogPrintComponent, {
+    const dialog = this.dialog.open(DialogPrintComponent, {
       disableClose: true,
     });
+    dialog.componentInstance.operation = new Operation(this.operation);
   }
 
 }
