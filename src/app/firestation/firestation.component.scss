@@ -19,7 +19,11 @@ table {
 }
 
 mat-chip {
-  pointer-events: none;
+  cursor: default;
+  &:hover {
+    background-color: unset !important;
+    color: unset !important;
+  }
 }
 
 .opacity {

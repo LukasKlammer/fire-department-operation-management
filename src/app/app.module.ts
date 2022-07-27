@@ -35,6 +35,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxPrintModule } from 'ngx-print';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    NgxPrintModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     AngularFirestoreModule,

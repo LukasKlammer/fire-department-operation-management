@@ -7,6 +7,7 @@ import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore'
 export class FirestationService {
 
   availableVehicles: string[] = [];
+  tooltip: string = '';
 
   constructor(private firestore: AngularFirestore) {
     this.firestore
@@ -42,7 +43,7 @@ export class FirestationService {
       .ref
       .get()
       .then((snapshot: any) => {
-        snapshot.forEach((doc:any) => {
+        snapshot.forEach((doc: any) => {
           this.availableVehicles = doc.data().availableVehicles;
         });
       })
@@ -51,6 +52,16 @@ export class FirestationService {
   public toJSON(): any {
     return {
       availableVehicles: this.availableVehicles,
+    }
+  }
+
+  public createTooltip(vehicle: string) {
+    if (vehicle == 'Fahrzeug 4') {
+      this.tooltip = 'Fahrzeug 4: kein Container aufladbar';
+    } else if (vehicle == 'Fahrzeug 3') {
+      this.tooltip = 'Fahrzeug 3: Container Pölz nicht aufladbar';
+    } else {
+      this.tooltip = '';
     }
   }
 }

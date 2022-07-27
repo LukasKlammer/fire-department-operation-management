@@ -1,7 +1,7 @@
 <div class="dialog-container">
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
-  <form (ngSubmit)="saveOperation(operationForm)" #operationForm="ngForm">
+  <form (ngSubmit)="saveOperation(operationForm)" #operationForm="ngForm" id="print-section">
 
     <div class="operation-capture-container">
       <div class="dialog-content">
@@ -72,7 +72,10 @@
           <mat-select [disabled]="isLoading" [(ngModel)]="operation.status" name="status" required>
             <mat-option value="Offen">Offen</mat-option>
             <mat-option value="Läuft">Läuft</mat-option>
-            <mat-option value="Abgeschlossen" [disabled]="operation.vehicles.length !== 0" matTooltip="Vor Abschluss: zugeteilte Fahrzeuge zu verfügbaren Fahrzeugen ziehen." matTooltipClass="tooltip-red" matTooltipPosition="left" [matTooltipDisabled]="operation.vehicles.length === 0">Abgeschlossen</mat-option>
+            <mat-option value="Abgeschlossen" [disabled]="operation.vehicles.length !== 0"
+              matTooltip="Vor Abschluss: zugeteilte Fahrzeuge zu verfügbaren Fahrzeugen ziehen."
+              matTooltipClass="tooltip-red" matTooltipPosition="left"
+              [matTooltipDisabled]="operation.vehicles.length === 0">Abgeschlossen</mat-option>
           </mat-select>
         </mat-form-field>
         <div class="form-row">
@@ -91,16 +94,17 @@
         <div cdkDropListGroup class="form-row" *ngIf="operation.status != 'Abgeschlossen'">
           <div class="cars-container bordered-box">
             <h4>Fahrzeuge verfügbar</h4>
-            <div class="droplist" cdkDropList [cdkDropListData]="firestationService.availableVehicles" cdkDropListSortingDisabled
-              (cdkDropListDropped)="drop($event)">
-              <mat-chip *ngFor="let vehicle of firestationService.availableVehicles" cdkDrag>{{ vehicle }}</mat-chip>
+            <div class="droplist" cdkDropList [cdkDropListData]="firestationService.availableVehicles"
+              cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">
+              <mat-chip *ngFor="let vehicle of firestationService.availableVehicles" cdkDrag matTooltip="{{ firestationService.tooltip }}" (mouseover)="firestationService.createTooltip(vehicle)" matTooltipClass="tooltip-red">
+                {{ vehicle }}</mat-chip>
             </div>
           </div>
           <div class="cars-container bordered-box">
             <h4>Fahrzeuge zugeteilt</h4>
             <div class="droplist" cdkDropList [cdkDropListData]="operation.vehicles" cdkDropListSortingDisabled
               (cdkDropListDropped)="drop($event)">
-              <mat-chip *ngFor="let vehicle of operation.vehicles" cdkDrag>{{ vehicle }}</mat-chip>
+              <mat-chip *ngFor="let vehicle of operation.vehicles" cdkDrag matTooltip="{{ firestationService.tooltip }}" (mouseover)="firestationService.createTooltip(vehicle)" matTooltipClass="tooltip-red">{{ vehicle }}</mat-chip>
             </div>
           </div>
         </div>
@@ -118,11 +122,12 @@
 
         <div mat-dialog-actions>
           <button [disabled]="isLoading" mat-button (click)="onNoClick()">abbrechen</button>
-          <button [disabled]="isLoading" mat-button>
-            <mat-icon fontIcon="save" class="margin-right-4"(click)="isSaveClicked = false">print</mat-icon>
+          <button [disabled]="isLoading" mat-button [useExistingCss]="true" printSectionId="print-section" ngxPrint>
+            <mat-icon fontIcon="save" class="margin-right-4">print</mat-icon>
             drucken
           </button>
-          <button [disabled]="isLoading" mat-raised-button color="primary" cdkFocusInitial (click)="isSaveClicked = true">
+          <button [disabled]="isLoading" mat-raised-button color="primary" cdkFocusInitial
+            (click)="isSaveClicked = true">
             <mat-icon fontIcon="save" class="margin-right-4">save</mat-icon>
             speichern
           </button>

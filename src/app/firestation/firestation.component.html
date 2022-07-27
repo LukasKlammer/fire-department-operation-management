@@ -86,13 +86,13 @@
       </tr>
       <tr>
         <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 4')}">
-            Fahrzeug 4
+          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 5')}">
+            Fahrzeug 5
           </mat-chip>
         </td>
         <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 5')}">
-            Fahrzeug 5
+          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 4')}"  matTooltip="{{ firestationService.tooltip }}" (mouseover)="firestationService.createTooltip('Fahrzeug 4')" matTooltipClass="tooltip-red">
+            Fahrzeug 4
           </mat-chip>
         </td>
       </tr>
@@ -103,7 +103,7 @@
           </mat-chip>
         </td>
         <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 3')}">
+          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 3')}"  matTooltip="{{ firestationService.tooltip }}" (mouseover)="firestationService.createTooltip('Fahrzeug 3')" matTooltipClass="tooltip-red">
             Fahrzeug 3
           </mat-chip>
         </td>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DamagingEvent } from '../modules/damaging-event.class';
+import { UserSelectionsService } from '../shared/user-selections.service';
 
 @Component({
   selector: 'app-dialog-add-damaging-event',
@@ -14,7 +15,7 @@ export class DialogAddDamagingEventComponent implements OnInit {
   isSaveClicked: boolean = false;
   damagingEvent: DamagingEvent = new DamagingEvent();
 
-  constructor(public dialogRef: MatDialogRef<DialogAddDamagingEventComponent>, private firestore: AngularFirestore) {
+  constructor(public dialogRef: MatDialogRef<DialogAddDamagingEventComponent>, private firestore: AngularFirestore, public userSelections: UserSelectionsService) {
   }
 
   ngOnInit(): void {
@@ -25,16 +26,16 @@ export class DialogAddDamagingEventComponent implements OnInit {
       this.isLoading = true;
 
       this.firestore
-      .collection('ff-bruneck')
-      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
-      .collection('damaging-events')
-      .add(this.damagingEvent.toJSON())
-      .then((result: any) => {
-          console.log('Adding user finished: ' , result);
+        .collection('ff-bruneck')
+        .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+        .collection('damaging-events')
+        .add(this.damagingEvent.toJSON())
+        .then((result: any) => {
+          console.log('Adding user finished: ', result);
           this.isLoading = false;
           this.dialogRef.close();
         })
-      }
+    }
   }
 
   onNoClick(): void {

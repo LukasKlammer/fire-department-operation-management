@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FirestationService } from '../shared/firestation.service';
 
 @Component({
   selector: 'app-firestation',
   templateUrl: './firestation.component.html',
-  styleUrls: ['./firestation.component.scss']
+  styleUrls: ['./firestation.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FirestationComponent implements OnInit {
 
