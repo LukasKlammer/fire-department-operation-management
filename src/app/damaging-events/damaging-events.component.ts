@@ -4,6 +4,7 @@ import { DialogAddDamagingEventComponent } from '../dialog-add-damaging-event/di
 import { DamagingEvent } from '../modules/damaging-event.class';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserSelectionsService } from '../shared/user-selections.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-damaging-events',
@@ -30,6 +31,9 @@ export class DamagingEventsComponent implements OnInit {
         this.damagingEvents = changes;
         this.sortDamagingEvents();
         this.isLoading = false;
+
+        // this.hasCompletetOperations$(this.damagingEvents[1])
+        // .subscribe(result => console.log("Damaging Event 0 has Complete Operations :", result));
       });
   }
 
@@ -53,7 +57,20 @@ export class DamagingEventsComponent implements OnInit {
 
     console.log('aufruf');
     console.log(customIdName);
-    return true;
+    return false;
 
+  }
+
+  hasCompletetOperations$(damagingEvent : DamagingEvent){
+    return this.firestore
+    .collection('ff-bruneck')
+    .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+    .collection('damaging-events')
+    .doc(damagingEvent.customIdName)
+    .collection('operations', ref => ref.where('status', '==', 'Abgeschlossen'))
+    .valueChanges()
+    .pipe(
+      map(changes => changes.length > 0)
+    );
   }
 }
