@@ -58,6 +58,13 @@ table {
 
 mat-chip {
   pointer-events: none;
-  margin-right: 4px;
-  margin-bottom: 4px;
+  margin: 2px;
+}
+
+.keyword-text {
+  font-size: 15px;
+}
+
+.comments-text {
+  font-size: 13px;
 }

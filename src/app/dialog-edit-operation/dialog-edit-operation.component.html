@@ -41,8 +41,13 @@
         </div>
         <mat-form-field appearance="outline">
           <mat-label>Stichwort</mat-label>
-          <input [disabled]="isLoading" [(ngModel)]="operation.keyword" name="keyword" matInput
-            placeholder="Wasserschaden, Unwetter, Baum auf Straße, Unterstützung Rettungsdienst,..." required>
+          <input type="text" placeholder="Wasserschaden, Unwetter, Ast/Baum/Bauteil,..." [(ngModel)]="operation.keyword"
+            [disabled]="isLoading" name="keyword" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let keyword of filteredKeywords | async" [value]="keyword">
+              {{ keyword }}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Bemerkungen</mat-label>
@@ -75,7 +80,8 @@
             <mat-option value="Abgeschlossen" [disabled]="operation.vehicles.length !== 0"
               matTooltip="Vor Abschluss: zugeteilte Fahrzeuge zu verfügbaren Fahrzeugen ziehen."
               matTooltipClass="tooltip-red" matTooltipPosition="left"
-              [matTooltipDisabled]="operation.vehicles.length === 0" (click)="setConclusionTime()">Abgeschlossen</mat-option>
+              [matTooltipDisabled]="operation.vehicles.length === 0" (click)="setConclusionTime()">Abgeschlossen
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <div class="form-row">
@@ -90,7 +96,6 @@
               placeholder="Namen der Einsatzkräfte"></textarea>
           </mat-form-field>
         </div>
-
         <div cdkDropListGroup class="form-row" *ngIf="operation.status != 'Abgeschlossen'">
           <div class="cars-container bordered-box">
             <h4>Fahrzeuge verfügbar</h4>
@@ -112,19 +117,18 @@
             </div>
           </div>
         </div>
-
         <div *ngIf="operation.status == 'Abgeschlossen'">
           <mat-form-field appearance="outline">
-            <mat-label>Uhrzeit Abschluss (wird automatisch generiert, wenn Status auf abgeschlossen gesetzt wird)</mat-label>
+            <mat-label>Uhrzeit Abschluss (wird automatisch generiert, wenn Status auf abgeschlossen gesetzt wird)
+            </mat-label>
             <input disabled value="{{ operation.conclusionTime | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>eingesetzte Fahrzeuge</mat-label>
-            <textarea [disabled]="isLoading" [(ngModel)]="operation.allUsedVehicles" name="allUsedVehicles" matInput required
-              placeholder="Alle Fahrzeuge, die irgendwann an der Einsatzstelle waren."></textarea>
+            <textarea [disabled]="isLoading" [(ngModel)]="operation.allUsedVehicles" name="allUsedVehicles" matInput
+              required placeholder="Alle Fahrzeuge, die irgendwann an der Einsatzstelle waren."></textarea>
           </mat-form-field>
         </div>
-
         <mat-form-field appearance="outline">
           <mat-label>Fahrzeuge extern</mat-label>
           <textarea [disabled]="isLoading" [(ngModel)]="operation.externalVehicles" name="externalVehicles" matInput
@@ -135,7 +139,6 @@
           <textarea [disabled]="isLoading" [(ngModel)]="operation.notes" name="notes" matInput
             placeholder="Lagemeldungen, angeforderte Geräte..."></textarea>
         </mat-form-field>
-
         <div mat-dialog-actions>
           <button [disabled]="isLoading" mat-raised-button (click)="onNoClick()">abbrechen</button>
           <button [disabled]="isLoading" mat-raised-button (click)="shouldPrint = true; isSaveClicked= true">

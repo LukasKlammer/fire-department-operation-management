@@ -16,7 +16,7 @@ import { OperationsComponent } from './operations/operations.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatRadioModule } from '@angular/material/radio';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,6 +30,7 @@ import { DialogAddDamagingEventComponent } from './dialog-add-damaging-event/dia
 import { CurrentDamagingEventComponent } from './current-damaging-event/current-damaging-event.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -66,6 +67,7 @@ import { DialogPrintComponent } from './dialog-print/dialog-print.component';
     DragDropModule,
     MatRadioModule,
     FormsModule,
+    ReactiveFormsModule,
     MatDialogModule,
     MatProgressBarModule,
     MatFormFieldModule,
@@ -76,6 +78,7 @@ import { DialogPrintComponent } from './dialog-print/dialog-print.component';
     MatTooltipModule,
     MatDividerModule,
     NgxPrintModule,
+    MatAutocompleteModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     AngularFirestoreModule,
