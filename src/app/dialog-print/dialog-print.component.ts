@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Operation } from '../modules/operation.class';
+import { Operation } from '../models/operation.class';
 
 @Component({
   selector: 'app-dialog-print',

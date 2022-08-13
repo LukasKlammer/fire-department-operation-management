@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogEditOperationComponent } from '../dialog-edit-operation/dialog-edit-operation.component';
-import { Operation } from '../modules/operation.class';
+import { Operation } from '../models/operation.class';
 import { UserSelectionsService } from '../shared/user-selections.service';
 
 @Component({

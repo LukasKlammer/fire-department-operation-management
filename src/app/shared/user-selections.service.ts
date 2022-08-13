@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DamagingEvent } from '../modules/damaging-event.class';
+import { DamagingEvent } from '../models/damaging-event.class';
 
 @Injectable({
   providedIn: 'root'
