@@ -12,65 +12,102 @@
         : 'dd.MM.y, HH:mm:ss' }} Uhr</h3>
     </div>
 
-    <div class="operations-category-box bordered-box">
-      <h2>Offen</h2>
-      <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}"
-        (click)="openDialog(operation)">
-        <table>
-          <tr>
-            <td>
-              <div class="keyword-text">{{ operation.keyword }}</div>
-              <div class="comments-text">{{ operation.comments }}</div>
-            </td>
-            <td>{{ operation.address }}, {{ operation.city }}</td>
-            <td>{{ operation.priority }}</td>
-            <td>
-              <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
-            </td>
-          </tr>
-        </table>
-      </mat-card>
-    </div>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+      <mat-expansion-panel-header matTooltip="{{ openOperations.length }} offene Einsätze">
+        <div class="panel-header">
+          <h2>Offen</h2>
+          <mat-icon matBadge=" {{ openOperations.length }} " [matBadgeColor]="getBadgeColor(openOperations)">
+            assignment_late</mat-icon>
+          <!-- Include text description of the icon's meaning for screen-readers -->
+          <span class="cdk-visually-hidden">
+            operation icon with overlaid badge showing the number of opened operations
+          </span>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="operations-box">
+        <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}"
+          (click)="openDialog(operation)">
+          <table>
+            <tr>
+              <td>
+                <div class="keyword-text">{{ operation.keyword }}</div>
+                <div class="comments-text">{{ operation.comments }}</div>
+              </td>
+              <td>{{ operation.address }}, {{ operation.city }}</td>
+              <td>{{ operation.priority }}</td>
+              <td>
+                <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
 
-    <div class="operations-category-box bordered-box">
-      <h2>Läuft</h2>
-      <mat-card *ngFor="let operation of ongoingOperations" class="{{ operation.priority }}"
-        (click)="openDialog(operation)">
-        <table>
-          <tr>
-            <td>
-              <div class="keyword-text">{{ operation.keyword }}</div>
-              <div class="comments-text">{{ operation.comments }}</div>
-            </td>
-            <td>{{ operation.address }}, {{ operation.city }}</td>
-            <td>{{ operation.priority }}</td>
-            <td>
-              <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
-            </td>
-          </tr>
-        </table>
-      </mat-card>
-    </div>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+      <mat-expansion-panel-header matTooltip="{{ ongoingOperations.length }} laufende Einsätze">
+        <div class="panel-header">
+          <h2>Läuft</h2>
+          <mat-icon matBadge=" {{ ongoingOperations.length }} " [matBadgeColor]="getBadgeColor(ongoingOperations)">
+            assignment</mat-icon>
+          <!-- Include text description of the icon's meaning for screen-readers -->
+          <span class="cdk-visually-hidden">
+            operation icon with overlaid badge showing the number of ongoing operations
+          </span>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="operations-box">
+        <mat-card *ngFor="let operation of ongoingOperations" class="{{ operation.priority }}"
+          (click)="openDialog(operation)">
+          <table>
+            <tr>
+              <td>
+                <div class="keyword-text">{{ operation.keyword }}</div>
+                <div class="comments-text">{{ operation.comments }}</div>
+              </td>
+              <td>{{ operation.address }}, {{ operation.city }}</td>
+              <td>{{ operation.priority }}</td>
+              <td>
+                <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
 
-    <div class="operations-category-box bordered-box">
-      <h2>Abgeschlossen</h2>
-      <mat-card *ngFor="let operation of completedOperations" class="{{ operation.priority }}"
-        (click)="openDialog(operation)">
-        <table>
-          <tr>
-            <td>
-              <div class="keyword-text">{{ operation.keyword }}</div>
-              <div class="comments-text">{{ operation.comments }}</div>
-            </td>
-            <td>{{ operation.address }}, {{ operation.city }}</td>
-            <td>{{ operation.priority }}</td>
-            <td>
-              <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
-            </td>
-          </tr>
-        </table>
-      </mat-card>
-    </div>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+      <mat-expansion-panel-header matTooltip="{{ completedOperations.length }} abgeschlossene Einsätze">
+        <div class="panel-header">
+          <h2>Abgeschlossen</h2>
+          <mat-icon matBadge=" {{ completedOperations.length }} " matBadgeColor="primary">assignment_turned_in
+          </mat-icon>
+          <!-- Include text description of the icon's meaning for screen-readers -->
+          <span class="cdk-visually-hidden">
+            operation icon with overlaid badge showing the number of completed operations
+          </span>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="operations-box">
+        <mat-card *ngFor="let operation of completedOperations" class="{{ operation.priority }}"
+          (click)="openDialog(operation)">
+          <table>
+            <tr>
+              <td>
+                <div class="keyword-text">{{ operation.keyword }}</div>
+                <div class="comments-text">{{ operation.comments }}</div>
+              </td>
+              <td>{{ operation.address }}, {{ operation.city }}</td>
+              <td>{{ operation.priority }}</td>
+              <td>
+                <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
+
   </ng-container>
 
   <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>

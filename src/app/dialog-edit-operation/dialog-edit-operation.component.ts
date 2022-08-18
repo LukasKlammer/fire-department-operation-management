@@ -103,7 +103,6 @@ export class DialogEditOperationComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
-      console.log('test');
       this.firestationService.sort();
       this.operation.sortVehicles();
       // this.operation.allUsedVehicles.push();

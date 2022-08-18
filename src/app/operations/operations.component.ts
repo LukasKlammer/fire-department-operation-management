@@ -6,6 +6,7 @@ import { DialogEditOperationComponent } from '../dialog-edit-operation/dialog-ed
 import { Operation } from '../models/operation.class';
 import { UserSelectionsService } from '../shared/user-selections.service';
 
+
 @Component({
   selector: 'app-operations',
   templateUrl: './operations.component.html',
@@ -15,11 +16,11 @@ export class OperationsComponent implements OnInit {
 
   damagingEventId: string = '';
   isLoading: boolean = true;
+  panelOpenState: boolean = true;
   operations: Operation[] = [];
   openOperations: Operation[] = [];
   ongoingOperations: Operation[] = [];
   completedOperations: Operation[] = [];
-
 
   constructor(
     public dialog: MatDialog,
@@ -27,7 +28,7 @@ export class OperationsComponent implements OnInit {
     public userSelections: UserSelectionsService,
     private route: ActivatedRoute,
     private router: Router,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
@@ -42,20 +43,20 @@ export class OperationsComponent implements OnInit {
 
   private setDamagingEventByUrl() {
     this
-    .firestore
-    .collection('ff-bruneck')
-    .doc('QEcJgDBlPVt64GUFIPmw') // damaging events document FF Bruneck
-    .collection('damaging-events')
-    .doc(this.damagingEventId) // damaging event from url
-    .valueChanges( { idField: 'customIdName' } )
-    .subscribe((changes: any) => {
-      if (changes.timestamp) { // checks, if there is something in database for this url / id
-        this.userSelections.selectedDamagingEvent = changes;
-        this.userSelections.isDamagingEventSelected = true;
-      } else {
-        this.router.navigate(['/']);
-      }
-    });
+      .firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events document FF Bruneck
+      .collection('damaging-events')
+      .doc(this.damagingEventId) // damaging event from url
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        if (changes.timestamp) { // checks, if there is something in database for this url / id
+          this.userSelections.selectedDamagingEvent = changes;
+          this.userSelections.isDamagingEventSelected = true;
+        } else {
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   private getOperations() {
@@ -66,7 +67,7 @@ export class OperationsComponent implements OnInit {
       .collection('damaging-events')
       .doc(this.damagingEventId) // damaging event from url
       .collection('operations')
-      .valueChanges( { idField: 'customIdName' } )
+      .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.operations = changes;
         this.splitOperations();
@@ -104,7 +105,7 @@ export class OperationsComponent implements OnInit {
     this.completedOperations.sort((a, b) => a.priority.localeCompare(b.priority));
   }
 
-  public openDialog(operation?:Operation) {
+  public openDialog(operation?: Operation) {
     const dialog = this.dialog.open(DialogEditOperationComponent, {
       disableClose: true,
       width: '90vw',
@@ -115,6 +116,14 @@ export class OperationsComponent implements OnInit {
       dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
     } else {
       dialog.componentInstance.operation.operationNumber = this.operations.length + 1; // when we create a new operation we give a new number
+    }
+  }
+
+  public getBadgeColor(operations: Operation[]) {
+    if (operations.length == 0) {
+      return 'primary'
+    } else {
+      return 'warn'
     }
   }
 }
