@@ -72,6 +72,7 @@ export class OperationsComponent implements OnInit {
         this.operations = changes;
         this.splitOperations();
         this.sortAllOperations();
+        this.checkForOpenOperations();
         this.isLoading = false;
       });
   }
@@ -103,6 +104,27 @@ export class OperationsComponent implements OnInit {
     this.openOperations.sort((a, b) => a.priority.localeCompare(b.priority));
     this.ongoingOperations.sort((a, b) => a.priority.localeCompare(b.priority));
     this.completedOperations.sort((a, b) => a.priority.localeCompare(b.priority));
+  }
+
+  private checkForOpenOperations() {
+    let areOpenOperations: boolean;
+    if (this.openOperations.length == 0 && this.ongoingOperations.length == 0) {
+      areOpenOperations = false;
+    } else {
+      areOpenOperations = true;
+    }
+    this.updateOperationsStatus(areOpenOperations);
+  }
+
+  private updateOperationsStatus(ifAreOpenOperations: boolean) {
+    this.firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+      .collection('damaging-events')
+      .doc(this.userSelections.selectedDamagingEvent.customIdName) // actual opened damaging event
+      .update({
+        areOpenOperations: ifAreOpenOperations,
+      })
   }
 
   public openDialog(operation?: Operation) {
