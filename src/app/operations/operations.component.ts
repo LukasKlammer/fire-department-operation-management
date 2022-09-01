@@ -14,13 +14,15 @@ import { UserSelectionsService } from '../shared/user-selections.service';
 })
 export class OperationsComponent implements OnInit {
 
-  damagingEventId: string = '';
-  isLoading: boolean = true;
-  panelOpenState: boolean = true;
-  operations: Operation[] = [];
-  openOperations: Operation[] = [];
-  ongoingOperations: Operation[] = [];
-  completedOperations: Operation[] = [];
+  private damagingEventId: string = '';
+  public isLoading: boolean = true;
+  public panelOpenState: boolean = true;
+  private operations: Operation[] = [];
+  public openOperations: Operation[] = [];
+  public ongoingOperations: Operation[] = [];
+  public completedOperations: Operation[] = [];
+  public newOpenOperation: boolean = false;
+  private previousOpenOperations: Operation[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -60,6 +62,7 @@ export class OperationsComponent implements OnInit {
   }
 
   private getOperations() {
+    this.previousOpenOperations = this.openOperations;
     this
       .firestore
       .collection('ff-bruneck')
@@ -108,6 +111,11 @@ export class OperationsComponent implements OnInit {
 
   private checkForOpenOperations() {
     let areOpenOperations: boolean;
+    if (this.openOperations.length > this.previousOpenOperations.length) {
+      this.newOpenOperation = true;
+    } else {
+      this.newOpenOperation = false;
+    }
     if (this.openOperations.length == 0 && this.ongoingOperations.length == 0) {
       areOpenOperations = false;
     } else {

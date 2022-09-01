@@ -33,6 +33,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
@@ -88,6 +89,7 @@ import { DialogPrintComponent } from './dialog-print/dialog-print.component';
     provideAuth(() => getAuth()),
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
+    MatCheckboxModule
   ],
   providers: [SidenavService],
   bootstrap: [AppComponent]
