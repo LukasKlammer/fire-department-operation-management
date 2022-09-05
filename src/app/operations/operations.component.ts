@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogAlertBeingeditedComponent } from '../dialog-alert-beingedited/dialog-alert-beingedited.component';
 import { DialogEditOperationComponent } from '../dialog-edit-operation/dialog-edit-operation.component';
 import { Operation } from '../models/operation.class';
 import { UserSelectionsService } from '../shared/user-selections.service';
@@ -26,6 +27,7 @@ export class OperationsComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    public alertDialog: MatDialog,
     private firestore: AngularFirestore,
     public userSelections: UserSelectionsService,
     private route: ActivatedRoute,
@@ -135,7 +137,42 @@ export class OperationsComponent implements OnInit {
       })
   }
 
-  public openDialog(operation?: Operation) {
+  public addOrEditOperation(operation?: Operation) {
+    if (operation?.beingEdited) {
+      const dialogRef = this.alertDialog.open(DialogAlertBeingeditedComponent);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          const dialog = this.dialog.open(DialogEditOperationComponent, {
+            disableClose: true,
+            width: '90vw',
+            height: '90vh',
+          });
+          if (operation) {
+            dialog.componentInstance.operation = new Operation(operation);
+            dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
+            dialog.componentInstance.operation.beingEdited = true;
+          } else {
+            dialog.componentInstance.operation.operationNumber = this.operations.length + 1; // when we create a new operation we give a new number
+          }
+        }
+      })
+    } else {
+      const dialog = this.dialog.open(DialogEditOperationComponent, {
+        disableClose: true,
+        width: '90vw',
+        height: '90vh',
+      });
+      if (operation) {
+        dialog.componentInstance.operation = new Operation(operation);
+        dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
+        dialog.componentInstance.operation.beingEdited = true;
+      } else {
+        dialog.componentInstance.operation.operationNumber = this.operations.length + 1; // when we create a new operation we give a new number
+      }
+    }
+  }
+
+  private openEditDialog(operation?: Operation) {
     const dialog = this.dialog.open(DialogEditOperationComponent, {
       disableClose: true,
       width: '90vw',
@@ -144,6 +181,7 @@ export class OperationsComponent implements OnInit {
     if (operation) {
       dialog.componentInstance.operation = new Operation(operation);
       dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
+      dialog.componentInstance.operation.beingEdited = true;
     } else {
       dialog.componentInstance.operation.operationNumber = this.operations.length + 1; // when we create a new operation we give a new number
     }

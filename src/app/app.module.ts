@@ -43,6 +43,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxPrintModule } from 'ngx-print';
 import { DialogPrintComponent } from './dialog-print/dialog-print.component';
+import { DialogAlertBeingeditedComponent } from './dialog-alert-beingedited/dialog-alert-beingedited.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { DialogPrintComponent } from './dialog-print/dialog-print.component';
     DamagingEventsComponent,
     DialogAddDamagingEventComponent,
     CurrentDamagingEventComponent,
-    DialogPrintComponent
+    DialogPrintComponent,
+    DialogAlertBeingeditedComponent
   ],
   imports: [
     BrowserModule,

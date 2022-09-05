@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Operation } from '../models/operation.class';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -16,7 +16,7 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['./dialog-edit-operation.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class DialogEditOperationComponent implements OnInit {
+export class DialogEditOperationComponent implements OnInit, OnDestroy {
 
   operation: Operation = new Operation();
   isLoading: boolean = false;
@@ -42,6 +42,12 @@ export class DialogEditOperationComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value || '')),
     );
+    this.setEditingStatus();
+  }
+
+  ngOnDestroy(): void {
+    this.operation.beingEdited = false;
+    this.setEditingStatus();
   }
 
   private _filter(value: string): string[] {
@@ -53,14 +59,18 @@ export class DialogEditOperationComponent implements OnInit {
     if (ngForm.submitted && ngForm.form.valid && this.isSaveClicked) { // checks, if form is valid and submitted and if a save button is clicked
       this.isLoading = true;
       this.firestationService.save();
-      if (this.isExistingOperation) { // if operation already exists
-        this.editOperationInFirestore(); // operation is to edit in firestore
-      } else {
-        this.addOperationToFirestore(); // operation is new --> add to firestore
-      }
+      this.addOrEditOperationToFirestore();
       if (this.shouldPrint) {
         this.openPrintDialog();
       }
+    }
+  }
+
+  private addOrEditOperationToFirestore() {
+    if (this.isExistingOperation) { // if operation already exists
+      this.editOperationInFirestore(); // operation is to edit in firestore
+    } else {
+      this.addOperationToFirestore(); // operation is new --> add to firestore
     }
   }
 
@@ -90,7 +100,18 @@ export class DialogEditOperationComponent implements OnInit {
       .then((result: any) => {
         this.isLoading = false;
         this.dialogRef.close();
-      })
+      });
+  }
+
+  private setEditingStatus() {
+    this.firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+      .collection('damaging-events')
+      .doc(this.userSelections.selectedDamagingEvent.customIdName) // actual opened damaging event
+      .collection('operations')
+      .doc(this.operation.customIdName)
+      .update({ beingEdited: this.operation.beingEdited });
   }
 
   public drop(event: CdkDragDrop<string[]>) {

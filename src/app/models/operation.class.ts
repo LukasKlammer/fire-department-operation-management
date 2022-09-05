@@ -1,3 +1,4 @@
+
 export class Operation {
 
   timestamp: number;
@@ -19,6 +20,7 @@ export class Operation {
   notes: string;
   conclusionTime: number;
   customIdName: string;
+  beingEdited: boolean;
 
 
   constructor(obj?: any) {
@@ -41,6 +43,7 @@ export class Operation {
     this.notes = obj ? obj.notes : '';
     this.conclusionTime = obj ? obj.conclusionTime : new Date().getTime();
     this.customIdName = obj ? obj.customIdName  : ''; // is the ID from firebase
+    this.beingEdited = obj ? obj.beingEdited : false;
   }
 
 
@@ -65,6 +68,7 @@ export class Operation {
       notes: this.notes,
       conclusionTime: this.conclusionTime,
       customIdName: this.customIdName,
+      beingEdited: this.beingEdited,
     }
   }
 
