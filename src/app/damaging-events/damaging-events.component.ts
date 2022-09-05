@@ -17,7 +17,6 @@ export class DamagingEventsComponent implements OnInit {
   isLoading: boolean = true;
   damagingEvents: DamagingEvent[] = [];
 
-
   constructor(public dialog: MatDialog, private firestore: AngularFirestore, public userSelections: UserSelectionsService) { }
 
   ngOnInit(): void {
@@ -31,9 +30,18 @@ export class DamagingEventsComponent implements OnInit {
         this.damagingEvents = changes;
         this.sortDamagingEvents();
         this.isLoading = false;
+      });
 
-        // this.hasCompletetOperations$(this.damagingEvents[1])
-        // .subscribe(result => console.log("Damaging Event 0 has Complete Operations :", result));
+      this
+      .firestore
+      .collection('ff-bruneck')
+      .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        let foundDamagingEvent = this.damagingEvents.find(event => event.customIdName == changes.lastAddedDamagingEvent)
+        if (foundDamagingEvent){
+          this.selectEvent(foundDamagingEvent)
+        }
       });
   }
 
@@ -42,6 +50,7 @@ export class DamagingEventsComponent implements OnInit {
   }
 
   public selectEvent(damagingEvent: DamagingEvent) {
+    console.log(damagingEvent);
     this.userSelections.isDamagingEventSelected = true;
     this.userSelections.selectedDamagingEvent.description = damagingEvent.description;
     this.userSelections.selectedDamagingEvent.timestamp = damagingEvent.timestamp;
@@ -51,26 +60,5 @@ export class DamagingEventsComponent implements OnInit {
     this.dialog.open(DialogAddDamagingEventComponent, {
       disableClose: true,
     });
-  }
-
-  public checkOpenOperations(customIdName: string) {
-
-    console.log('aufruf');
-    console.log(customIdName);
-    return false;
-
-  }
-
-  hasCompletetOperations$(damagingEvent : DamagingEvent){
-    return this.firestore
-    .collection('ff-bruneck')
-    .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
-    .collection('damaging-events')
-    .doc(damagingEvent.customIdName)
-    .collection('operations', ref => ref.where('status', '==', 'Abgeschlossen'))
-    .valueChanges()
-    .pipe(
-      map(changes => changes.length > 0)
-    );
   }
 }
