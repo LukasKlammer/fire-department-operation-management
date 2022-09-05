@@ -22,9 +22,9 @@
           <span class="cdk-visually-hidden">
             operation icon with overlaid badge showing the number of opened operations
           </span>
-          <mat-card *ngIf="newOpenOperation" class="new-operation-alert">
-            <span>neuer Einsatz!</span>
-            <mat-checkbox *ngIf="newOpenOperation" [(ngModel)]="newOpenOperation" color="warn"></mat-checkbox>
+          <mat-card *ngIf="isNewOpenOperation" class="new-operation-alert">
+            <span>neuer offener Einsatz!</span>
+            <mat-checkbox *ngIf="isNewOpenOperation" [(ngModel)]="isNewOpenOperation" color="warn"></mat-checkbox>
             <span>ok</span>
           </mat-card>
         </div>

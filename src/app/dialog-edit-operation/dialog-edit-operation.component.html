@@ -121,7 +121,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Uhrzeit Abschluss (wird automatisch generiert, wenn Status auf abgeschlossen gesetzt wird)
             </mat-label>
-            <input disabled value="{{ operation.conclusionTime | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
+            <input [disabled]="true" value="{{ operation.conclusionTime | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>eingesetzte Fahrzeuge</mat-label>

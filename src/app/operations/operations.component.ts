@@ -6,6 +6,7 @@ import { DialogAlertBeingeditedComponent } from '../dialog-alert-beingedited/dia
 import { DialogEditOperationComponent } from '../dialog-edit-operation/dialog-edit-operation.component';
 import { Operation } from '../models/operation.class';
 import { UserSelectionsService } from '../shared/user-selections.service';
+import { skip } from 'rxjs/operators';
 
 
 @Component({
@@ -22,8 +23,7 @@ export class OperationsComponent implements OnInit {
   public openOperations: Operation[] = [];
   public ongoingOperations: Operation[] = [];
   public completedOperations: Operation[] = [];
-  public newOpenOperation: boolean = false;
-  private previousOpenOperations: Operation[] = [];
+  public isNewOpenOperation: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -64,7 +64,6 @@ export class OperationsComponent implements OnInit {
   }
 
   private getOperations() {
-    this.previousOpenOperations = this.openOperations;
     this
       .firestore
       .collection('ff-bruneck')
@@ -74,6 +73,7 @@ export class OperationsComponent implements OnInit {
       .collection('operations')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
+        this.checkNewOpenOperations(changes);
         this.operations = changes;
         this.splitOperations();
         this.sortAllOperations();
@@ -84,25 +84,9 @@ export class OperationsComponent implements OnInit {
 
 
   private splitOperations() {
-    this.openOperations = [];
-    this.ongoingOperations = [];
-    this.completedOperations = [];
-    for (let i = 0; i < this.operations.length; i++) {
-      let operation = this.operations[i];
-      switch (operation.status) {
-        case 'Offen':
-          this.openOperations.push(operation);
-          break;
-        case 'Läuft':
-          this.ongoingOperations.push(operation);
-          break;
-        case 'Abgeschlossen':
-          this.completedOperations.push(operation);
-          break;
-        default:
-          break;
-      }
-    }
+    this.openOperations = this.filterByStatus(this.operations, 'Offen');
+    this.ongoingOperations = this.filterByStatus(this.operations, 'Läuft');
+    this.completedOperations = this.filterByStatus(this.operations, 'Abgeschlossen');
   }
 
   private sortAllOperations() {
@@ -112,18 +96,23 @@ export class OperationsComponent implements OnInit {
   }
 
   private checkForOpenOperations() {
-    let areOpenOperations: boolean;
-    if (this.openOperations.length > this.previousOpenOperations.length) {
-      this.newOpenOperation = true;
+    if (this.openOperations.length != 0 || this.ongoingOperations.length != 0) {
+      this.updateOperationsStatus(true);
     } else {
-      this.newOpenOperation = false;
+      this.updateOperationsStatus(false);
     }
-    if (this.openOperations.length == 0 && this.ongoingOperations.length == 0) {
-      areOpenOperations = false;
-    } else {
-      areOpenOperations = true;
+  }
+
+  private checkNewOpenOperations(changes: any) {
+    let receivedOpenOperations = this.filterByStatus(changes, 'Offen');
+    let previousOpenOperations = this.filterByStatus(this.operations, 'Offen');
+    if (receivedOpenOperations.length > previousOpenOperations.length && this.operations.length != 0) {
+      this.isNewOpenOperation = true;
     }
-    this.updateOperationsStatus(areOpenOperations);
+  }
+
+  private filterByStatus(array: any[], filter: string) {
+    return array.filter((op : any) => op.status == filter)
   }
 
   private updateOperationsStatus(areOpenOperations: boolean) {
