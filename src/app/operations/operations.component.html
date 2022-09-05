@@ -3,7 +3,7 @@
   <ng-container *ngIf="!isLoading">
 
     <div class="operations-headrow">
-      <button mat-raised-button class="add-button" color="primary" (click)="addOrEditOperation()">
+      <button mat-raised-button class="add-button" color="primary" (click)="openEditDialog()">
         <mat-icon fontIcon="add" class="margin-right-4">add</mat-icon>
         Einsatz erstellen
       </button>
@@ -31,7 +31,7 @@
       </mat-expansion-panel-header>
       <div class="operations-box">
         <mat-card *ngFor="let operation of openOperations" class="{{ operation.priority }}"
-          (click)="addOrEditOperation(operation)">
+          (click)="checkIfEditable(operation)">
           <table>
             <tr>
               <td>
@@ -63,7 +63,7 @@
       </mat-expansion-panel-header>
       <div class="operations-box">
         <mat-card *ngFor="let operation of ongoingOperations" class="{{ operation.priority }}"
-          (click)="addOrEditOperation(operation)">
+          (click)="checkIfEditable(operation)">
           <table>
             <tr>
               <td>
@@ -95,7 +95,7 @@
       </mat-expansion-panel-header>
       <div class="operations-box">
         <mat-card *ngFor="let operation of completedOperations" class="{{ operation.priority }}"
-          (click)="addOrEditOperation(operation)">
+          (click)="checkIfEditable(operation)">
           <table>
             <tr>
               <td>

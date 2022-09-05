@@ -137,42 +137,20 @@ export class OperationsComponent implements OnInit {
       })
   }
 
-  public addOrEditOperation(operation?: Operation) {
+  public checkIfEditable(operation?: Operation) {
     if (operation?.beingEdited) {
       const dialogRef = this.alertDialog.open(DialogAlertBeingeditedComponent);
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          const dialog = this.dialog.open(DialogEditOperationComponent, {
-            disableClose: true,
-            width: '90vw',
-            height: '90vh',
-          });
-          if (operation) {
-            dialog.componentInstance.operation = new Operation(operation);
-            dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
-            dialog.componentInstance.operation.beingEdited = true;
-          } else {
-            dialog.componentInstance.operation.operationNumber = this.operations.length + 1; // when we create a new operation we give a new number
-          }
+      dialogRef.afterClosed().subscribe(openEdit => {
+        if (openEdit) {
+          this.openEditDialog(operation);
         }
       })
     } else {
-      const dialog = this.dialog.open(DialogEditOperationComponent, {
-        disableClose: true,
-        width: '90vw',
-        height: '90vh',
-      });
-      if (operation) {
-        dialog.componentInstance.operation = new Operation(operation);
-        dialog.componentInstance.isExistingOperation = true; // when we open a dialog by clicking on operation card it is an existing operation
-        dialog.componentInstance.operation.beingEdited = true;
-      } else {
-        dialog.componentInstance.operation.operationNumber = this.operations.length + 1; // when we create a new operation we give a new number
-      }
+      this.openEditDialog(operation);
     }
   }
 
-  private openEditDialog(operation?: Operation) {
+  public openEditDialog(operation?: Operation | undefined) {
     const dialog = this.dialog.open(DialogEditOperationComponent, {
       disableClose: true,
       width: '90vw',

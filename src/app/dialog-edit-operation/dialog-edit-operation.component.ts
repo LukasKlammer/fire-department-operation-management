@@ -42,12 +42,16 @@ export class DialogEditOperationComponent implements OnInit, OnDestroy {
       startWith(''),
       map(value => this._filter(value || '')),
     );
-    this.setEditingStatus();
+    if (this.isExistingOperation) {
+      this.setEditingStatus();
+    }
   }
 
   ngOnDestroy(): void {
     this.operation.beingEdited = false;
-    this.setEditingStatus();
+    if (this.isExistingOperation) {
+      this.setEditingStatus();
+    }
   }
 
   private _filter(value: string): string[] {
