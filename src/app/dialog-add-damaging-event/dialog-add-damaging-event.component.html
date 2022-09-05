@@ -19,7 +19,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Zeitstempel (wird automatisch generiert)</mat-label>
         <input
-          disabled
+          [disabled]="true"
           value="{{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }}"
           matInput>
       </mat-form-field>

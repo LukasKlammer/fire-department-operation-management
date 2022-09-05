@@ -126,14 +126,14 @@ export class OperationsComponent implements OnInit {
     this.updateOperationsStatus(areOpenOperations);
   }
 
-  private updateOperationsStatus(ifAreOpenOperations: boolean) {
+  private updateOperationsStatus(areOpenOperations: boolean) {
     this.firestore
       .collection('ff-bruneck')
       .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
       .collection('damaging-events')
       .doc(this.userSelections.selectedDamagingEvent.customIdName) // actual opened damaging event
       .update({
-        areOpenOperations: ifAreOpenOperations,
+        areOpenOperations: areOpenOperations,
       })
   }
 
