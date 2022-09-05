@@ -9,11 +9,11 @@
         <div class="form-row">
           <mat-form-field appearance="outline">
             <mat-label>laufende Nummer</mat-label>
-            <input disabled value="{{ operation.operationNumber }}" matInput>
+            <input [disabled]="true" value="{{ operation.operationNumber }}" matInput>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Zeitstempel (wird automatisch generiert)</mat-label>
-            <input disabled value="{{ operation.timestamp | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
+            <input [disabled]="true" value="{{ operation.timestamp | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
           </mat-form-field>
         </div>
         <div class="form-row">
