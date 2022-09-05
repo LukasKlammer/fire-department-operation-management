@@ -63,6 +63,7 @@ export class DialogEditOperationComponent implements OnInit, OnDestroy {
     if (ngForm.submitted && ngForm.form.valid && this.isSaveClicked) { // checks, if form is valid and submitted and if a save button is clicked
       this.isLoading = true;
       this.firestationService.save();
+      this.setAllUsedVehicles();
       this.addOrEditOperationToFirestore();
       if (this.shouldPrint) {
         this.openPrintDialog();
@@ -75,6 +76,15 @@ export class DialogEditOperationComponent implements OnInit, OnDestroy {
       this.editOperationInFirestore(); // operation is to edit in firestore
     } else {
       this.addOperationToFirestore(); // operation is new --> add to firestore
+    }
+  }
+
+  private setAllUsedVehicles() {
+    for (let i = 0; i < this.operation.vehicles.length; i++) {
+      console.log(this.operation.vehicles[i]);
+      if (!this.operation.allUsedVehicles.includes(this.operation.vehicles[i])) {
+        this.operation.allUsedVehicles += `${this.operation.vehicles[i]}, `;
+      }
     }
   }
 

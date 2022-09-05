@@ -124,7 +124,7 @@
             <input [disabled]="true" value="{{ operation.conclusionTime | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>eingesetzte Fahrzeuge</mat-label>
+            <mat-label>im Einsatzverlauf eingesetzte Fahrzeuge (bitte überprüfen)</mat-label>
             <textarea [disabled]="isLoading" [(ngModel)]="operation.allUsedVehicles" name="allUsedVehicles" matInput
               required placeholder="Alle Fahrzeuge, die irgendwann an der Einsatzstelle waren."></textarea>
           </mat-form-field>

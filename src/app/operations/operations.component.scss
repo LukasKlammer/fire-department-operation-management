@@ -88,6 +88,7 @@ h2 {
   align-items: center;
   padding-top: 12px;
   padding-bottom: 12px;
+
   mat-icon {
     padding-left: 8px;
   }
@@ -101,14 +102,22 @@ mat-expansion-panel {
   margin-left: 48px;
   padding-left: 36px;
   padding-right: 36px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   animation: blinker 1s linear infinite;
+
   mat-checkbox {
     margin-left: 18px;
     margin-right: 6px;
   }
 
   @keyframes blinker {
-    from {background-color: white;}
-    to {background-color: rgba(255, 255, 0, 0.879);}
+    from {
+      background-color: white;
+    }
+
+    to {
+      background-color: rgba(255, 255, 0, 0.879);
+    }
   }
 }
