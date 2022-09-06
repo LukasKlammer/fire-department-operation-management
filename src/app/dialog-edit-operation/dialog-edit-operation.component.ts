@@ -79,7 +79,6 @@ export class DialogEditOperationComponent implements OnInit, OnDestroy {
 
   private setAllUsedVehicles() {
     for (let i = 0; i < this.operation.vehicles.length; i++) {
-      console.log(this.operation.vehicles[i]);
       if (!this.operation.allUsedVehicles.includes(this.operation.vehicles[i])) {
         this.operation.allUsedVehicles += `${this.operation.vehicles[i]}, `;
       }

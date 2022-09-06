@@ -6,7 +6,6 @@ import { DialogAlertBeingeditedComponent } from '../dialog-alert-beingedited/dia
 import { DialogEditOperationComponent } from '../dialog-edit-operation/dialog-edit-operation.component';
 import { Operation } from '../models/operation.class';
 import { UserSelectionsService } from '../shared/user-selections.service';
-import { skip } from 'rxjs/operators';
 
 
 @Component({
