@@ -9,59 +9,61 @@
         <div class="form-row">
           <mat-form-field appearance="outline">
             <mat-label>laufende Nummer</mat-label>
-            <input [disabled]="true" value="{{ operation.operationNumber }}" matInput>
+            <input [attr.disabled]="true" value="{{ operation.operationNumber }}" matInput>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Zeitstempel (wird automatisch generiert)</mat-label>
-            <input [disabled]="true" value="{{ operation.timestamp | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
+            <input [attr.disabled]="true" value="{{ operation.timestamp | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
           </mat-form-field>
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline">
             <mat-label>Straße + Hausnummer</mat-label>
-            <input [disabled]="isLoading" [(ngModel)]="operation.address" name="address" matInput
+            <input [attr.disabled]="isLoading" [(ngModel)]="operation.address" name="address" matInput
               placeholder="Straße + Hausnummer" required>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Ort</mat-label>
-            <input [disabled]="isLoading" [(ngModel)]="operation.city" name="city" matInput placeholder="Ort" required>
+            <input [attr.disabled]="isLoading" [(ngModel)]="operation.city" name="city" matInput placeholder="Ort"
+              required>
           </mat-form-field>
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline">
             <mat-label>Anrufer / Melder</mat-label>
-            <input [disabled]="isLoading" [(ngModel)]="operation.caller" name="caller" matInput
+            <input [attr.disabled]="isLoading" [(ngModel)]="operation.caller" name="caller" matInput
               placeholder="Name des Anrufers / Melders" required>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Telefonnummer</mat-label>
-            <input [disabled]="isLoading" [(ngModel)]="operation.phone" name="phone" matInput
+            <input [attr.disabled]="isLoading" [(ngModel)]="operation.phone" name="phone" matInput
               placeholder="Name des Anrufers / Melders" required>
           </mat-form-field>
         </div>
         <mat-form-field appearance="outline">
           <mat-label>Stichwort</mat-label>
-          <input type="text" placeholder="Wasserschaden, Unwetter, Ast/Baum/Bauteil,..." [(ngModel)]="operation.keyword"
-            [disabled]="isLoading" name="keyword" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let keyword of filteredKeywords | async" [value]="keyword">
-              {{ keyword }}
-            </mat-option>
-          </mat-autocomplete>
+          <input type="text" matInput [matAutocomplete]="auto" [attr.disabled]="isLoading" name="keyword"
+            #keywordField="ngModel" [(ngModel)]="operation.keyword" (ngModelChange)="doFilter()"
+            placeholder="Wasserschaden, Unwetter, Ast/Baum/Bauteil,..." [matAutocomplete]="auto" required>
         </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let keyword of filteredKeywords" [value]="keyword">
+            {{ keyword }}
+          </mat-option>
+        </mat-autocomplete>
         <mat-form-field appearance="outline">
           <mat-label>Bemerkungen</mat-label>
-          <textarea [disabled]="isLoading" [(ngModel)]="operation.comments" name="comments" matInput
+          <textarea [attr.disabled]="isLoading" [(ngModel)]="operation.comments" name="comments" matInput
             placeholder="Bemerkungen zum Einsatz" required></textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Einsatz eingegeben von</mat-label>
-          <input [disabled]="isLoading" [(ngModel)]="operation.calltaker" name="calltaker" matInput
+          <input [attr.disabled]="isLoading" [(ngModel)]="operation.calltaker" name="calltaker" matInput
             placeholder="Dein Name (Feuerwehrmann ...)" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Priorität</mat-label>
-          <mat-select [disabled]="isLoading" [(ngModel)]="operation.priority" name="priority" required>
+          <mat-select [attr.disabled]="isLoading" [(ngModel)]="operation.priority" name="priority" required>
             <mat-option *ngFor="let priority of priorities" [value]="priority">
               {{ priority }}
             </mat-option>
@@ -74,10 +76,10 @@
         <h1 mat-dialog-title>Einsatz-Abarbeitung</h1>
         <mat-form-field appearance="fill">
           <mat-label>Status</mat-label>
-          <mat-select [disabled]="isLoading" [(ngModel)]="operation.status" name="status" required>
+          <mat-select [attr.disabled]="isLoading" [(ngModel)]="operation.status" name="status" required>
             <mat-option value="Offen">Offen</mat-option>
             <mat-option value="Läuft">Läuft</mat-option>
-            <mat-option value="Abgeschlossen" [disabled]="operation.vehicles.length !== 0"
+            <mat-option value="Abgeschlossen" [attr.disabled]="operation.vehicles.length !== 0"
               matTooltip="Vor Abschluss: zugeteilte Fahrzeuge zu verfügbaren Fahrzeugen ziehen."
               matTooltipClass="tooltip-red" matTooltipPosition="left"
               [matTooltipDisabled]="operation.vehicles.length === 0" (click)="setConclusionTime()">Abgeschlossen
@@ -87,12 +89,12 @@
         <div class="form-row">
           <mat-form-field [style.width.px]=200 appearance="outline">
             <mat-label>Einsatzleiter</mat-label>
-            <textarea [disabled]="isLoading" [(ngModel)]="operation.chief" name="chief" matInput
+            <textarea [attr.disabled]="isLoading" [(ngModel)]="operation.chief" name="chief" matInput
               placeholder="Einsatzleiter"></textarea>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Einsatzkräfte</mat-label>
-            <textarea [disabled]="isLoading" [(ngModel)]="operation.personal" name="personal" matInput
+            <textarea [attr.disabled]="isLoading" [(ngModel)]="operation.personal" name="personal" matInput
               placeholder="Namen der Einsatzkräfte"></textarea>
           </mat-form-field>
         </div>
@@ -121,32 +123,32 @@
           <mat-form-field appearance="outline">
             <mat-label>Uhrzeit Abschluss (wird automatisch generiert, wenn Status auf abgeschlossen gesetzt wird)
             </mat-label>
-            <input [disabled]="true" value="{{ operation.conclusionTime | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
+            <input [attr.disabled]="true" value="{{ operation.conclusionTime | date : 'dd.MM.y, HH:mm:ss' }}" matInput>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>im Einsatzverlauf eingesetzte Fahrzeuge (bitte überprüfen)</mat-label>
-            <textarea [disabled]="isLoading" [(ngModel)]="operation.allUsedVehicles" name="allUsedVehicles" matInput
-              required placeholder="Alle Fahrzeuge, die irgendwann an der Einsatzstelle waren."></textarea>
+            <textarea [attr.disabled]="isLoading" [(ngModel)]="operation.allUsedVehicles" name="allUsedVehicles"
+              matInput required placeholder="Alle Fahrzeuge, die irgendwann an der Einsatzstelle waren."></textarea>
           </mat-form-field>
         </div>
         <mat-form-field appearance="outline">
           <mat-label>Fahrzeuge extern</mat-label>
-          <textarea [disabled]="isLoading" [(ngModel)]="operation.externalVehicles" name="externalVehicles" matInput
-            placeholder="Fahrzeuge Nachbarwehren, Rettungsdienst, Polizei..."></textarea>
+          <textarea [attr.disabled]="isLoading" [(ngModel)]="operation.externalVehicles" name="externalVehicles"
+            matInput placeholder="Fahrzeuge Nachbarwehren, Rettungsdienst, Polizei..."></textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Notizen</mat-label>
-          <textarea [disabled]="isLoading" [(ngModel)]="operation.notes" name="notes" matInput
+          <textarea [attr.disabled]="isLoading" [(ngModel)]="operation.notes" name="notes" matInput
             placeholder="Lagemeldungen, angeforderte Geräte..."></textarea>
         </mat-form-field>
         <div mat-dialog-actions>
-          <button [disabled]="isLoading" mat-raised-button (click)="onNoClick()">abbrechen</button>
-          <button [disabled]="isLoading" mat-raised-button (click)="shouldPrint = true; isSaveClicked= true">
+          <button [attr.disabled]="isLoading" mat-raised-button (click)="onNoClick()">abbrechen</button>
+          <button [attr.disabled]="isLoading" mat-raised-button (click)="shouldPrint = true; isSaveClicked= true">
             <mat-icon fontIcon="save" class="margin-right-4">save</mat-icon>
             <mat-icon fontIcon="save" class="margin-right-4">print</mat-icon>
             speichern & drucken
           </button>
-          <button [disabled]="isLoading" mat-raised-button color="primary" cdkFocusInitial
+          <button [attr.disabled]="isLoading" mat-raised-button color="primary" cdkFocusInitial
             (click)="isSaveClicked = true">
             <mat-icon fontIcon="save" class="margin-right-4">save</mat-icon>
             speichern
