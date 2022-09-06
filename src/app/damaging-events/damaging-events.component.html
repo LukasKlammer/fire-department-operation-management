@@ -12,15 +12,12 @@
       wurden.</p>
     <ng-container *ngIf="!isLoading">
       <label id="select-damaging-event">Wähle das gewünschte Schadensereignis aus:</label>
-      <mat-radio-group
-        [(ngModel)]="userSelections.selectedDamagingEvent.customIdName"
-        >
-        <mat-radio-button class="select-event-row"
-          *ngFor="let damagingEvent of damagingEvents"
-          [value]="damagingEvent.customIdName"
-          (click)="selectEvent(damagingEvent)">
+      <mat-radio-group [(ngModel)]="userSelections.selectedDamagingEvent.customIdName">
+        <mat-radio-button class="select-event-row" *ngFor="let damagingEvent of damagingEvents"
+          [value]="damagingEvent.customIdName" (click)="selectEvent(damagingEvent)">
           <div class="select-infos-wrapper">
-            <span>{{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss' }} Uhr</span>
+            <span>{{ damagingEvent.description }}, erstellt am {{ damagingEvent.timestamp | date : 'dd.MM.y, HH:mm:ss'
+              }} Uhr</span>
             <div class="open-operations-note" *ngIf="damagingEvent.areOpenOperations">
               <mat-icon>warning</mat-icon>
               <mat-icon>fire_truck</mat-icon>
@@ -30,11 +27,12 @@
         </mat-radio-button>
       </mat-radio-group>
 
-      <button class="navigate-operations-button" *ngIf="userSelections.isDamagingEventSelected" mat-raised-button color="primary"
-          [routerLink]="['/' +  userSelections.selectedDamagingEvent.customIdName ]">
+      <button class="navigate-operations-button" *ngIf="userSelections.isDamagingEventSelected" mat-raised-button
+        color="primary" [routerLink]="['/' +  userSelections.selectedDamagingEvent.customIdName ]">
         <mat-icon fontIcon="navigate">assistant_direction</mat-icon>
         <mat-icon fontIcon="fire_truck">fire_truck</mat-icon>
-        zu den Einsätzen: {{ userSelections.selectedDamagingEvent.description }}, erstellt am {{ userSelections.selectedDamagingEvent.timestamp | date
+        zu den Einsätzen: {{ userSelections.selectedDamagingEvent.description }}, erstellt am {{
+        userSelections.selectedDamagingEvent.timestamp | date
         : 'dd.MM.y, HH:mm:ss' }} Uhr
       </button>
     </ng-container>

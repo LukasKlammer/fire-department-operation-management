@@ -20,6 +20,11 @@ export class DamagingEventsComponent implements OnInit {
   constructor(public dialog: MatDialog, private firestore: AngularFirestore, public userSelections: UserSelectionsService) { }
 
   ngOnInit(): void {
+    this.getDamagingEvents();
+    this.getLastAddedDamagingEvent();
+  }
+
+  private getDamagingEvents() {
     this
       .firestore
       .collection('ff-bruneck')
@@ -31,16 +36,18 @@ export class DamagingEventsComponent implements OnInit {
         this.sortDamagingEvents();
         this.isLoading = false;
       });
+  }
 
-      this
+  private getLastAddedDamagingEvent() {
+    this
       .firestore
       .collection('ff-bruneck')
       .doc('QEcJgDBlPVt64GUFIPmw') // damaging events (FF Bruneck) document
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
-        let foundDamagingEvent = this.damagingEvents.find(event => event.customIdName == changes.lastAddedDamagingEvent)
-        if (foundDamagingEvent){
-          this.selectEvent(foundDamagingEvent)
+        let lastAddedDamagingEvent = this.damagingEvents.find(event => event.customIdName == changes.lastAddedDamagingEvent);
+        if (lastAddedDamagingEvent) {
+          this.selectEvent(lastAddedDamagingEvent);
         }
       });
   }
@@ -50,10 +57,8 @@ export class DamagingEventsComponent implements OnInit {
   }
 
   public selectEvent(damagingEvent: DamagingEvent) {
-    console.log(damagingEvent);
+    this.userSelections.selectedDamagingEvent = new DamagingEvent(damagingEvent);
     this.userSelections.isDamagingEventSelected = true;
-    this.userSelections.selectedDamagingEvent.description = damagingEvent.description;
-    this.userSelections.selectedDamagingEvent.timestamp = damagingEvent.timestamp;
   }
 
   public openDialog() {
