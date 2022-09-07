@@ -1,9 +1,15 @@
 <header>
   <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="toggleSidenav()">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+      (click)="toggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
     <span>Feuerwehr der Stadt Bruneck - Einsatzmanagement</span>
-    <span class="example-spacer"></span>
+    <div class="image-wrapper" *ngIf="auth.user$ | async as user" [matMenuTriggerFor]="menu">
+      <img [src]="user.photoURL">
+    </div>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <app-user-profile></app-user-profile>
+    </mat-menu>
   </mat-toolbar>
 </header>

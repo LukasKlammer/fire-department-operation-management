@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/auth.service';
 import { SidenavService } from '../shared/sidenav.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { SidenavService } from '../shared/sidenav.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private sidenav: SidenavService) { }
+  constructor(private sidenav: SidenavService, public auth: AuthService) { }
 
   ngOnInit(): void {
   }

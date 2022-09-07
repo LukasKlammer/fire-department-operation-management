@@ -18,6 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 
 // imports firestore modules
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -98,6 +99,7 @@ import { ApplicationComponent } from './application/application.component';
     MatAutocompleteModule,
     MatExpansionModule,
     MatBadgeModule,
+    MatMenuModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     AngularFirestoreModule,
