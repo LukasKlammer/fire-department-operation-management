@@ -50,6 +50,8 @@ import { SidenavService } from './shared/sidenav.service';
 // imports ngx
 import { NgxPrintModule } from 'ngx-print';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LoginScreenComponent } from './login-screen/login-screen.component';
+import { ApplicationComponent } from './application/application.component';
 
 
 @NgModule({
@@ -66,7 +68,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     CurrentDamagingEventComponent,
     DialogPrintComponent,
     DialogAlertBeingeditedComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    LoginScreenComponent,
+    ApplicationComponent
   ],
   imports: [
     BrowserModule,

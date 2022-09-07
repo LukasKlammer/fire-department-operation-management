@@ -4,14 +4,14 @@
       <mat-icon fontIcon="missions">library_add</mat-icon>
       <span>alle Schadensereignisse</span>
     </a>
-    <a *ngIf="userSelections.isDamagingEventSelected" [routerLink]="['/' + userSelections.selectedDamagingEvent.customIdName]" class="nav-links" (click)="closeSidenav()">
+    <a *ngIf="userSelections.isDamagingEventSelected" [routerLink]="[{outlets: {secondary: [userSelections.selectedDamagingEvent.customIdName]} } ]" class="nav-links" (click)="closeSidenav()">
       <mat-icon fontIcon="current-mission">notification_add</mat-icon>
       <span>ausgewähltes Schadensereignis</span>
     </a>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <router-outlet></router-outlet>
+    <router-outlet name="secondary"></router-outlet>
   </mat-sidenav-content>
 
 </mat-sidenav-container>

@@ -28,7 +28,7 @@
       </mat-radio-group>
 
       <button class="navigate-operations-button" *ngIf="userSelections.isDamagingEventSelected" mat-raised-button
-        color="primary" [routerLink]="['/' +  userSelections.selectedDamagingEvent.customIdName ]">
+        color="primary" [routerLink]="[{outlets: {secondary: [userSelections.selectedDamagingEvent.customIdName]} } ]">
         <mat-icon fontIcon="navigate">assistant_direction</mat-icon>
         <mat-icon fontIcon="fire_truck">fire_truck</mat-icon>
         zu den Einsätzen: {{ userSelections.selectedDamagingEvent.description }}, erstellt am {{

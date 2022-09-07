@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './shared/auth.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ export class AppComponent {
   title = 'fd-mission-management';
 
 
-  constructor() {
+  constructor(public auth: AuthService) {
   }
 
 
