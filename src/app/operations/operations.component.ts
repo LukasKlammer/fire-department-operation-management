@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogAlertBeingeditedComponent } from '../dialog-alert-beingedited/dialog-alert-beingedited.component';
+import { DialogAlertBeingeditedComponent } from '../dialog-edit-operation/dialog-alert-beingedited/dialog-alert-beingedited.component';
 import { DialogEditOperationComponent } from '../dialog-edit-operation/dialog-edit-operation.component';
 import { Operation } from '../models/operation.class';
 import { UserSelectionsService } from '../shared/user-selections.service';

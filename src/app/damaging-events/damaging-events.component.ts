@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogAddDamagingEventComponent } from '../dialog-add-damaging-event/dialog-add-damaging-event.component';
+import { DialogAddDamagingEventComponent } from './dialog-add-damaging-event/dialog-add-damaging-event.component';
 import { DamagingEvent } from '../models/damaging-event.class';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserSelectionsService } from '../shared/user-selections.service';

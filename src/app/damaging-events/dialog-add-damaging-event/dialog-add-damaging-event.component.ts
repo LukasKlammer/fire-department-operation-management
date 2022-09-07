@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DamagingEvent } from '../models/damaging-event.class';
-import { UserSelectionsService } from '../shared/user-selections.service';
+import { DamagingEvent } from '../../models/damaging-event.class';
+import { UserSelectionsService } from '../../shared/user-selections.service';
 
 @Component({
   selector: 'app-dialog-add-damaging-event',
