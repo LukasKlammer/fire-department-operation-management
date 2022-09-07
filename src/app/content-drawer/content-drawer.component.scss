@@ -2,6 +2,11 @@ mat-sidenav-content {
   padding: 12px 24px;
 }
 
+:host {
+  height: 100%;
+  overflow-y: scroll;
+}
+
 mat-drawer {
   border-right: 1px solid rgba(0, 0, 0, .1);
   margin-top: 12px;
