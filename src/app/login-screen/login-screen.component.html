@@ -1,4 +1,4 @@
 
 <div class="login-screen">
-  <ngx-auth-firebaseui (onSuccess)="printUser($event)" (onError)="printError($event)"></ngx-auth-firebaseui>
+  <ngx-auth-firebaseui [guestEnabled]="false" [providers]="[providers.Google]" (onSuccess)="printUser($event)" (onError)="printError($event)"></ngx-auth-firebaseui>
 </div>

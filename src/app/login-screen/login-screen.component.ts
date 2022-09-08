@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
+import { AuthProvider } from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'app-login-screen',
@@ -7,6 +8,8 @@ import { AuthService } from '../shared/auth.service';
   styleUrls: ['./login-screen.component.scss']
 })
 export class LoginScreenComponent implements OnInit {
+
+  providers = AuthProvider;
 
   constructor(public auth: AuthService) { }
 
@@ -19,7 +22,7 @@ export class LoginScreenComponent implements OnInit {
   }
 
   printError(event: Event) {
-   console.error(event);
+    console.error(event);
   }
 
 
