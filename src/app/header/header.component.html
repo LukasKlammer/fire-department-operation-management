@@ -6,7 +6,8 @@
     </button>
     <span>Feuerwehr der Stadt Bruneck - Einsatzmanagement</span>
     <div class="image-wrapper" *ngIf="auth.user$ | async as user" [matMenuTriggerFor]="menu">
-      <img [src]="user.photoURL">
+      <img *ngIf="user.photoURL" [src]="user.photoURL">
+      <img *ngIf="!user.photoURL" src="assets/img/user-profile-icon.png">
     </div>
     <mat-menu #menu="matMenu" xPosition="before">
       <app-user-profile></app-user-profile>

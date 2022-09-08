@@ -37,8 +37,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss",
-              "node_modules/material-design-icons/iconfont/material-icons.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -112,8 +111,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss",
-              "node_modules/material-design-icons/iconfont/material-icons.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }

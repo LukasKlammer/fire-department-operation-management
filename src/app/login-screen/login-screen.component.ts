@@ -13,4 +13,14 @@ export class LoginScreenComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  printUser(event: Event) {
+    console.log(event);
+
+  }
+
+  printError(event: Event) {
+   console.error(event);
+  }
+
+
 }
