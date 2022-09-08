@@ -5,3 +5,8 @@
   <p>E-Mail: {{ user.email }}</p>
   <button (click)="auth.signOut()">Logout</button>
 </div>
+
+<ngx-auth-firebaseui
+             (onSuccess)="printUser($event)"
+             (onError)="printError($event)">
+        </ngx-auth-firebaseui>

@@ -53,7 +53,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { ApplicationComponent } from './application/application.component';
-
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 @NgModule({
   declarations: [
@@ -104,7 +104,8 @@ import { ApplicationComponent } from './application/application.component';
     provideAuth(() => getAuth()),
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
-    MatCheckboxModule
+    MatCheckboxModule,
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase),
   ],
   providers: [SidenavService],
   bootstrap: [AppComponent]

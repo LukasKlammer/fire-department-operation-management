@@ -14,4 +14,12 @@ export class UserProfileComponent implements OnInit {
 
   }
 
+  printUser(event: Event) {
+    console.log(event);
+  }
+
+  printError(event: Event) {
+   console.error(event);
+  }
+
 }
