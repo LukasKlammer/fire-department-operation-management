@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { AuthProvider } from 'ngx-auth-firebaseui';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-screen',
@@ -18,7 +19,6 @@ export class LoginScreenComponent implements OnInit {
 
   printUser(event: Event) {
     console.log(event);
-
   }
 
   printError(event: Event) {
