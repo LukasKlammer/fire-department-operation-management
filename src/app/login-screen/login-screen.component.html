@@ -1,4 +1,9 @@
+<div class="header">
 
+</div>
 <div class="login-screen">
-  <ngx-auth-firebaseui [guestEnabled]="false" [providers]="[providers.Google]" (onSuccess)="printUser($event)" (onError)="printError($event)"></ngx-auth-firebaseui>
+  <mat-card class="card">
+    <h2>Login with Google</h2>
+    <ngx-auth-firebaseui-providers [providers]="[providers.Google]" (onSuccess)="printUser($event)" (onError)="printError($event)"></ngx-auth-firebaseui-providers>
+  </mat-card>
 </div>

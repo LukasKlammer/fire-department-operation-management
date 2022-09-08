@@ -1,6 +1,24 @@
+.header {
+  height: 15vh;
+  background-image: url('~src/assets/img/logo_ffb.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
 .login-screen {
   width: 100vw;
-  height: 100vh;
-  // background-image: url('~src/assets/img/bg_image.jpg');
-  // background-size: cover;
+  height: 85vh;
+  background-image: url('~src/assets/img/bg_image.jpg');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  display: inline-block !important;
+  h2 {
+    padding-bottom: 12px;
+  }
 }
