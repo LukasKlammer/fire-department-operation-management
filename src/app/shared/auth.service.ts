@@ -46,12 +46,12 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL
     }
-
+    this.router.navigate(['/damaging-events']);
     return userRef.set(data, { merge: true })
   }
 
   async signOut() {
     await this.fireAuth.signOut();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 }
