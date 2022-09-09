@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApplicationComponent } from './application/application.component';
-// import { AuthGuard } from './auth.guard'; todo: delete
 import { CurrentDamagingEventComponent } from './current-damaging-event/current-damaging-event.component';
 import { DamagingEventsComponent } from './damaging-events/damaging-events.component';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
@@ -30,7 +29,7 @@ const routes: Routes = [
       },
     ]
   },
-  { path: '**', redirectTo: 'login' }, // falls was falsches eingegeben wird, wird man immer wieder zur Startseite geleitet (wildcard route)
+  { path: '**', redirectTo: 'login' }, // wildcard-route: if wrong url entered --> redirect to login component
 ];
 
 @NgModule({
