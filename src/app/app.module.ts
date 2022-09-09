@@ -50,7 +50,6 @@ import { SidenavService } from './shared/sidenav.service';
 
 // imports ngx
 import { NgxPrintModule } from 'ngx-print';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { ApplicationComponent } from './application/application.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
@@ -69,7 +68,6 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
     CurrentDamagingEventComponent,
     DialogPrintComponent,
     DialogAlertBeingeditedComponent,
-    UserProfileComponent,
     LoginScreenComponent,
     ApplicationComponent
   ],
@@ -105,7 +103,12 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     MatCheckboxModule,
-    NgxAuthFirebaseUIModule.forRoot(environment.firebase),
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase,
+      () => 'your_app_name_factory', // explaination from Anthony Nahas: I've just implemented thins that are required in angular fire module. More infos: https://developers.google.com/android/reference/com/google/firebase/FirebaseApp
+      {
+        authGuardFallbackURL: '/login', // url for unauthenticated users - to use in combination with canActivate feature on a route
+        authGuardLoggedInURL: '/damaging-events', // url for authenticated users - to use in combination with canActivate feature on a route
+      }),
   ],
   providers: [SidenavService],
   bootstrap: [AppComponent]

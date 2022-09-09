@@ -1,37 +1,36 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApplicationComponent } from './application/application.component';
-import { AuthGuard } from './auth.guard';
+// import { AuthGuard } from './auth.guard'; todo: delete
 import { CurrentDamagingEventComponent } from './current-damaging-event/current-damaging-event.component';
 import { DamagingEventsComponent } from './damaging-events/damaging-events.component';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
+import { LoggedInGuard } from 'ngx-auth-firebaseui';
 
 const routes: Routes = [
+  { path: '', component: LoginScreenComponent },
   { path: 'login', component: LoginScreenComponent },
-  { path: '', redirectTo: 'damaging-events', pathMatch: 'full' },
   {
     path: 'damaging-events',
     component: ApplicationComponent,
-    canActivate: [AuthGuard],
+    canActivate: [LoggedInGuard],
     children: [
       {
         path: ':id',
         component: CurrentDamagingEventComponent,
         outlet: 'secondary',
-        canActivate: [AuthGuard]
+        canActivate: [LoggedInGuard]
       },
       {
         path: '',
         component: DamagingEventsComponent,
         pathMatch: 'full',
         outlet: 'secondary',
-        canActivate: [AuthGuard]
+        canActivate: [LoggedInGuard]
       },
-
     ]
   },
-  // { path: 'damaging-events', component: DamagingEventsComponent, outlet:'secondary',  canActivate: [AuthGuard] },
-  // { path: '**', redirectTo: '/' }, // falls was falsches eingegeben wird, wird man immer wieder zur Startseite geleitet (wildcard route)
+  { path: '**', redirectTo: 'login' }, // falls was falsches eingegeben wird, wird man immer wieder zur Startseite geleitet (wildcard route)
 ];
 
 @NgModule({

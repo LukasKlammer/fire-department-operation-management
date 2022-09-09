@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/auth.service';
-import { AuthProvider } from 'ngx-auth-firebaseui';
+import { AuthProvider, Theme } from 'ngx-auth-firebaseui';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,14 +10,15 @@ import { Router } from '@angular/router';
 export class LoginScreenComponent implements OnInit {
 
   providers = AuthProvider;
+  themes = Theme; // to set the theme of buttons in the template, for example: [theme]="themes.CLASSIC"
 
-  constructor(public auth: AuthService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  printUser(event: Event) {
-    console.log(event);
+  openApp(event: Event) {
+    this.router.navigate(['/damaging-events']);
   }
 
   printError(event: Event) {

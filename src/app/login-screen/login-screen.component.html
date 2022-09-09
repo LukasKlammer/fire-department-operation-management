@@ -3,7 +3,11 @@
 </div>
 <div class="login-screen">
   <mat-card class="card">
-    <h2>Login with Google</h2>
-    <ngx-auth-firebaseui-providers [providers]="[providers.Google]" (onSuccess)="printUser($event)" (onError)="printError($event)"></ngx-auth-firebaseui-providers>
+    <h2>Klicke auf Google</h2>
+    <ngx-auth-firebaseui-providers
+      [providers]="[providers.Google]"
+      (onSuccess)="openApp($event)"
+      (onError)="printError($event)"
+    ></ngx-auth-firebaseui-providers>
   </mat-card>
 </div>
