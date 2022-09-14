@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { OperationsComponent } from './operations.component';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment.prod';
+import { RouterModule } from '@angular/router';
 
 describe('OperationsComponent', () => {
   let component: OperationsComponent;
@@ -8,9 +13,10 @@ describe('OperationsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OperationsComponent ]
+      imports: [AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, MatDialogModule, RouterModule.forRoot([])],
+      declarations: [OperationsComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(OperationsComponent);
     component = fixture.componentInstance;

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef } from '@angular/material/dialog';
 
 import { DialogAlertBeingeditedComponent } from './dialog-alert-beingedited.component';
 
@@ -8,7 +9,13 @@ describe('DialogAlertBeingeditedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogAlertBeingeditedComponent ]
+      declarations: [ DialogAlertBeingeditedComponent ],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        }
+      ]
     })
     .compileComponents();
 

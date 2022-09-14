@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef } from '@angular/material/dialog';
 
 import { DialogPrintComponent } from './dialog-print.component';
 
@@ -8,7 +9,13 @@ describe('DialogPrintComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogPrintComponent ]
+      declarations: [ DialogPrintComponent ],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {},
+        }
+      ]
     })
     .compileComponents();
 

@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment.prod';
 
 import { FirestationComponent } from './firestation.component';
 
@@ -8,9 +11,10 @@ describe('FirestationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FirestationComponent ]
+      imports: [AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule],
+      declarations: [FirestationComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(FirestationComponent);
     component = fixture.componentInstance;
