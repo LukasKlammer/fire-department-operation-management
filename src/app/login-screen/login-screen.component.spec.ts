@@ -8,31 +8,39 @@ import { Router } from '@angular/router';
 describe('LoginScreenComponent', () => {
   let component: LoginScreenComponent;
   let fixture: ComponentFixture<LoginScreenComponent>;
-  let routerSpy = {navigate: jasmine.createSpy('navigate')};
+  let routerSpy = { navigate: jasmine.createSpy('navigate') };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([]), MatDialogModule],
-      declarations: [ LoginScreenComponent ],
+      declarations: [LoginScreenComponent],
       providers: [
         { provide: Router, useValue: routerSpy }
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LoginScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    jasmine.clock().install();
+  });
+
+  afterEach(() => {
+    jasmine.clock().uninstall();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the header image', () => {
+  it('should load and render the header image', () => {
     const compiled = fixture.debugElement.nativeElement;
-    // expect(compiled.querySelector())
-    // expect(compiled.querySelector('div.header>img').src).toContain('/images/logo.png');
+    let imgElement = compiled.querySelector('div.header>img');
+    expect(imgElement.src).toContain('/assets/img/logo_ffb.png');
+    // jasmine.clock().tick(10000);
+    // imgElement = compiled.querySelector('div.header>img');
+    // expect(imgElement.width).not.toEqual(0);
   });
 
   it('should show google login button', () => {
@@ -47,13 +55,13 @@ describe('LoginScreenComponent', () => {
 });
 
 describe('Übungstests in Login-Screen-Component', () => {
-  it ('should return something', () => {
+  it('should return something', () => {
     expect(true).toBe(true);
   })
-  it ('should be less than 10', () => {
+  it('should be less than 10', () => {
     expect(5).toBeLessThan(10);
   })
-  it ('should habe class container', () => {
+  it('should habe class container', () => {
     let element = document.createElement('div');
     element.className = 'container';
     expect(element).toHaveClass('container');
