@@ -7,14 +7,11 @@ import { Operation } from '../models/operation.class';
   templateUrl: './dialog-print.component.html',
   styleUrls: ['./dialog-print.component.scss']
 })
-export class DialogPrintComponent implements OnInit {
+export class DialogPrintComponent {
 
   operation: Operation = new Operation();
 
   constructor(public dialogRef: MatDialogRef<DialogPrintComponent>) { }
-
-  ngOnInit(): void {
-  }
 
   onNoClick(): void {
     this.dialogRef.close();

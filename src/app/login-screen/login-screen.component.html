@@ -1,12 +1,13 @@
 <div class="header">
-
+  <img src="assets/img/logo_ffb.png" alt="header-logo">
 </div>
 <div class="login-screen">
   <mat-card class="card">
     <h2>Klicke auf Google</h2>
     <ngx-auth-firebaseui-providers
+      id="login-google"
       [providers]="[providers.Google]"
-      (onSuccess)="openApp($event)"
+      (onSuccess)="openApp()"
       (onError)="printError($event)"
     ></ngx-auth-firebaseui-providers>
   </mat-card>

@@ -4,7 +4,6 @@ import { DialogAddDamagingEventComponent } from './dialog-add-damaging-event/dia
 import { DamagingEvent } from '../models/damaging-event.class';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserSelectionsService } from '../shared/user-selections.service';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-damaging-events',
