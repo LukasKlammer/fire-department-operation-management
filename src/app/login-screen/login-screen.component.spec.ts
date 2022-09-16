@@ -9,6 +9,7 @@ describe('LoginScreenComponent', () => {
   let component: LoginScreenComponent;
   let fixture: ComponentFixture<LoginScreenComponent>;
   let routerSpy = { navigate: jasmine.createSpy('navigate') };
+  let compiled: any;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -23,6 +24,7 @@ describe('LoginScreenComponent', () => {
     fixture = TestBed.createComponent(LoginScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    compiled = fixture.debugElement.nativeElement;
     jasmine.clock().install();
   });
 
@@ -34,15 +36,15 @@ describe('LoginScreenComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load and render the header image', () => {
-    const compiled = fixture.debugElement.nativeElement;
+  it('should load the header image path', () => {
     let imgElement = compiled.querySelector('div.header>img');
-    imgElement.onload
     expect(imgElement.src).toContain('/assets/img/logo_ffb.png');
-    // todo expect that callback onErrorImageLoad has not been called
-    // jasmine.clock().tick(10000);
-    // imgElement = compiled.querySelector('div.header>img');
-    // expect(imgElement.width).not.toEqual(0);
+  });
+
+  it('should render the header image', () => {
+    let imgElement = compiled.querySelector('div.header>img');
+    jasmine.clock().tick(10000);
+    expect(imgElement.width).toBeGreaterThan(250);
   });
 
   it('should show google login button', () => {
