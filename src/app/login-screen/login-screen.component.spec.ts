@@ -37,7 +37,9 @@ describe('LoginScreenComponent', () => {
   it('should load and render the header image', () => {
     const compiled = fixture.debugElement.nativeElement;
     let imgElement = compiled.querySelector('div.header>img');
+    imgElement.onload
     expect(imgElement.src).toContain('/assets/img/logo_ffb.png');
+    // todo expect that callback onErrorImageLoad has not been called
     // jasmine.clock().tick(10000);
     // imgElement = compiled.querySelector('div.header>img');
     // expect(imgElement.width).not.toEqual(0);
