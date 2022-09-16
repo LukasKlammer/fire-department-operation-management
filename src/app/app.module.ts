@@ -53,6 +53,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { ApplicationComponent } from './application/application.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { GaugeStationComponent } from './gauge-station/gauge-station.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
     DialogPrintComponent,
     DialogAlertBeingeditedComponent,
     LoginScreenComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    GaugeStationComponent
   ],
   imports: [
     BrowserModule,
