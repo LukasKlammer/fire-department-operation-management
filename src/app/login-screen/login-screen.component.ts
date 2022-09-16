@@ -23,5 +23,9 @@ export class LoginScreenComponent {
     console.error(event);
   }
 
+  onErrorImageLoad(event : any){
+    console.error(event);
+  }
+
 
 }
