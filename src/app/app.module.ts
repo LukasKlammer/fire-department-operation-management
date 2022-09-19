@@ -47,13 +47,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidenavService } from './shared/sidenav.service';
+import { GaugeStationsComponent } from './gauge-stations/gauge-stations.component';
+import { RouterModule } from '@angular/router';
 
 // imports ngx
 import { NgxPrintModule } from 'ngx-print';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { ApplicationComponent } from './application/application.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
-import { GaugeStationComponent } from './gauge-station/gauge-station.component';
 
 @NgModule({
   declarations: [
@@ -71,9 +72,10 @@ import { GaugeStationComponent } from './gauge-station/gauge-station.component';
     DialogAlertBeingeditedComponent,
     LoginScreenComponent,
     ApplicationComponent,
-    GaugeStationComponent
+    GaugeStationsComponent
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GaugeStationComponent } from './gauge-station.component';
+import { GaugeStationsComponent } from './gauge-stations.component';
 
-describe('GaugeStationComponent', () => {
-  let component: GaugeStationComponent;
-  let fixture: ComponentFixture<GaugeStationComponent>;
+describe('GaugeStationsComponent', () => {
+  let component: GaugeStationsComponent;
+  let fixture: ComponentFixture<GaugeStationsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GaugeStationComponent ]
+      declarations: [ GaugeStationsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GaugeStationComponent);
+    fixture = TestBed.createComponent(GaugeStationsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
