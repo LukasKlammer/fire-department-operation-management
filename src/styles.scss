@@ -8,6 +8,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-display: swap; // Instructs the browser to use the fallback font to display the text until the custom font has fully downloaded. This is also known as a “flash of unstyled text” or FOUT.
   color: #34414C;
   background-color: #FFFFFF;
 }
@@ -21,6 +22,9 @@ app-root {
   height: 100%;
 }
 
+p, td, span, input, textarea {
+  font-size: 15px !important;
+}
 
 .bordered-box {
   border: 1px solid rgba(0,0,0,.2);

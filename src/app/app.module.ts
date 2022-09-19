@@ -110,6 +110,7 @@ import { GaugeStationComponent } from './gauge-station/gauge-station.component';
       {
         authGuardFallbackURL: '/login', // url for unauthenticated users - to use in combination with canActivate feature on a route
         authGuardLoggedInURL: '/damaging-events', // url for authenticated users - to use in combination with canActivate feature on a route
+        toastMessageOnAuthSuccess: false
       }),
   ],
   providers: [SidenavService],
