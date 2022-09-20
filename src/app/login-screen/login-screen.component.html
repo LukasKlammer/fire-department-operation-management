@@ -9,6 +9,7 @@
       [providers]="[providers.Google]"
       (onSuccess)="openApp()"
       (onError)="printError($event)"
+      data-cy="login"
     ></ngx-auth-firebaseui-providers>
   </mat-card>
 </div>
