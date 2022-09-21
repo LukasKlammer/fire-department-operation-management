@@ -1,6 +1,9 @@
 <h1>Pegelstände</h1>
 <p>Die Seite wird alle 10 Minuten automatisch aktualisiert.</p>
-<ng-container *ngIf="stationsData.length != 0">
+
+<!-- todo: select your desired stations -->
+
+<ng-container *ngIf="selectedStationsData.length != 0">
   <table>
     <tr>
       <th>Pegelstation</th>
@@ -8,18 +11,14 @@
       <th>Voralarmschwelle</th>
       <th>Alarmschwelle</th>
     </tr>
-    <tr>
-      <td>{{ stationsData[7].name }}</td>
-      <td>{{ stationsData[7].w }} cm</td>
-      <td>nicht bekannt</td>
-      <td>nicht bekannt</td>
-    </tr>
-    <tr>
-      <td>{{ stationsData[14].name }}</td>
-      <td>{{ stationsData[14].w }} cm</td>
-      <td>300 cm</td>
-      <td>350 cm</td>
-    </tr>
+    <ng-container *ngFor="let station of selectedStationsData">
+      <tr>
+        <td>{{ station.name }}</td>
+        <td>{{ station.w }} cm</td>
+        <td>nicht bekannt</td>
+        <td>nicht bekannt</td>
+      </tr>
+    </ng-container>
   </table>
   <br>
   <h1>Durchfluss</h1>
@@ -32,23 +31,19 @@
       <td>Bruneck Stadt (berechnet)</td>
       <td>{{ flowLevelBruneck }} m³/s</td>
     </tr>
-    <tr>
-      <td>{{ stationsData[7].name }}</td>
-      <td>{{ stationsData[7].q }} m³/s</td>
-    </tr>
-    <tr>
-      <td>{{ stationsData[14].name }}</td>
-      <td>{{ stationsData[14].q }} m³/s</td>
-    </tr>
+    <ng-container *ngFor="let station of selectedStationsData">
+      <tr>
+        <td>{{ station.name }}</td>
+        <td>{{ station.q }} cm</td>
+      </tr>
+    </ng-container>
   </table>
   <br>
 
-  <h1>Verlauf {{ stationsData[7].name }}</h1>
-  <img src="{{ stationsData[7].measurements[1].imageUrl }}"
-    alt="Pegel-Verlauf Ahr St.Georgen">
-  <br>
-
-  <h1>Verlauf {{ stationsData[14].name }}</h1>
-  <img src="{{ stationsData[14].measurements[1].imageUrl }}"
-    alt="Pegel-Verlauf Rienz Stegen">
+  <ng-container *ngFor="let station of selectedStationsData">
+    <h1>Verlauf {{ station.name }}</h1>
+    <img src="{{ station.measurements[1].imageUrl }}"
+      alt="Pegel-Verlauf {{ station.name }}">
+    <br>
+  </ng-container>
 </ng-container>

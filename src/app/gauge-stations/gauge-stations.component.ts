@@ -7,15 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GaugeStationsComponent implements OnInit {
   url: string = 'http://daten.buergernetz.bz.it/services/weather/station?categoryId=2&lang=de&format=json'
-  stationsData: any[] = [];
+  fetchedStationsData: any[] = [];
+  selectedStations: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
+  selectedStationsData: any[] = [];
   interval: any;
   flowLevelBruneck: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.initData();
     this.startPeriodicReloading();
-    this.fetchStationsData();
   }
 
   ngOnDestroy(): void {
@@ -23,24 +25,44 @@ export class GaugeStationsComponent implements OnInit {
   }
 
   startPeriodicReloading() { // to re-fetch data every 10 minutes
-    this.interval = setInterval(() => {
-      this.fetchStationsData();
+    this.interval = setInterval( () => {
+      this.initData();
     }, 600000)
+  }
+
+  async initData() {
+    await this.fetchStationsData();
+    this.getSelectedStationsData();
+    this.calculateFlowLevels()
   }
 
   async fetchStationsData() {
     try {
       let response = await fetch(this.url);
       let responseAsJson = await response.json();
-      this.stationsData = responseAsJson.rows;
-      console.log(this.stationsData);
-      this.calculateFlowLevels()
+      this.fetchedStationsData = responseAsJson.rows;
+      console.log(this.fetchedStationsData);
     } catch (e) {
       console.log('error while loading resource: ' + e);
     }
   }
 
   calculateFlowLevels() {
-    this.flowLevelBruneck = this.stationsData[12].q - this.stationsData[5].q;
+    this.flowLevelBruneck = this.fetchedStationsData[12].q - this.fetchedStationsData[5].q;
+  }
+
+  getSelectedStationsData() {
+    // for (let i = 0; i < this.selectedStations.length; i++) {
+    //   let stationName = this.selectedStations[i];
+    //   for (let j = 0; j < this.stationsData.length; j++) {
+    //     if (this.stationsData[j].name == stationName) {
+    //       this.selectedStationsData.push(this.stationsData[j]);
+    //     }
+    //   }
+    // }
+    this.selectedStationsData = this.fetchedStationsData.filter((item) => {
+      return this.selectedStations.includes(item.name);
+    })
+    console.log(this.selectedStationsData);
   }
 }

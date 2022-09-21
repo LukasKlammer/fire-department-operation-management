@@ -1,3 +1,8 @@
+// .env
+REACT_APP_GOOGLE_CLIENTID = 'your-client-id'
+REACT_APP_GOOGLE_CLIENT_SECRET = 'your-client-secret'
+GOOGLE_REFRESH_TOKEN = 'your-refresh-token'
+
 
 describe('My First Test', () => {
   it('Does not do much!', () => {
