@@ -12,17 +12,20 @@
       <th>Alarmschwelle</th>
     </tr>
     <ng-container *ngFor="let station of selectedStationsData">
-      <tr>
+      <tr [ngClass]="{
+          'medium' : station.w >= station.preAlertThreshold && station.w < station.alertThreshold,
+          'high' : station.w >= station.alertThreshold
+          }">
         <td>{{ station.name }}</td>
         <td>{{ station.w }} cm</td>
-        <ng-container *ngIf="!station.preAlertThreshold">
-          <td>nicht bekannt</td>
-          <td>nicht bekannt</td>
-        </ng-container>
-        <ng-container *ngIf="station.preAlertThreshold">
+        <ng-container *ngIf="station.preAlertThreshold; else notKnown">
           <td>{{ station.preAlertThreshold }}</td>
           <td>{{ station.alertThreshold }}</td>
         </ng-container>
+        <ng-template #notKnown>
+          <td>nicht bekannt</td>
+          <td>nicht bekannt</td>
+        </ng-template>
       </tr>
     </ng-container>
   </table>

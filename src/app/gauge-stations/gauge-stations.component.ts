@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GaugeStationsComponent implements OnInit {
   url: string = 'http://daten.buergernetz.bz.it/services/weather/station?categoryId=2&lang=de&format=json'
-  fetchedStations: any[] = [];
+  allStations: any[] = [];
   selectedStationsNames: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
   selectedStationsData: any[] = [];
   interval: any;
@@ -41,7 +41,7 @@ export class GaugeStationsComponent implements OnInit {
     try {
       let response = await fetch(this.url);
       let responseAsJson = await response.json();
-      this.fetchedStations = responseAsJson.rows;
+      this.allStations = responseAsJson.rows;
     } catch (e) {
       console.error('error while loading resource: ' + e);
     }
@@ -54,30 +54,24 @@ export class GaugeStationsComponent implements OnInit {
   }
 
   getStationByName(name: string) {
-    return this.fetchedStations.find((item) => {
+    return this.allStations.find((item) => {
       return item.name == name;
     })
   }
 
   getSelectedStations() {
-    this.selectedStationsData = this.fetchedStations.filter((item) => {
-      return this.selectedStationsNames.includes(item.name);
+    this.selectedStationsData = this.allStations.filter((station) => {
+      return this.selectedStationsNames.includes(station.name);
     })
   }
 
   addAlertThresholds() {
-    for (let i = 0; i < this.fetchedStations.length; i++) {
-      let station = this.fetchedStations[i];
+    for (let i = 0; i < this.allStations.length; i++) {
+      let station = this.allStations[i];
       if (station.name == 'RIENZ BEI STEGEN') {
         station['preAlertThreshold'] = 300;
         station['alertThreshold'] = 350;
-        console.log(station);
       }
-
     }
-  }
-
-  halloClaudius() {
-    console.log('Hallo Claudius')
   }
 }
