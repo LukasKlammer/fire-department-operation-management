@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GaugeStationsComponent implements OnInit {
   url: string = 'http://daten.buergernetz.bz.it/services/weather/station?categoryId=2&lang=de&format=json'
-  fetchedStationsData: any[] = [];
-  selectedStations: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
+  fetchedStations: any[] = [];
+  selectedStationsNames: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
   selectedStationsData: any[] = [];
   interval: any;
   flowLevelBruneck: number = 0;
@@ -32,7 +32,7 @@ export class GaugeStationsComponent implements OnInit {
 
   async initData() {
     await this.fetchStationsData();
-    this.getSelectedStationsData();
+    this.getSelectedStations();
     this.calculateFlowLevels()
   }
 
@@ -40,18 +40,25 @@ export class GaugeStationsComponent implements OnInit {
     try {
       let response = await fetch(this.url);
       let responseAsJson = await response.json();
-      this.fetchedStationsData = responseAsJson.rows;
-      console.log(this.fetchedStationsData);
+      this.fetchedStations = responseAsJson.rows;
     } catch (e) {
-      console.log('error while loading resource: ' + e);
+      console.error('error while loading resource: ' + e);
     }
   }
 
   calculateFlowLevels() {
-    this.flowLevelBruneck = this.fetchedStationsData[12].q - this.fetchedStationsData[5].q;
+    let riverAhr = this.getStationByName('AHR BEI ST.GEORGEN');
+    let riverRienz = this.getStationByName('RIENZ BEI STEGEN');
+    this.flowLevelBruneck = riverRienz.q - riverAhr.q;
   }
 
-  getSelectedStationsData() {
+  getStationByName(name: string) {
+    return this.fetchedStations.find((item) => {
+      return item.name == name;
+    })
+  }
+
+  getSelectedStations() {
     // for (let i = 0; i < this.selectedStations.length; i++) {
     //   let stationName = this.selectedStations[i];
     //   for (let j = 0; j < this.stationsData.length; j++) {
@@ -60,9 +67,8 @@ export class GaugeStationsComponent implements OnInit {
     //     }
     //   }
     // }
-    this.selectedStationsData = this.fetchedStationsData.filter((item) => {
-      return this.selectedStations.includes(item.name);
+    this.selectedStationsData = this.fetchedStations.filter((item) => {
+      return this.selectedStationsNames.includes(item.name);
     })
-    console.log(this.selectedStationsData);
   }
 }

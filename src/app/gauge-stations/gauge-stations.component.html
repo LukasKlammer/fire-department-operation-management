@@ -29,12 +29,12 @@
     </tr>
     <tr>
       <td>Bruneck Stadt (berechnet)</td>
-      <td>{{ flowLevelBruneck }} m³/s</td>
+      <td>{{ flowLevelBruneck | number: '1.0-2' }} m³/s</td>
     </tr>
     <ng-container *ngFor="let station of selectedStationsData">
       <tr>
         <td>{{ station.name }}</td>
-        <td>{{ station.q }} cm</td>
+        <td>{{ station.q }} m³/s</td>
       </tr>
     </ng-container>
   </table>
