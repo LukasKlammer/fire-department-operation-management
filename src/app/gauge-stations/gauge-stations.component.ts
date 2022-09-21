@@ -25,7 +25,7 @@ export class GaugeStationsComponent implements OnInit {
   }
 
   startPeriodicReloading() { // to re-fetch data every 10 minutes
-    this.interval = setInterval( () => {
+    this.interval = setInterval(() => {
       this.initData();
     }, 600000)
   }
@@ -33,7 +33,8 @@ export class GaugeStationsComponent implements OnInit {
   async initData() {
     await this.fetchStationsData();
     this.getSelectedStations();
-    this.calculateFlowLevels()
+    this.calculateFlowLevels();
+    this.addAlertThresholds();
   }
 
   async fetchStationsData() {
@@ -59,16 +60,24 @@ export class GaugeStationsComponent implements OnInit {
   }
 
   getSelectedStations() {
-    // for (let i = 0; i < this.selectedStations.length; i++) {
-    //   let stationName = this.selectedStations[i];
-    //   for (let j = 0; j < this.stationsData.length; j++) {
-    //     if (this.stationsData[j].name == stationName) {
-    //       this.selectedStationsData.push(this.stationsData[j]);
-    //     }
-    //   }
-    // }
     this.selectedStationsData = this.fetchedStations.filter((item) => {
       return this.selectedStationsNames.includes(item.name);
     })
+  }
+
+  addAlertThresholds() {
+    for (let i = 0; i < this.fetchedStations.length; i++) {
+      let station = this.fetchedStations[i];
+      if (station.name == 'RIENZ BEI STEGEN') {
+        station['preAlertThreshold'] = 300;
+        station['alertThreshold'] = 350;
+        console.log(station);
+      }
+
+    }
+  }
+
+  halloClaudius() {
+    console.log('Hallo Claudius')
   }
 }

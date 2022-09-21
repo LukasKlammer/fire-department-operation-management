@@ -15,8 +15,14 @@
       <tr>
         <td>{{ station.name }}</td>
         <td>{{ station.w }} cm</td>
-        <td>nicht bekannt</td>
-        <td>nicht bekannt</td>
+        <ng-container *ngIf="!station.preAlertThreshold">
+          <td>nicht bekannt</td>
+          <td>nicht bekannt</td>
+        </ng-container>
+        <ng-container *ngIf="station.preAlertThreshold">
+          <td>{{ station.preAlertThreshold }}</td>
+          <td>{{ station.alertThreshold }}</td>
+        </ng-container>
       </tr>
     </ng-container>
   </table>
