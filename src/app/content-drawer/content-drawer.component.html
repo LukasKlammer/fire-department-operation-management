@@ -9,8 +9,12 @@
       <span>ausgewähltes Schadensereignis</span>
     </a>
     <a [routerLink]="['/gauge-stations']" class="nav-links" (click)="closeSidenav()">
-      <mat-icon fontIcon="gauge-stations">water</mat-icon>
+      <mat-icon fontIcon="water">water</mat-icon>
       <span>Pegelstationen</span>
+    </a>
+    <a [routerLink]="['/precipitation']" class="nav-links" (click)="closeSidenav()">
+      <mat-icon fontIcon="gauge-stations">water_drop</mat-icon>
+      <span>Niederschlag</span>
     </a>
   </mat-sidenav>
 

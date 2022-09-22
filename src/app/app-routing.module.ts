@@ -6,6 +6,7 @@ import { DamagingEventsComponent } from './damaging-events/damaging-events.compo
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
 import { GaugeStationsComponent } from './gauge-stations/gauge-stations.component';
+import { PrecipitationComponent } from './precipitation/precipitation.component';
 
 const routes: Routes = [
   { path: '', component: LoginScreenComponent },
@@ -38,6 +39,20 @@ const routes: Routes = [
       {
         path: '',
         component: GaugeStationsComponent,
+        pathMatch: 'full',
+        outlet: 'secondary',
+        canActivate: [LoggedInGuard]
+      },
+    ]
+  },
+  {
+    path: 'precipitation',
+    component: ApplicationComponent,
+    canActivate: [LoggedInGuard],
+    children: [
+      {
+        path: '',
+        component: PrecipitationComponent,
         pathMatch: 'full',
         outlet: 'secondary',
         canActivate: [LoggedInGuard]

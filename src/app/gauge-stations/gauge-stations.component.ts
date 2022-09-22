@@ -27,7 +27,7 @@ export class GaugeStationsComponent implements OnInit {
     clearInterval(this.interval);
   }
 
-  startPeriodicReloading() { // to re-fetch data every 10 minutes
+  startPeriodicReloading() { // to re-fetch data every x minutes
     this.interval = setInterval(() => {
       this.initData();
     }, 300000)

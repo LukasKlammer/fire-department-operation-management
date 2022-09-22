@@ -55,6 +55,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { ApplicationComponent } from './application/application.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { PrecipitationComponent } from './precipitation/precipitation.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
     DialogAlertBeingeditedComponent,
     LoginScreenComponent,
     ApplicationComponent,
-    GaugeStationsComponent
+    GaugeStationsComponent,
+    PrecipitationComponent
   ],
   imports: [
     RouterModule,
