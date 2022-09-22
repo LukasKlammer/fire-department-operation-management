@@ -1,13 +1,14 @@
 <h1>Pegelstände</h1>
 <p>Die Daten werden alle 5 Minuten automatisch aktualisiert.</p>
 
-<button *ngIf="showInitButton" mat-raised-button class="init-button" color="basic" (click)="initSelectionValue()">
+<button *ngIf="showInitButton" mat-raised-button class="init-button" color="basic" (click)="initSelectedStations()">
   <mat-icon fontIcon="water" class="margin-right-4">water</mat-icon>
   zurück zu AHR und RIENZ
 </button>
 <mat-form-field appearance="fill">
   <mat-label>Pegelstationen</mat-label>
-  <mat-select [(ngModel)]="selectedStationsNames" multiple (ngModelChange)="getSelectedStations(); checkShowInitButton()">
+  <mat-select [(ngModel)]="selectedStationsNames" multiple
+    (ngModelChange)="getSelectedStations(); checkShowInitButton()">
     <mat-option *ngFor="let station of allStations" [value]="station.name">{{ station.name }}</mat-option>
   </mat-select>
 </mat-form-field>
@@ -19,6 +20,7 @@
       <th>Pegelstand</th>
       <th>Voralarmschwelle</th>
       <th>Alarmschwelle</th>
+      <th>Link Google Maps</th>
     </tr>
     <ng-container *ngFor="let station of selectedStationsData">
       <tr [ngClass]="{
@@ -35,6 +37,15 @@
           <td>nicht bekannt</td>
           <td>nicht bekannt</td>
         </ng-template>
+        <td>
+          <a mat-raised-button
+            href="https://www.google.com/maps/search/?api=1&query={{ station.latitude }}, {{ station.longitude }}"
+            target="_blank">
+            <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
+            <mat-icon fontIcon="map" class="margin-right-4">map</mat-icon>
+            Öffne in Google Maps
+          </a>
+        </td>
       </tr>
     </ng-container>
   </table>

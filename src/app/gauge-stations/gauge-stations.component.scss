@@ -2,11 +2,15 @@ table, th, td {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-collapse:collapse;
   text-align:center;
-  min-width: 80%;
+  width: 100%;
+}
+
+th, td {
+  padding: 2px 12px;
 }
 
 .mat-form-field {
-  min-width: 80%;
+  width: 100%;
 }
 
 .init-button {

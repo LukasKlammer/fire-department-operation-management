@@ -35,10 +35,9 @@ export class GaugeStationsComponent implements OnInit {
 
   async initData() {
     await this.fetchStationsData();
-    this.initSelectionValue();
-    this.roundFlow();
+    this.prepareData();
+    this.initSelectedStations();
     this.calculateFlowBruneck();
-    this.getSelectedStations();
     this.addAlertThresholds();
   }
 
@@ -50,6 +49,11 @@ export class GaugeStationsComponent implements OnInit {
     } catch (e) {
       console.error('error while loading resource: ' + e);
     }
+  }
+
+  prepareData() {
+    this.convertGeoLocation();
+    this.roundFlow();
   }
 
   sortStations(stations: any[]) {
@@ -87,8 +91,6 @@ export class GaugeStationsComponent implements OnInit {
   }
 
   checkShowInitButton() {
-    console.log(this.selectedStationsNames);
-    console.log(this.initialStationsNames);
     if (this.arraysEqual(this.selectedStationsNames, this.initialStationsNames)) {
       this.showInitButton = false;
     } else {
@@ -100,8 +102,7 @@ export class GaugeStationsComponent implements OnInit {
     if (a === b) return true;
     if (a == null || b == null) return false;
     if (a.length !== b.length) return false;
-    // If you don't care about the order of the elements inside
-    // the array, you should sort both arrays here.
+    // If you don't care about the order of the elements inside the array, you should sort both arrays here.
     for (var i = 0; i < a.length; ++i) {
       if (a[i] !== b[i]) return false;
     }
@@ -118,8 +119,17 @@ export class GaugeStationsComponent implements OnInit {
     }
   }
 
-  initSelectionValue() {
+  initSelectedStations() {
     this.selectedStationsNames = this.initialStationsNames;
+    this.getSelectedStations();
     this.showInitButton = false;
+  }
+
+  convertGeoLocation() {
+    this.allStations.map((station) => {
+      station.latitude = station.latitude.replace(',', '.');
+      station.longitude = station.longitude.replace(',', '.');
+    })
+    console.log(this.allStations);
   }
 }
