@@ -1,7 +1,16 @@
 <h1>Pegelstände</h1>
-<p>Die Seite wird alle 10 Minuten automatisch aktualisiert.</p>
+<p>Die Daten werden alle 5 Minuten automatisch aktualisiert.</p>
 
-<!-- todo: select your desired stations -->
+<button *ngIf="showInitButton" mat-raised-button class="init-button" color="basic" (click)="initSelectionValue()">
+  <mat-icon fontIcon="water" class="margin-right-4">water</mat-icon>
+  zurück zu AHR und RIENZ
+</button>
+<mat-form-field appearance="fill">
+  <mat-label>Pegelstationen</mat-label>
+  <mat-select [(ngModel)]="selectedStationsNames" multiple (ngModelChange)="getSelectedStations(); checkShowInitButton()">
+    <mat-option *ngFor="let station of allStations" [value]="station.name">{{ station.name }}</mat-option>
+  </mat-select>
+</mat-form-field>
 
 <ng-container *ngIf="selectedStationsData.length != 0">
   <table>
@@ -19,8 +28,8 @@
         <td>{{ station.name }}</td>
         <td>{{ station.w }} cm</td>
         <ng-container *ngIf="station.preAlertThreshold; else notKnown">
-          <td>{{ station.preAlertThreshold }}</td>
-          <td>{{ station.alertThreshold }}</td>
+          <td>{{ station.preAlertThreshold }} cm</td>
+          <td>{{ station.alertThreshold }} cm</td>
         </ng-container>
         <ng-template #notKnown>
           <td>nicht bekannt</td>
@@ -51,8 +60,7 @@
 
   <ng-container *ngFor="let station of selectedStationsData">
     <h1>Verlauf {{ station.name }}</h1>
-    <img src="{{ station.measurements[1].imageUrl }}"
-      alt="Pegel-Verlauf {{ station.name }}">
+    <img src="{{ station.measurements[1].imageUrl }}" alt="Pegel-Verlauf {{ station.name }}">
     <br>
   </ng-container>
 </ng-container>

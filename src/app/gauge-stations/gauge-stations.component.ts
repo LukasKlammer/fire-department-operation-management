@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-gauge-stations',
@@ -8,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class GaugeStationsComponent implements OnInit {
   url: string = 'http://daten.buergernetz.bz.it/services/weather/station?categoryId=2&lang=de&format=json'
   allStations: any[] = [];
-  selectedStationsNames: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
+  initialStationsNames: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN']
+  selectedStationsNames: string[] = [];
   selectedStationsData: any[] = [];
   interval: any;
   flowLevelBruneck: number = 0;
+  showInitButton: boolean = false;
 
   constructor() { }
 
@@ -27,13 +30,15 @@ export class GaugeStationsComponent implements OnInit {
   startPeriodicReloading() { // to re-fetch data every 10 minutes
     this.interval = setInterval(() => {
       this.initData();
-    }, 600000)
+    }, 300000)
   }
 
   async initData() {
     await this.fetchStationsData();
+    this.initSelectionValue();
+    this.roundFlow();
+    this.calculateFlowBruneck();
     this.getSelectedStations();
-    this.calculateFlowLevels();
     this.addAlertThresholds();
   }
 
@@ -41,15 +46,31 @@ export class GaugeStationsComponent implements OnInit {
     try {
       let response = await fetch(this.url);
       let responseAsJson = await response.json();
-      this.allStations = responseAsJson.rows;
+      this.allStations = this.sortStations(responseAsJson.rows);
     } catch (e) {
       console.error('error while loading resource: ' + e);
     }
   }
 
-  calculateFlowLevels() {
-    let riverAhr = this.getStationByName('AHR BEI ST.GEORGEN');
+  sortStations(stations: any[]) {
+    return stations.sort((a, b) => {
+      if (a.name < b.name)
+        return -1;
+      if (a.name > b.name)
+        return 1;
+      return 0;
+    });
+  }
+
+  roundFlow() {
+    this.allStations.map((station) => {
+      station.q = Math.round(station.q);
+    })
+  }
+
+  calculateFlowBruneck() {
     let riverRienz = this.getStationByName('RIENZ BEI STEGEN');
+    let riverAhr = this.getStationByName('AHR BEI ST.GEORGEN');
     this.flowLevelBruneck = riverRienz.q - riverAhr.q;
   }
 
@@ -65,6 +86,28 @@ export class GaugeStationsComponent implements OnInit {
     })
   }
 
+  checkShowInitButton() {
+    console.log(this.selectedStationsNames);
+    console.log(this.initialStationsNames);
+    if (this.arraysEqual(this.selectedStationsNames, this.initialStationsNames)) {
+      this.showInitButton = false;
+    } else {
+      this.showInitButton = true;
+    }
+  }
+
+  arraysEqual(a: string[], b: string[]) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length !== b.length) return false;
+    // If you don't care about the order of the elements inside
+    // the array, you should sort both arrays here.
+    for (var i = 0; i < a.length; ++i) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+
   addAlertThresholds() {
     for (let i = 0; i < this.allStations.length; i++) {
       let station = this.allStations[i];
@@ -73,5 +116,10 @@ export class GaugeStationsComponent implements OnInit {
         station['alertThreshold'] = 350;
       }
     }
+  }
+
+  initSelectionValue() {
+    this.selectedStationsNames = this.initialStationsNames;
+    this.showInitButton = false;
   }
 }
