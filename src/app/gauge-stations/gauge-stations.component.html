@@ -1,19 +1,19 @@
 <h1>Pegelstände</h1>
 <p>Die Daten werden alle 5 Minuten automatisch aktualisiert.</p>
-
-<button *ngIf="showInitButton" mat-raised-button class="init-button" color="basic" (click)="initSelectedStations()">
-  <mat-icon fontIcon="water" class="margin-right-4">water</mat-icon>
-  zurück zu AHR und RIENZ
-</button>
-<mat-form-field class="select-gauge-station" appearance="fill">
-  <mat-label>Pegelstationen</mat-label>
-  <mat-select [(ngModel)]="selectedStationsNames" multiple
-    (ngModelChange)="getSelectedStations(); checkShowInitButton()">
-    <mat-option *ngFor="let station of allStations" [value]="station.name">{{ station.name }}</mat-option>
-  </mat-select>
-</mat-form-field>
-
+<p>Feature coming soon :-)</p>
+<!--
 <ng-container *ngIf="selectedStationsData.length != 0">
+  <button *ngIf="showInitButton" mat-raised-button class="init-button" color="basic" (click)="initSelectedStations()">
+    <mat-icon fontIcon="water" class="margin-right-4">water</mat-icon>
+    zurück zu AHR und RIENZ
+  </button>
+  <mat-form-field class="select-gauge-station" appearance="fill">
+    <mat-label>Pegelstationen</mat-label>
+    <mat-select [(ngModel)]="selectedStationsNames" multiple
+      (ngModelChange)="getSelectedStations(); checkShowInitButton()">
+      <mat-option *ngFor="let station of allStations" [value]="station.name">{{ station.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <table class="gauge-table">
     <tr>
       <th>Pegelstation</th>
@@ -75,4 +75,4 @@
     <img src="{{ station.measurements[1].imageUrl }}" alt="Pegel-Verlauf {{ station.name }}">
     <br>
   </ng-container>
-</ng-container>
+</ng-container> -->
