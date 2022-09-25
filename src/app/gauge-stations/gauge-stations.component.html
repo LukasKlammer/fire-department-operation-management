@@ -5,7 +5,7 @@
   <mat-icon fontIcon="water" class="margin-right-4">water</mat-icon>
   zurück zu AHR und RIENZ
 </button>
-<mat-form-field appearance="fill">
+<mat-form-field class="select-gauge-station" appearance="fill">
   <mat-label>Pegelstationen</mat-label>
   <mat-select [(ngModel)]="selectedStationsNames" multiple
     (ngModelChange)="getSelectedStations(); checkShowInitButton()">
@@ -14,7 +14,7 @@
 </mat-form-field>
 
 <ng-container *ngIf="selectedStationsData.length != 0">
-  <table>
+  <table class="gauge-table">
     <tr>
       <th>Pegelstation</th>
       <th>Pegelstand</th>
@@ -51,7 +51,7 @@
   </table>
   <br>
   <h1>Durchfluss</h1>
-  <table>
+  <table class="flow-table">
     <tr>
       <th>Pegelstation</th>
       <th>Durchfluss</th>
@@ -70,6 +70,7 @@
   <br>
 
   <ng-container *ngFor="let station of selectedStationsData">
+    <br>
     <h1>Verlauf {{ station.name }}</h1>
     <img src="{{ station.measurements[1].imageUrl }}" alt="Pegel-Verlauf {{ station.name }}">
     <br>

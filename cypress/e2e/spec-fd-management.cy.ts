@@ -1,4 +1,4 @@
-import cypressConfig from "cypress.config"
+
 
 describe('fd-mission-management', () => {
   it('should open the web-app', () => {

@@ -1,9 +1,6 @@
 <h1>Niederschlagsradar und Niederschlagssumme</h1>
-<p>aktualisiere die Seite, um aktuelle Daten anzuzeigen</p>
-<div class="img-wrapper">
-  <img src="https://wetter.provinz.bz.it/images/fileN2_d_13.png" alt="precipitation_radar">
-</div>
-<br>
-<div class="img-wrapper">
-  <img src="https://wetter.provinz.bz.it/images/pluvio/Pluvio24.png" alt="precipitation_sum_24h">
+<p>Die Bilder werden alle 5 Minuten automatisch aktualisiert.</p>
+<div class="img-box">
+  <img [src]="radarImageUrl" alt="precipitation_radar">
+  <img [src]="precipitationSumImageUrl" alt="precipitation_sum_24h">
 </div>

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrecipitationComponent implements OnInit {
   interval: any;
+  radarImageUrl : string = `https://wetter.provinz.bz.it/images/fileN2_d_13.png?${new Date().getTime()}`;
+  precipitationSumImageUrl : string = `https://wetter.provinz.bz.it/images/pluvio/Pluvio24.png?${new Date().getTime()}`;
 
   constructor() { }
 
@@ -20,7 +22,8 @@ export class PrecipitationComponent implements OnInit {
 
   startPeriodicReloading() { // to re-fetch data every x minutes
     this.interval = setInterval(() => {
-      console.log('periodic call function');
+      this.radarImageUrl = `https://wetter.provinz.bz.it/images/fileN2_d_13.png?${new Date().getTime()}`;
+      this.precipitationSumImageUrl = `https://wetter.provinz.bz.it/images/pluvio/Pluvio24.png?${new Date().getTime()}`;
     }, 300000)
   }
 

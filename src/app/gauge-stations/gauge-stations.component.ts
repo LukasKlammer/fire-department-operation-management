@@ -116,6 +116,10 @@ export class GaugeStationsComponent implements OnInit {
         station['preAlertThreshold'] = 300;
         station['alertThreshold'] = 350;
       }
+      if (station.name == 'AHR BEI ST.GEORGEN') {
+        station['preAlertThreshold'] = 260;
+        station['alertThreshold'] = 290;
+      }
     }
   }
 
@@ -130,6 +134,5 @@ export class GaugeStationsComponent implements OnInit {
       station.latitude = station.latitude.replace(',', '.');
       station.longitude = station.longitude.replace(',', '.');
     })
-    console.log(this.allStations);
   }
 }
