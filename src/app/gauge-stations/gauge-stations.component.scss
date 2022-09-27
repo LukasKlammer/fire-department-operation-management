@@ -13,8 +13,8 @@ td:last-child {
   padding: 0;
 }
 
-.select-gauge-station, .gauge-table {
-  max-width: 900px;
+.select-gaugestation-box, .gauge-table {
+  max-width: 1100px;
 }
 
 .flow-table {
@@ -32,4 +32,9 @@ td:last-child {
 img {
   width: 100%;
   max-width: 900px;
+}
+
+.select-gaugestation-box {
+  display: flex;
+  flex-direction: column;
 }

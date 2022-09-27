@@ -1,26 +1,28 @@
 <h1>Pegelstände</h1>
 <p>Die Daten werden alle 5 Minuten automatisch aktualisiert.</p>
-<p>Feature coming soon :-)</p>
-<!--
+
 <ng-container *ngIf="selectedStationsData.length != 0">
-  <button *ngIf="showInitButton" mat-raised-button class="init-button" color="basic" (click)="initSelectedStations()">
-    <mat-icon fontIcon="water" class="margin-right-4">water</mat-icon>
-    zurück zu AHR und RIENZ
-  </button>
-  <mat-form-field class="select-gauge-station" appearance="fill">
-    <mat-label>Pegelstationen</mat-label>
-    <mat-select [(ngModel)]="selectedStationsNames" multiple
-      (ngModelChange)="getSelectedStations(); checkShowInitButton()">
-      <mat-option *ngFor="let station of allStations" [value]="station.name">{{ station.name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="select-gaugestation-box">
+    <button *ngIf="showInitButton" mat-raised-button class="init-button" color="basic" (click)="initSelectedStations()">
+      <mat-icon fontIcon="water" class="margin-right-4">water</mat-icon>
+      zurück zu AHR und RIENZ
+    </button>
+    <mat-form-field class="select-gauge-station" appearance="fill">
+      <mat-label>Pegelstationen</mat-label>
+      <mat-select [(ngModel)]="selectedStationsNames" multiple
+        (ngModelChange)="getSelectedStations(); checkShowInitButton()">
+        <mat-option *ngFor="let station of allStations" [value]="station.name">{{ station.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <table class="gauge-table">
     <tr>
       <th>Pegelstation</th>
       <th>Pegelstand</th>
       <th>Voralarmschwelle</th>
       <th>Alarmschwelle</th>
-      <th>Link Google Maps</th>
+      <th>Google Maps</th>
+      <th>alle Stationsdaten</th>
     </tr>
     <ng-container *ngFor="let station of selectedStationsData">
       <tr [ngClass]="{
@@ -44,6 +46,13 @@
             <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
             <mat-icon fontIcon="map" class="margin-right-4">map</mat-icon>
             Öffne in Google Maps
+          </a>
+        </td>
+        <td>
+          <a mat-raised-button href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid={{ station.id }}"
+            target="_blank">
+            <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
+            zur Station
           </a>
         </td>
       </tr>
@@ -75,4 +84,4 @@
     <img src="{{ station.measurements[1].imageUrl }}" alt="Pegel-Verlauf {{ station.name }}">
     <br>
   </ng-container>
-</ng-container> -->
+</ng-container>
