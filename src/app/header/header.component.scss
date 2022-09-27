@@ -1,6 +1,9 @@
 mat-toolbar {
   display: flex;
   justify-content: space-between;
+  span {
+    line-break: auto;
+  }
 }
 
 .image-wrapper {

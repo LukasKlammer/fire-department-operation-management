@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gauge-stations.component.scss']
 })
 export class GaugeStationsComponent implements OnInit {
-  API_URL: string = 'http://daten.buergernetz.bz.it/services/weather/station?categoryId=2&lang=de&format=json'
+  API_URL: string = 'https://weather.services.siag.it/api/v2/station?categoryId=2&lang=de&format=json'
   INITIAL_STATION_NAMES: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
   allStations: any[] = [];
   selectedStationsNames: string[] = [];
@@ -46,6 +46,8 @@ export class GaugeStationsComponent implements OnInit {
       let response = await fetch(this.API_URL);
       let responseAsJson = await response.json();
       this.allStations = this.sortStations(responseAsJson.rows);
+      console.log(this.allStations);
+
     } catch (e) {
       console.error('error while loading resource: ' + e);
       this.showFallBack = true;

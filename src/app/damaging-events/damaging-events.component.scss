@@ -44,3 +44,9 @@ mat-radio-button {
   border-radius: 4px;
   background-color: #F0DA50;
 }
+
+@media (max-width: 900px) {
+  .navigate-operations-button {
+    width: 500px;
+  }
+}
