@@ -6,14 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gauge-stations.component.scss']
 })
 export class GaugeStationsComponent implements OnInit {
-  url: string = 'http://daten.buergernetz.bz.it/services/weather/station?categoryId=2&lang=de&format=json'
+  API_URL: string = 'http://daten.buergernetz.bz.it/services/weather/station?categoryId=2&lang=de&format=json'
+  INITIAL_STATION_NAMES: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
   allStations: any[] = [];
-  initialStationsNames: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
   selectedStationsNames: string[] = [];
   selectedStationsData: any[] = [];
   interval: any;
   flowLevelBruneck: number = 0;
   showInitButton: boolean = false;
+  showFallBack: boolean = false;
 
   constructor() { }
 
@@ -42,12 +43,12 @@ export class GaugeStationsComponent implements OnInit {
 
   async fetchStationsData() {
     try {
-      let response = await fetch(this.url);
+      let response = await fetch(this.API_URL);
       let responseAsJson = await response.json();
       this.allStations = this.sortStations(responseAsJson.rows);
     } catch (e) {
       console.error('error while loading resource: ' + e);
-      this.allStations = [];
+      this.showFallBack = true;
     }
   }
 
@@ -91,7 +92,7 @@ export class GaugeStationsComponent implements OnInit {
   }
 
   checkShowInitButton() {
-    if (this.arraysEqual(this.selectedStationsNames, this.initialStationsNames)) {
+    if (this.arraysEqual(this.selectedStationsNames, this.INITIAL_STATION_NAMES)) {
       this.showInitButton = false;
     } else {
       this.showInitButton = true;
@@ -124,7 +125,7 @@ export class GaugeStationsComponent implements OnInit {
   }
 
   initSelectedStations() {
-    this.selectedStationsNames = this.initialStationsNames;
+    this.selectedStationsNames = this.INITIAL_STATION_NAMES;
     this.getSelectedStations();
     this.showInitButton = false;
   }

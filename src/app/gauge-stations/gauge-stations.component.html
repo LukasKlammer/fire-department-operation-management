@@ -1,15 +1,16 @@
 <h1>Pegelstände</h1>
 <p>Die Daten werden alle 5 Minuten automatisch aktualisiert.</p>
 
-<ng-container *ngIf="allStations.length == 0">
-  <a mat-raised-button href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=127" target="_blank">
+<ng-container *ngIf="showFallBack">
+  <a mat-raised-button class="fallback-button" href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=127" target="_blank">
     <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
     zur Pegelstation AHR BEI ST.GEORGEN
   </a>
-  <a mat-raised-button href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=620" target="_blank">
+  <a mat-raised-button class="fallback-button" href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=620" target="_blank">
     <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
     zur Pegelstation RIENZ BEI STEGEN
   </a>
+  <p>Diese Buttons werden angezeigt, weil die vollständigen Daten derzeit nicht in die App werden können.</p>
 </ng-container>
 
 <ng-container *ngIf="allStations.length != 0">
