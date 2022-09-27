@@ -6,25 +6,58 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./precipitation.component.scss']
 })
 export class PrecipitationComponent implements OnInit {
-  interval: any;
-  radarImageUrl : string = `https://wetter.provinz.bz.it/images/fileN2_d_13.png?${new Date().getTime()}`;
-  precipitationSumImageUrl : string = `https://wetter.provinz.bz.it/images/pluvio/Pluvio24.png?${new Date().getTime()}`;
+  radarImageNumber: number = 1;
+  timeStamp: number = new Date().getTime();
+  RADAR_IMAGE_SOURCE: string = `https://wetter.provinz.bz.it/images/fileN2_d_`;  // base url from this source: http://daten.buergernetz.bz.it/de/dataset/southtyrolean-weatherservice-precipitationradar
+  PRECIPITATION_SUM_SOURCE: string = 'https://wetter.provinz.bz.it/images/pluvio/Pluvio24.png';
+  radarImageUrl: string = '';
+  precipitationSumImageUrl: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
-    this.startPeriodicReloading();
+    this.setRadarImageUrl();
+    this.setPrecipitationImageUrl();
+    this.animateRadarImages();
+    this.refreshTimeStampAndPrecipitation();
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.interval);
+    this.clearAllIntervals();
   }
 
-  startPeriodicReloading() { // to re-fetch data every x minutes
-    this.interval = setInterval(() => {
-      this.radarImageUrl = `https://wetter.provinz.bz.it/images/fileN2_d_13.png?${new Date().getTime()}`;
-      this.precipitationSumImageUrl = `https://wetter.provinz.bz.it/images/pluvio/Pluvio24.png?${new Date().getTime()}`;
-    }, 300000)
+  refreshTimeStampAndPrecipitation() { // to change image urls every x seconds (2 Minutes)
+    setInterval(() => {
+      this.timeStamp = new Date().getTime();
+      this.setPrecipitationImageUrl();
+    }, 120000)
+  }
+
+  animateRadarImages() {
+    setInterval(() => {
+      this.nextRadarImageNumber();
+      this.setRadarImageUrl();
+    }, 500)
+  }
+
+  setRadarImageUrl() {
+    this.radarImageUrl = `${this.RADAR_IMAGE_SOURCE}${this.radarImageNumber}.png?${this.timeStamp}`;
+  }
+
+  setPrecipitationImageUrl() {
+    this.precipitationSumImageUrl = `${this.PRECIPITATION_SUM_SOURCE}?${this.timeStamp}`;
+  }
+
+  nextRadarImageNumber() {
+    if (this.radarImageNumber < 15) {
+      this.radarImageNumber++;
+    } else {
+      this.radarImageNumber = 1;
+    }
+  }
+
+  clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
   }
 
 }
