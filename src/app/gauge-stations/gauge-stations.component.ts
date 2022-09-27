@@ -47,6 +47,7 @@ export class GaugeStationsComponent implements OnInit {
       this.allStations = this.sortStations(responseAsJson.rows);
     } catch (e) {
       console.error('error while loading resource: ' + e);
+      this.allStations = [];
     }
   }
 

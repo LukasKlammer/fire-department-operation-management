@@ -1,7 +1,18 @@
 <h1>Pegelstände</h1>
 <p>Die Daten werden alle 5 Minuten automatisch aktualisiert.</p>
 
-<ng-container *ngIf="selectedStationsData.length != 0">
+<ng-container *ngIf="allStations.length == 0">
+  <a mat-raised-button href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=127" target="_blank">
+    <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
+    zur Pegelstation AHR BEI ST.GEORGEN
+  </a>
+  <a mat-raised-button href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=620" target="_blank">
+    <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
+    zur Pegelstation RIENZ BEI STEGEN
+  </a>
+</ng-container>
+
+<ng-container *ngIf="allStations.length != 0">
   <div class="select-gaugestation-box">
     <button *ngIf="showInitButton" mat-raised-button class="init-button" color="basic" (click)="initSelectedStations()">
       <mat-icon fontIcon="water" class="margin-right-4">water</mat-icon>
@@ -52,7 +63,7 @@
           <a mat-raised-button href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid={{ station.id }}"
             target="_blank">
             <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
-            zur Station
+            zur Pegelstation
           </a>
         </td>
       </tr>
