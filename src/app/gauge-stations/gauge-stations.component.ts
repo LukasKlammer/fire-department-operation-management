@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-gauge-stations',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gauge-stations.component.scss']
 })
 export class GaugeStationsComponent implements OnInit {
-  API_URL: string = 'https://weather.services.siag.it/api/v2/station?categoryId=2&lang=de&format=json'
+  // API_URL: string = 'https://cors-anywhere.herokuapp.com/https://weather.services.siag.it/api/v2/station?categoryId=2&lang=de&format=json' //https
+  API_URL: string = 'https://weather.services.siag.it/api/v2/station?categoryId=2&lang=de&format=json' //https
+  // API_URL: string = 'http://daten.buergernetz.bz.it/services/weather/station?categoryId=2&lang=de&format=json' // http
   INITIAL_STATION_NAMES: string[] = ['AHR BEI ST.GEORGEN', 'RIENZ BEI STEGEN'];
   allStations: any[] = [];
   selectedStationsNames: string[] = [];
@@ -16,7 +19,7 @@ export class GaugeStationsComponent implements OnInit {
   showInitButton: boolean = false;
   showFallBack: boolean = false;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.initData();

@@ -2,15 +2,23 @@
 <p>Die Daten werden alle 5 Minuten automatisch aktualisiert.</p>
 
 <ng-container *ngIf="showFallBack">
-  <a mat-raised-button class="fallback-button" href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=127" target="_blank">
+  <a mat-raised-button class="fallback-button" href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=127"
+    target="_blank">
     <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
     zur Pegelstation AHR BEI ST.GEORGEN
   </a>
-  <a mat-raised-button class="fallback-button" href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=620" target="_blank">
+  <a mat-raised-button class="fallback-button" href="https://wetter.provinz.bz.it/pegelstationen.asp?stat_stid=620"
+    target="_blank">
     <mat-icon fontIcon="open_in_new" class="margin-right-4">open_in_new</mat-icon>
     zur Pegelstation RIENZ BEI STEGEN
   </a>
-  <p>Diese Buttons werden angezeigt, weil die vollständigen Daten derzeit nicht in die App geladen werden können.</p>
+  <div>
+    <iframe name="chartframe" id="chartframe-ahr" src="https://pegelalarm.at/paw/chart.html?commonid=59450PG-it"
+      style="border:0px" width="800px" height="305px"> </iframe>
+    <iframe name="chartframe" id="chartframe-rienz" src="https://pegelalarm.at/paw/chart.html?commonid=61050PG-it"
+      style="border:0px" width="800px" height="305px"> </iframe>
+  </div>
+
 </ng-container>
 
 <ng-container *ngIf="allStations.length != 0">

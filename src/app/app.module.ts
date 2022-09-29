@@ -56,6 +56,7 @@ import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { ApplicationComponent } from './application/application.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { PrecipitationComponent } from './precipitation/precipitation.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
