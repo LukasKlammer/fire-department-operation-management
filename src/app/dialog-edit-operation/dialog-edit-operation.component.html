@@ -79,7 +79,7 @@
           <mat-select [attr.disabled]="isLoading" [(ngModel)]="operation.status" name="status" required>
             <mat-option value="Offen">Offen</mat-option>
             <mat-option value="Läuft">Läuft</mat-option>
-            <mat-option value="Abgeschlossen" [attr.disabled]="operation.vehicles.length !== 0"
+            <mat-option value="Abgeschlossen" [disabled]="operation.vehicles.length !== 0"
               matTooltip="Vor Abschluss: zugeteilte Fahrzeuge zu verfügbaren Fahrzeugen ziehen."
               matTooltipClass="tooltip-red" matTooltipPosition="left"
               [matTooltipDisabled]="operation.vehicles.length === 0" (click)="setConclusionTime()">Abgeschlossen
