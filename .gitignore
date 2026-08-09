@@ -45,3 +45,9 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Local test credentials — never commit OAuth, Firebase, or API secrets.
+cypress.env.json
+.env
+.env.*
+!.env.example

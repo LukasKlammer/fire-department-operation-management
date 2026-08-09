@@ -1,33 +1,10 @@
-// import { defineConfig } from 'cypress';
-
-// Populate process.env with values from .env file
-// require('dotenv').config();
-
-// export default defineConfig {
 export default {
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-      config.env.REACT_APP_GOOGLE_CLIENTID = '***REMOVED***'
-      config.env.REACT_APP_GOOGLE_CLIENT_SECRET = '***REMOVED***'
-      config.env.GOOGLE_REFRESH_TOKEN = '***REMOVED***'
-      // on('task', myTask),
+    setupNodeEvents(on: unknown, config: { env: Record<string, string | undefined> }) {
+      config.env.googleClientId = process.env.CYPRESS_GOOGLE_CLIENT_ID;
+      config.env.googleClientSecret = process.env.CYPRESS_GOOGLE_CLIENT_SECRET;
+      config.env.googleRefreshToken = process.env.CYPRESS_GOOGLE_REFRESH_TOKEN;
+      return config;
     },
-    env: {
-      googleRefreshToken: "***REMOVED***",
-      googleClientId: "***REMOVED***",
-      googleClientSecret: "***REMOVED***"
-    }
-
-  }
-
-  // ,
-
-  // env: {
-  //   googleClientId: '***REMOVED***',
-  //   googleClientSecret: '***REMOVED***',
-  //   googleRefreshToken: '***REMOVED***',
-  // }
+  },
 };
-
-

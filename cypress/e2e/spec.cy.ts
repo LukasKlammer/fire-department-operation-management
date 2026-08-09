@@ -1,33 +1,6 @@
-// .env
-REACT_APP_GOOGLE_CLIENTID = 'your-client-id'
-REACT_APP_GOOGLE_CLIENT_SECRET = 'your-client-secret'
-GOOGLE_REFRESH_TOKEN = 'your-refresh-token'
-
-
-describe('My First Test', () => {
-  it('Does not do much!', () => {
-    expect(true).to.equal(true);
-  })
-})
-
-describe('My First Test', () => {
-  it('Visits the Kitchen Sink', () => {
-    cy.visit('https://example.cypress.io')
-  })
-})
-
-describe('spec.cy.js', () => {
-  it('should visit the link "type"', () => {
-    cy.contains('type')
-  })
-})
-
-describe('A test of elemetary functions of site', () => {
-  it('Gets, types and asserts', () => {
-    cy.contains('type').click()
-    cy.url().should('include', '/commands/actions')  // Should be on a new URL which includes '/commands/actions'
-    cy.get('.action-email') // Get an input, type into it and verify that the value has been updated
-      .type('fake@email.com')
-      .should('have.value', 'fake@email.com')
-  })
-})
+// Placeholder Cypress specification. Add only non-production test cases here.
+describe('Cypress placeholder', () => {
+  it('is intentionally disabled until a local test environment is configured', () => {
+    cy.log('No external credentials are required for this placeholder test.');
+  });
+});
