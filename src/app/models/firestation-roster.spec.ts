@@ -9,9 +9,9 @@ describe('FirestationRoster', () => {
       ['Lösch', 'Tank 2'],
       ['Atem', 'Kleinrüst'],
       ['MTF 3', 'Rüst'],
-      ['KTF 1', 'KTF 4'],
+      ['KTF 2', 'KTF 4'],
       ['MTF 2', 'MTF 1'],
-      ['KTF 3', 'KTF 2'],
+      ['KTF 3', 'KTF 1'],
       ['GSF', 'Deko'],
       ['Last', 'Kleinlast'],
     ]);
