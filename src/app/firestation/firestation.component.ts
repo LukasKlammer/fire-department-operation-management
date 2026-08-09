@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FirestationRoster } from '../models/firestation-roster';
 import { FirestationService } from '../shared/firestation.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { FirestationService } from '../shared/firestation.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class FirestationComponent implements OnInit {
+
+  readonly rosterRows = FirestationRoster.rows;
 
   constructor(
     public firestationService: FirestationService,

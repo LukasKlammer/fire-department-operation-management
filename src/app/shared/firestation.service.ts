@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FirestationRoster } from '../models/firestation-roster';
 
 @Injectable({
   providedIn: 'root'
@@ -7,17 +8,59 @@ import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore'
 export class FirestationService {
 
   availableVehicles: string[] = [];
-  tooltip: string = '';
+  private readonly firestationDocument = this.firestore
+    .collection('ff-bruneck')
+    .doc('JA1pXXbwRSly3DsQ3kni')
+    .collection('firestation')
+    .doc('7Nokj2Z615087RasEqTC');
+
+  private isMigrating = false;
 
   constructor(private firestore: AngularFirestore) {
-    this.firestore
+    this.firestationDocument.valueChanges().subscribe((firestation: any) => {
+      const storedVehicles = firestation?.availableVehicles || [];
+
+      if (FirestationRoster.isCurrentRoster(storedVehicles)) {
+        this.availableVehicles = storedVehicles;
+        return;
+      }
+
+      this.migrateLegacyRoster(storedVehicles);
+    });
+  }
+
+  private async migrateLegacyRoster(storedVehicles: string[]): Promise<void> {
+    if (this.isMigrating) {
+      return;
+    }
+
+    this.isMigrating = true;
+    try {
+      const assignedVehicles = await this.getVehiclesAssignedToActiveOperations();
+      this.availableVehicles = FirestationRoster.migrateAvailableVehicles(storedVehicles, assignedVehicles);
+      await this.save();
+    } finally {
+      this.isMigrating = false;
+    }
+  }
+
+  private async getVehiclesAssignedToActiveOperations(): Promise<string[]> {
+    const damagingEvents = await this.firestore
       .collection('ff-bruneck')
-      .doc('JA1pXXbwRSly3DsQ3kni') // document firestation
-      .collection('firestation')
-      .valueChanges()
-      .subscribe((changes: any) => {
-        this.availableVehicles = changes[0].availableVehicles;
-      });
+      .doc('QEcJgDBlPVt64GUFIPmw')
+      .collection('damaging-events')
+      .ref
+      .get();
+
+    const vehicleLists = await Promise.all(damagingEvents.docs.map(async (damagingEvent: any) => {
+      const operations = await damagingEvent.ref.collection('operations').get();
+      return operations.docs
+        .map((operation: any) => operation.data())
+        .filter((operation: any) => operation.status !== 'Abgeschlossen')
+        .flatMap((operation: any) => operation.vehicles || []);
+    }));
+
+    return vehicleLists.flat();
   }
 
   public sort() {
@@ -25,43 +68,18 @@ export class FirestationService {
   }
 
   public save() {
-    this.firestore
-      .collection('ff-bruneck')
-      .doc('JA1pXXbwRSly3DsQ3kni') // document firestation
-      .collection('firestation')
-      .doc('7Nokj2Z615087RasEqTC') // document with current status of firestation
-      .update(this.toJSON())
-      .then((result: any) => {
-      })
+    return this.firestationDocument.update(this.toJSON());
   }
 
   public restoreFromFirebase() {
-    this.firestore
-      .collection('ff-bruneck')
-      .doc('JA1pXXbwRSly3DsQ3kni') // document firestation
-      .collection('firestation')
-      .ref
-      .get()
-      .then((snapshot: any) => {
-        snapshot.forEach((doc: any) => {
-          this.availableVehicles = doc.data().availableVehicles;
-        });
-      })
+    return this.firestationDocument.ref.get().then((snapshot: any) => {
+      this.availableVehicles = snapshot.data()?.availableVehicles || [];
+    });
   }
 
   public toJSON(): any {
     return {
       availableVehicles: this.availableVehicles,
-    }
-  }
-
-  public createTooltip(vehicle: string) {
-    if (vehicle == 'Fahrzeug 4') {
-      this.tooltip = 'Fahrzeug 4: kein Container aufladbar';
-    } else if (vehicle == 'Fahrzeug 3') {
-      this.tooltip = 'Fahrzeug 3: Container Pölz nicht aufladbar';
-    } else {
-      this.tooltip = '';
-    }
+    };
   }
 }

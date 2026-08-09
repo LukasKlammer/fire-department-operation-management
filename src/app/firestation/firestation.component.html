@@ -1,139 +1,15 @@
 <div class="bordered-box">
   <h2>Übersicht Feuerwache</h2>
-  <mat-chip-list>
-    <table>
-      <tr>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Lüfter')}">
-            <span>Lüfter</span>
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Kommando')}">
-            Kommando
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 7')}">
-            Fahrzeug 7
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Strom')}">
-            Strom
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td class="empty-space">
 
-        </td>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Leiter')}">
-            Leiter
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Lösch')}">
-            Lösch
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Tank 1')}">
-            Tank 1
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Atem')}">
-            Atem
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Tank 3')}">
-            Tank 3
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Rüst')}">
-            Rüst
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Voraus')}">
-            Voraus
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 1')}">
-            Fahrzeug 1
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Tank 2')}">
-            Tank 2
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 5')}">
-            Fahrzeug 5
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 4')}"  matTooltip="{{ firestationService.tooltip }}" (mouseover)="firestationService.createTooltip('Fahrzeug 4')" matTooltipClass="tooltip-red">
-            Fahrzeug 4
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 2')}">
-            Fahrzeug 2
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Fahrzeug 3')}"  matTooltip="{{ firestationService.tooltip }}" (mouseover)="firestationService.createTooltip('Fahrzeug 3')" matTooltipClass="tooltip-red">
-            Fahrzeug 3
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('GSF')}">
-            GSF
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Deko')}">
-            Deko
-          </mat-chip>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Last 1')}">
-            Last 1
-          </mat-chip>
-        </td>
-        <td>
-          <mat-chip  [ngClass]="{'opacity': !isVehicleAvailable('Last 2')}">
-            Last 2
+  <mat-chip-list>
+    <table aria-label="Fahrzeugübersicht der Feuerwache">
+      <tr *ngFor="let row of rosterRows">
+        <td *ngFor="let vehicle of row" [class.empty-space]="!vehicle">
+          <mat-chip *ngIf="vehicle" [ngClass]="{'opacity': !isVehicleAvailable(vehicle)}">
+            {{ vehicle }}
           </mat-chip>
         </td>
       </tr>
     </table>
   </mat-chip-list>
-
-
 </div>
