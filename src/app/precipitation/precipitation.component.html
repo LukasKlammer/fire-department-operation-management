@@ -1,6 +1,11 @@
-<h1>Niederschlagsradar und Niederschlagssumme</h1>
-<p>Die Bilder werden alle 2 Minuten automatisch aktualisiert.</p>
-<div class="img-box">
-  <img [src]="radarImageUrl" alt="precipitation_radar">
-  <img [src]="precipitationSumImageUrl" alt="precipitation_sum_24h">
-</div>
+<h1>Niederschlagsradar</h1>
+<p>
+  Der bisher verwendete Bilddienst wurde vom Wetterdienst Südtirol eingestellt.
+  Das aktuelle Niederschlagsradar ist über die offizielle Wetterkarte verfügbar.
+</p>
+
+<a class="radar-link" [href]="officialRadarUrl" target="_blank" rel="noopener noreferrer">
+  Niederschlagsradar, Hagel, Blitze und Satellitenbilder öffnen
+</a>
+
+<p class="link-note">Die Karte wird vom Wetterdienst Südtirol laufend aktualisiert.</p>

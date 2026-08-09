@@ -20,4 +20,8 @@ describe('PrecipitationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('links to the current official precipitation radar page', () => {
+    expect(component.officialRadarUrl).toBe('https://wetter.provinz.bz.it/de/radar-blitze-und-satellit');
+  });
 });
