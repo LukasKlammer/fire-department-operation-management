@@ -9,7 +9,7 @@ export class DamagingEvent {
     this.description = obj ? obj.description : '';
     this.timestamp = obj ? obj.timestamp  : new Date().getTime();
     this.customIdName = obj ? obj.customIdName  : '';
-    this.areOpenOperations = obj ? obj.areOpenOperations : false;
+    this.areOpenOperations = obj ? obj.areOpenOperations : true;
   }
 
   public toJSON() : any {
