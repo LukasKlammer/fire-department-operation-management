@@ -20,24 +20,24 @@
           <mat-form-field appearance="outline">
             <mat-label>Straße + Hausnummer</mat-label>
             <input [attr.disabled]="isLoading" [(ngModel)]="operation.address" name="address" matInput
-              placeholder="Straße + Hausnummer" required>
+              placeholder="Straße + Hausnummer (optional)">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Ort</mat-label>
-            <input [attr.disabled]="isLoading" [(ngModel)]="operation.city" name="city" matInput placeholder="Ort"
-              required>
+            <input [attr.disabled]="isLoading" [(ngModel)]="operation.city" name="city" matInput
+              placeholder="Ort (optional)">
           </mat-form-field>
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline">
             <mat-label>Anrufer / Melder</mat-label>
             <input [attr.disabled]="isLoading" [(ngModel)]="operation.caller" name="caller" matInput
-              placeholder="Name des Anrufers / Melders" required>
+              placeholder="Name des Anrufers / Melders (optional)">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Telefonnummer</mat-label>
             <input [attr.disabled]="isLoading" [(ngModel)]="operation.phone" name="phone" matInput
-              placeholder="Name des Anrufers / Melders" required>
+              placeholder="Telefonnummer (optional)">
           </mat-form-field>
         </div>
         <mat-form-field appearance="outline">
