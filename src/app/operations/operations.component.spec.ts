@@ -1,29 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule } from '@angular/material/dialog';
-
 import { OperationsComponent } from './operations.component';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from 'src/environments/environment.prod';
-import { RouterModule } from '@angular/router';
 
-describe('OperationsComponent', () => {
+describe('OperationsComponent display text', () => {
   let component: OperationsComponent;
-  let fixture: ComponentFixture<OperationsComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, MatDialogModule, RouterModule.forRoot([])],
-      declarations: [OperationsComponent]
-    })
-      .compileComponents();
-
-    fixture = TestBed.createComponent(OperationsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => { component = Object.create(OperationsComponent.prototype); });
+  it('uses Piepser-Text when both address and city are empty', () => {
+    expect(component.getOperationLocation({ address: '', city: '', piepserText: 'LNZ FW TEST' } as any))
+      .toBe('LNZ FW TEST');
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('uses the address and city when location data is present', () => {
+    expect(component.getOperationLocation({ address: 'Hauptstraße 1', city: 'Bruneck', piepserText: 'LNZ FW TEST' } as any))
+      .toBe('Hauptstraße 1, Bruneck');
   });
 });

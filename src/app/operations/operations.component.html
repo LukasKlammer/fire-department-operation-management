@@ -38,7 +38,7 @@
                 <div class="keyword-text">{{ operation.keyword }}</div>
                 <div class="comments-text">{{ operation.comments }}</div>
               </td>
-              <td>{{ operation.address }}, {{ operation.city }}</td>
+              <td>{{ getOperationLocation(operation) }}</td>
               <td>{{ operation.priority }}</td>
               <td>
                 <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
@@ -70,7 +70,7 @@
                 <div class="keyword-text">{{ operation.keyword }}</div>
                 <div class="comments-text">{{ operation.comments }}</div>
               </td>
-              <td>{{ operation.address }}, {{ operation.city }}</td>
+              <td>{{ getOperationLocation(operation) }}</td>
               <td>{{ operation.priority }}</td>
               <td>
                 <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>
@@ -102,7 +102,7 @@
                 <div class="keyword-text">{{ operation.keyword }}</div>
                 <div class="comments-text">{{ operation.comments }}</div>
               </td>
-              <td>{{ operation.address }}, {{ operation.city }}</td>
+              <td>{{ getOperationLocation(operation) }}</td>
               <td>{{ operation.priority }}</td>
               <td>
                 <mat-chip *ngFor="let vehicle of operation.vehicles">{{ vehicle }}</mat-chip>

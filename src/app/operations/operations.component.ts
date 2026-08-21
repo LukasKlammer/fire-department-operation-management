@@ -153,6 +153,15 @@ export class OperationsComponent implements OnInit {
     }
   }
 
+  public getOperationLocation(operation: Operation): string {
+    const address = (operation.address || '').trim();
+    const city = (operation.city || '').trim();
+    if (!address && !city) {
+      return (operation.piepserText || '').trim();
+    }
+    return [address, city].filter(Boolean).join(', ');
+  }
+
   public getBadgeColor(operations: Operation[]) {
     if (operations.length == 0) {
       return 'primary'
