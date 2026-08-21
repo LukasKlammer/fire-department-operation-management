@@ -9,6 +9,7 @@ export class Operation {
   caller: string;
   phone: string;
   comments: string;
+  piepserText: string;
   calltaker: string;
   priority: string;
   status: string;
@@ -32,6 +33,7 @@ export class Operation {
     this.caller = obj ? obj.caller : '';
     this.phone = obj ? obj.phone : '';
     this.comments = obj ? obj.comments : '';
+    this.piepserText = obj ? obj.piepserText : '';
     this.calltaker = obj ? obj.calltaker : '';
     this.priority = obj ? obj.priority : '';
     this.status = obj ? obj.status : 'Offen';
@@ -57,6 +59,7 @@ export class Operation {
       caller: this.caller,
       phone: this.phone,
       comments: this.comments,
+      piepserText: this.piepserText,
       calltaker: this.calltaker,
       priority: this.priority,
       status: this.status,

@@ -52,6 +52,11 @@
           </mat-option>
         </mat-autocomplete>
         <mat-form-field appearance="outline">
+          <mat-label>Piepser-Text</mat-label>
+          <textarea [attr.disabled]="isLoading" [(ngModel)]="operation.piepserText" name="piepserText" matInput
+            placeholder="POCSAG Piepser Text"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Bemerkungen</mat-label>
           <textarea [attr.disabled]="isLoading" [(ngModel)]="operation.comments" name="comments" matInput
             placeholder="Bemerkungen zum Einsatz" required></textarea>
